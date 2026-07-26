@@ -13,6 +13,9 @@ visitor_test_directory = tempfile.TemporaryDirectory()
 visitor_counter.database_path = (
     Path(visitor_test_directory.name) / "visitor_stats.db"
 )
+site_version = (
+    Path(__file__).resolve().parents[1] / "VERSION"
+).read_text(encoding="utf-8").strip()
 client = TestClient(app)
 
 
@@ -38,7 +41,10 @@ def test_default_page_renders_real_quest_90() -> None:
     response = client.get("/")
     assert response.status_code == 200
     assert "寻仙任务存档" in response.text
-    assert '<small class="brand-version">v1.0.0</small>' in response.text
+    assert (
+        f'<small class="brand-version">v{site_version}</small>'
+        in response.text
+    )
     assert "本地只读任务档案" not in response.text
     assert "例如：刘老太太" not in response.text
     assert "寻仙任务数据库" not in response.text
@@ -48,11 +54,14 @@ def test_default_page_renders_real_quest_90() -> None:
         r'今日来访\s*<strong id="today-visitors">\d+</strong>',
         response.text,
     )
-    assert 'href="https://github.com/icosohedral"' in response.text
+    assert (
+        'href="https://github.com/icosohedral/xunxian-quests-archive"'
+        in response.text
+    )
     assert "作者与维护者" in response.text
     assert "<h3>icosohedral</h3>" in response.text
     assert "<span>GitHub</span>" in response.text
-    assert "@icosohedral" in response.text
+    assert "icosohedral/xunxian-quests-archive" in response.text
     assert "寻仙任务资料库的整理、维护与网站开发。" in response.text
     assert "特别鸣谢" in response.text
     assert "贴吧用户「耳目清净」" in response.text
