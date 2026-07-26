@@ -1,0 +1,71 @@
+# macOS / editors
+.DS_Store
+._*
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local secrets and deployment state
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+*.pem
+*.key
+*.p12
+.wrangler/
+**/.wrangler/
+
+# Python environments and caches
+.venv/
+**/.venv/
+**/.venv-workers/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyd
+*.so
+.pytest_cache/
+**/.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# JavaScript dependencies and caches
+node_modules/
+**/node_modules/
+.pnpm-store/
+.npm/
+
+# Codex working files
+.codex_tmp/
+
+# Local game resources and conversion backup
+/original_data/
+/original_data_before_utf8_*.tar.gz
+/encoding_conversion_manifest.json
+
+# Generated databases and build outputs
+/outputs/
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+
+# Cloudflare D1 data generated from the local quest database.
+# data/visits.sql remains tracked because it only defines the visit table.
+/apps/quest_viewer_cloudflare/data/quest_web*
+/apps/quest_viewer_cloudflare/python_modules/
+
+# Generated inspection and test artifacts
+*.inspect.ndjson
+*.log

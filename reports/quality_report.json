@@ -1,0 +1,132 @@
+{
+  "run_id": "20260724T132751Z",
+  "generated_at": "2026-07-24T14:31:33Z",
+  "status": "p0_passed",
+  "p0_checks": [
+    {
+      "check_id": "P0-01",
+      "severity": "P0",
+      "name": "核心数据库校验",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check_id": "P0-02",
+      "severity": "P0",
+      "name": "后续任务引用完整",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check_id": "P0-03",
+      "severity": "P0",
+      "name": "任务对象引用完整",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check_id": "P0-04",
+      "severity": "P0",
+      "name": "对象组可往返重组",
+      "passed": true,
+      "details": 0
+    },
+    {
+      "check_id": "P0-05",
+      "severity": "P0",
+      "name": "寻路区域引用完整",
+      "passed": true,
+      "details": []
+    }
+  ],
+  "p0_failures": [],
+  "issues": [
+    {
+      "issue_id": "P1-RELATION-CYCLES",
+      "severity": "P1",
+      "category": "任务关系",
+      "summary": "后续任务关系中发现54个环路",
+      "status": "reported_not_modified",
+      "action": "保留原始关系；不自动断环，供游戏逻辑核查"
+    },
+    {
+      "issue_id": "P1-GROUP-ANOMALIES",
+      "severity": "P1",
+      "category": "条件与目标",
+      "summary": "发现8个不完整或长度不一致对象组",
+      "status": "raw_preserved",
+      "action": "保留raw_group_json；不擅自补齐或确定AND/OR逻辑"
+    },
+    {
+      "issue_id": "P1-TEXT-COVERAGE",
+      "severity": "P1",
+      "category": "文本",
+      "summary": "157个任务缺文本，49个额外文本ID",
+      "status": "accepted_preserved",
+      "action": "保留缺失和孤立记录，不阻塞核心任务查询"
+    },
+    {
+      "issue_id": "P1-NPC-MAPPING",
+      "severity": "P1",
+      "category": "映射",
+      "summary": "NPC映射实际端缺7，任务端缺10",
+      "status": "accepted_preserved",
+      "action": "保留映射原始行和解析状态"
+    },
+    {
+      "issue_id": "P1-UNDEFINED-TYPES",
+      "severity": "P1",
+      "category": "对象类型",
+      "summary": "未声明引用类型：[30, 10028, 10112, 24542]",
+      "status": "accepted_preserved",
+      "action": "使用占位类型，不赋予确定含义"
+    },
+    {
+      "issue_id": "P1-FLAG-DEFINITIONS",
+      "severity": "P1",
+      "category": "外部依赖",
+      "summary": "6个标志位定义文件缺失",
+      "status": "external_blocker",
+      "action": "数字引用已保存；补充资源后使用新run_id重建"
+    },
+    {
+      "issue_id": "P2-SPECIAL-SEMANTICS",
+      "severity": "P2",
+      "category": "特殊配置",
+      "summary": "部分特殊任务、任务池和脚本列缺少程序代码语义",
+      "status": "raw_only",
+      "action": "原始行已分类入库，不写入核心任务字段"
+    }
+  ],
+  "metrics": {
+    "base_validation": {
+      "quest_rows": 8829,
+      "unique_quest_ids": 8828,
+      "duplicate_id_rows": 1,
+      "quest_11257_versions": 2,
+      "matched_quest_text_ids": 8671,
+      "missing_text_quest_ids": 157,
+      "extra_text_ids": 49,
+      "matched_in_use_categories": 102,
+      "required_routes": {
+        "2": "quest_item",
+        "3": "quest_npc",
+        "5": "quest_identity",
+        "6": "quest_attribute",
+        "13": "quest_event",
+        "15": "quest_camp"
+      },
+      "unique_referenced_npc_ids": 3853,
+      "missing_referenced_npc_ids": 0,
+      "unresolved_endpoint_rows": 0,
+      "missing_target_rows": 0,
+      "unique_reward_item_ids": 1995,
+      "unresolved_reward_item_ids": 0,
+      "foreign_key_violations": 0,
+      "integrity_check": "ok"
+    },
+    "relation_cycles": 54,
+    "group_anomalies": 8,
+    "unresolved_flag_references": 673
+  }
+}

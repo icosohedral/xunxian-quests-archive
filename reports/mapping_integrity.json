@@ -1,0 +1,144 @@
+{
+  "run_id": "20260724T132751Z",
+  "counts": {
+    "character": 24440,
+    "quest_item_ex": 2,
+    "quest_event_ex": 1,
+    "npc_mapping": 8564,
+    "item_mapping": 7,
+    "event_mapping": 3
+  },
+  "npc_mapping_missing_actual_count": 7,
+  "npc_mapping_missing_actual": [
+    {
+      "mapping_id": 1671,
+      "source_object_id": 3846,
+      "target_object_id": 946,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 1672
+    },
+    {
+      "mapping_id": 1737,
+      "source_object_id": 4053,
+      "target_object_id": 1226,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 1738
+    },
+    {
+      "mapping_id": 6635,
+      "source_object_id": 26473,
+      "target_object_id": 7811,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 6636
+    },
+    {
+      "mapping_id": 6785,
+      "source_object_id": 27202,
+      "target_object_id": 8302,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 6786
+    },
+    {
+      "mapping_id": 7684,
+      "source_object_id": 37155,
+      "target_object_id": 10319,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 7685
+    },
+    {
+      "mapping_id": 7685,
+      "source_object_id": 37156,
+      "target_object_id": 10320,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 7686
+    },
+    {
+      "mapping_id": 7686,
+      "source_object_id": 37157,
+      "target_object_id": 10320,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 7687
+    }
+  ],
+  "npc_mapping_missing_quest_npc_count": 10,
+  "npc_mapping_missing_quest_npc": [
+    {
+      "mapping_id": 22,
+      "source_object_id": 636,
+      "target_object_id": 1893,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 23
+    },
+    {
+      "mapping_id": 23,
+      "source_object_id": 637,
+      "target_object_id": 1894,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 24
+    },
+    {
+      "mapping_id": 24,
+      "source_object_id": 638,
+      "target_object_id": 1895,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 25
+    },
+    {
+      "mapping_id": 7881,
+      "source_object_id": 38423,
+      "target_object_id": 10667,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 7882
+    },
+    {
+      "mapping_id": 7984,
+      "source_object_id": 39231,
+      "target_object_id": 10722,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 7985
+    },
+    {
+      "mapping_id": 7985,
+      "source_object_id": 39232,
+      "target_object_id": 10723,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 7986
+    },
+    {
+      "mapping_id": 8231,
+      "source_object_id": 40560,
+      "target_object_id": 11900,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 8232
+    },
+    {
+      "mapping_id": 8232,
+      "source_object_id": 40561,
+      "target_object_id": 11901,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 8233
+    },
+    {
+      "mapping_id": 8233,
+      "source_object_id": 40562,
+      "target_object_id": 11902,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 8234
+    },
+    {
+      "mapping_id": 8563,
+      "source_object_id": 42521,
+      "target_object_id": 42521,
+      "source_file": "mb/quest/quest_npc_mapping.txt",
+      "source_row": 8564
+    }
+  ],
+  "one_to_many_mappings": [
+    {
+      "mapping_kind": "npc",
+      "source_object_id": 17980,
+      "target_count": 2
+    }
+  ],
+  "foreign_key_violations": 0
+}

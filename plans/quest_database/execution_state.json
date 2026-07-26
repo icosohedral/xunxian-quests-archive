@@ -1,0 +1,554 @@
+{
+  "schema_version": 1,
+  "plan_id": "quest-database-ai-plan",
+  "plan_file": "AI_EXECUTION_PLAN.md",
+  "source_workbook": "../../outputs/quest_database_ai_plan/任务数据库AI执行计划.xlsx",
+  "generated_at": "2026-07-24T13:25:35.773Z",
+  "updated_at": "2026-07-24T14:46:26Z",
+  "active_task": null,
+  "current_run_id": "20260724T132751Z",
+  "tasks": {
+    "AI01": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [],
+      "started_at": "2026-07-24T13:27:51Z",
+      "completed_at": "2026-07-24T13:29:52Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "outputs/quest_database/runs/20260724T132751Z/inventory.json",
+        "outputs/quest_database/runs/20260724T132751Z/input_hashes.json"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI01_inventory.log"
+      ],
+      "issues": []
+    },
+    "AI02": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI01"
+      ],
+      "started_at": "2026-07-24T13:29:52Z",
+      "completed_at": "2026-07-24T13:31:45Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "outputs/quest_database/runs/20260724T132751Z/schema_profiles.json",
+        "outputs/quest_database/runs/20260724T132751Z/profile_report.md"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI02_profile.log"
+      ],
+      "issues": []
+    },
+    "AI03": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI01",
+        "AI02"
+      ],
+      "started_at": "2026-07-24T13:31:45Z",
+      "completed_at": "2026-07-24T13:33:57Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "src/questdb/parser.py",
+        "tests/test_parser.py"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI03_pytest.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI03_unittest.log"
+      ],
+      "issues": []
+    },
+    "AI04": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI03"
+      ],
+      "started_at": "2026-07-24T13:33:57Z",
+      "completed_at": "2026-07-24T13:38:07Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "outputs/quest_database/runs/20260724T132751Z/quest_raw.db",
+        "outputs/quest_database/runs/20260724T132751Z/load_manifest.json"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI04_load_raw.log"
+      ],
+      "issues": []
+    },
+    "AI05": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "review_after_execution",
+      "depends_on": [
+        "AI02",
+        "AI04"
+      ],
+      "started_at": "2026-07-24T13:38:07Z",
+      "completed_at": "2026-07-24T13:45:34Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "docs/quest_info_dictionary_draft.xlsx",
+        "docs/quest_info_schema.json",
+        "docs/low_confidence_fields.json"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI05_validate_schema.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI05_workbook.log"
+      ],
+      "issues": [
+        "31 low-confidence fields require conservative preservation",
+        "medium-confidence slot names and duplicate quest_id 11257 strategy require G01 approval"
+      ]
+    },
+    "G01": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "human_approval",
+      "depends_on": [
+        "AI05"
+      ],
+      "started_at": "2026-07-24T13:45:34Z",
+      "completed_at": "2026-07-24T14:06:22Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "approvals/G01_decision.md"
+      ],
+      "evidence": [
+        "docs/quest_info_dictionary_draft.xlsx",
+        "docs/quest_info_schema.json",
+        "docs/low_confidence_fields.json"
+      ],
+      "issues": [],
+      "approval_decision": {
+        "decision": "approved",
+        "approved_at": "2026-07-24T14:06:22Z",
+        "approved_by": "user",
+        "details": "Approved recommended temporary names, col_### preservation, and versioned duplicate quest_id 11257 strategy."
+      }
+    },
+    "AI06": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "G01"
+      ],
+      "started_at": "2026-07-24T14:06:22Z",
+      "completed_at": "2026-07-24T14:14:35Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "src/questdb/schema.sql",
+        "docs/database_schema.md",
+        "tests/test_schema.py",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI06_pytest.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI06_init_db.log"
+      ],
+      "issues": []
+    },
+    "AI07": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI06"
+      ],
+      "started_at": "2026-07-24T14:14:35Z",
+      "completed_at": "2026-07-24T14:14:35Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/quest_import.json",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI07_load_quest.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI07_validate.log"
+      ],
+      "issues": []
+    },
+    "AI08": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI07"
+      ],
+      "started_at": "2026-07-24T14:14:35Z",
+      "completed_at": "2026-07-24T14:14:36Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/text_coverage.json",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI08_load_text_category.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI08_validate.log"
+      ],
+      "issues": [
+        "157 quests have no text and 49 text IDs have no quest; all are preserved as expected"
+      ]
+    },
+    "AI09": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI06"
+      ],
+      "started_at": "2026-07-24T14:14:36Z",
+      "completed_at": "2026-07-24T14:14:36Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/object_routes.json",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI09_load_objects.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI09_validate.log"
+      ],
+      "issues": [
+        "quest_item IDs 14961 and 14962 have two source versions; all versions are preserved",
+        "undefined referenced object types 30, 10028, 10112 and 24542 are preserved as placeholders"
+      ]
+    },
+    "AI10": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI07",
+        "AI09"
+      ],
+      "started_at": "2026-07-24T14:14:36Z",
+      "completed_at": "2026-07-24T14:14:36Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/npc_target_coverage.json",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI10_load_npc_target.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI10_validate.log"
+      ],
+      "issues": []
+    },
+    "AI11": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI07",
+        "AI09"
+      ],
+      "started_at": "2026-07-24T14:14:36Z",
+      "completed_at": "2026-07-24T14:14:37Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/item_coverage.json",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI11_load_items_rewards.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI11_validate_all.log"
+      ],
+      "issues": [
+        "Reward object type 30 is not declared by quest_object and remains an explicit placeholder"
+      ]
+    },
+    "G02": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "human_approval",
+      "depends_on": [
+        "AI07",
+        "AI08",
+        "AI09",
+        "AI10",
+        "AI11"
+      ],
+      "started_at": "2026-07-24T14:17:43Z",
+      "completed_at": "2026-07-24T14:23:14Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "approvals/G02_sample_pack.html",
+        "approvals/G02_decision.md",
+        "reports/G02_sample_data.json"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/G02_sample_pack.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI11_validate_all.log"
+      ],
+      "issues": [],
+      "approval_decision": {
+        "decision": "approved",
+        "approved_at": "2026-07-24T14:23:14Z",
+        "approved_by": "user",
+        "details": "Approved recommended MVP aggregation and preservation of undefined object types."
+      }
+    },
+    "AI12": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "G02"
+      ],
+      "started_at": "2026-07-24T14:23:14Z",
+      "completed_at": "2026-07-24T14:30:25Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/relation_graph.json",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI12_load_relations.log"
+      ],
+      "issues": [
+        "54 next-relation cycles are reported and intentionally not broken"
+      ]
+    },
+    "AI13": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI09",
+        "G02"
+      ],
+      "started_at": "2026-07-24T14:30:25Z",
+      "completed_at": "2026-07-24T14:30:31Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/group_anomalies.json",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI13_load_groups.log"
+      ],
+      "issues": [
+        "8 incomplete or length-mismatched object groups are preserved in raw form",
+        "AND/OR semantics remain unknown and are not inferred"
+      ]
+    },
+    "AI14": {
+      "status": "completed",
+      "priority": "P1",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI09",
+        "AI10",
+        "AI11"
+      ],
+      "started_at": "2026-07-24T14:30:31Z",
+      "completed_at": "2026-07-24T14:30:41Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/mapping_integrity.json",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI14_load_mappings.log"
+      ],
+      "issues": [
+        "NPC mappings miss 7 actual-character endpoints and 10 quest-NPC endpoints, matching the baseline"
+      ]
+    },
+    "AI15": {
+      "status": "completed",
+      "priority": "P1",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI10"
+      ],
+      "started_at": "2026-07-24T14:30:41Z",
+      "completed_at": "2026-07-24T14:30:48Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/location_coverage.json",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI15_load_locations.log"
+      ],
+      "issues": [
+        "Same-name area IDs remain separate; duplicate area IDs 4169 and 4170 preserve both source versions"
+      ]
+    },
+    "AI16": {
+      "status": "completed",
+      "priority": "P2",
+      "permission": "review_after_execution",
+      "depends_on": [
+        "AI12",
+        "AI13"
+      ],
+      "started_at": "2026-07-24T14:30:48Z",
+      "completed_at": "2026-07-24T14:30:57Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/special_config.md",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI16_load_special.log"
+      ],
+      "issues": [
+        "Script-dependent special configuration columns remain raw-only"
+      ]
+    },
+    "AI17": {
+      "status": "completed",
+      "priority": "P1",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI13"
+      ],
+      "started_at": "2026-07-24T14:30:57Z",
+      "completed_at": "2026-07-24T14:31:04Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/missing_dependencies.json",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI17_load_unresolved.log"
+      ],
+      "issues": [
+        "6 flag-definition files are missing; 673 numeric references remain queryable"
+      ]
+    },
+    "AI18": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI12",
+        "AI13",
+        "AI14",
+        "AI15",
+        "AI16",
+        "AI17"
+      ],
+      "started_at": "2026-07-24T14:31:04Z",
+      "completed_at": "2026-07-24T14:31:33Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/quality_report.json",
+        "reports/quality_report.html",
+        "reports/quality_issues.csv"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI18_quality_report.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI18_validate_strict_p0.log"
+      ],
+      "issues": [
+        "0 P0 failures; 7 P1/P2 limitations require G03 scope approval"
+      ]
+    },
+    "G03": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "human_approval",
+      "depends_on": [
+        "AI18"
+      ],
+      "started_at": "2026-07-24T14:32:15Z",
+      "completed_at": "2026-07-24T14:37:44Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "approvals/G03_decision.md"
+      ],
+      "evidence": [
+        "reports/quality_report.html",
+        "reports/quality_report.json",
+        "reports/quality_issues.csv"
+      ],
+      "issues": [],
+      "approval_decision": {
+        "decision": "approved",
+        "approved_at": "2026-07-24T14:37:44Z",
+        "approved_by": "user",
+        "details": "Approved all documented P1/P2 limitations and final delivery scope."
+      }
+    },
+    "AI19": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "G03"
+      ],
+      "started_at": "2026-07-24T14:37:44Z",
+      "completed_at": "2026-07-24T14:39:52Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "src/questdb/views.sql",
+        "docs/query_examples.sql",
+        "tests/test_views.py",
+        "outputs/quest_database/runs/20260724T132751Z/quest.db"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI19_install_views.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI19_sample_queries.log"
+      ],
+      "issues": []
+    },
+    "AI20": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI19"
+      ],
+      "started_at": "2026-07-24T14:39:52Z",
+      "completed_at": "2026-07-24T14:44:34Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "reports/reproducibility.json",
+        "reports/regression.html",
+        "outputs/quest_database/reproducibility/20260724T132751Z"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI20_rebuild.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI20_pytest.log"
+      ],
+      "issues": [
+        "SQLite file hashes include volatile audit timestamps; deterministic acceptance uses equal schema and normalized logical-content hashes."
+      ]
+    },
+    "AI21": {
+      "status": "completed",
+      "priority": "P0",
+      "permission": "autonomous",
+      "depends_on": [
+        "AI20"
+      ],
+      "started_at": "2026-07-24T14:44:34Z",
+      "completed_at": "2026-07-24T14:46:26Z",
+      "run_id": "20260724T132751Z",
+      "outputs": [
+        "outputs/quest_database/releases/1.0.0/quest.db",
+        "outputs/quest_database/releases/1.0.0/README.md",
+        "outputs/quest_database/releases/1.0.0/checksums.txt",
+        "outputs/quest_database/releases/1.0.0/release_manifest.json"
+      ],
+      "evidence": [
+        "outputs/quest_database/runs/20260724T132751Z/AI21_release.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI21_clean_rebuild.log",
+        "outputs/quest_database/runs/20260724T132751Z/AI21_checksums.log"
+      ],
+      "issues": []
+    }
+  }
+}

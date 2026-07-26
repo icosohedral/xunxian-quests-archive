@@ -1,0 +1,15 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>可重复构建报告</title>
+<style>body{margin:0;background:#f5f7f8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;color:#1f2a33}
+header{background:#17324d;color:white;padding:38px 5vw}main{max-width:980px;margin:auto;padding:28px}
+section{background:white;border:1px solid #cad5dd;border-radius:10px;padding:20px;margin:18px 0}
+table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #cad5dd;text-align:left}
+th{background:#eaf3f8}.ok{color:#216e39;font-weight:700}.bad{color:#a12622;font-weight:700}
+code{word-break:break-all}</style></head><body><header><h1>任务数据库可重复构建报告</h1>
+<p>运行 deterministic-20260724T132751Z · 状态：ok</p></header><main>
+<section><h2>两次独立构建比较</h2><table><thead><tr><th>检查</th><th>结果</th></tr></thead>
+<tbody><tr><td>schema_hash_equal</td><td class='ok'>通过</td></tr><tr><td>logical_content_hash_equal</td><td class='ok'>通过</td></tr><tr><td>table_counts_equal</td><td class='ok'>通过</td></tr><tr><td>strict_p0_both_ok</td><td class='ok'>通过</td></tr><tr><td>query_checks_both_ok</td><td class='ok'>通过</td></tr><tr><td>integrity_both_ok</td><td class='ok'>通过</td></tr></tbody></table></section>
+<section><h2>确定性哈希</h2>
+<p>Schema：<code>dad9775a1281a69a5a480be737d08041c98cc8cab067133defb07b189e42c631</code></p>
+<p>规范化内容：<code>337f75e091f373aae8fbe56b21f7d162ec648adffeb65b152432e56c64066d12</code></p>
+<p>两次构建均通过 P0、查询、外键和完整性检查。</p></section></main></body></html>

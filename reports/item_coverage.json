@@ -1,0 +1,17 @@
+{
+  "run_id": "20260724T132751Z",
+  "canonical_item_rows": 47414,
+  "item_source_rows": 47414,
+  "cross_table_item_ids": 0,
+  "cross_table_conflicts": [],
+  "source_priority": [
+    "item_list",
+    "item_list2",
+    "item_list3"
+  ],
+  "quest_reward_rows": 6842,
+  "unique_reward_item_ids": 1995,
+  "matched_reward_item_ids": 1995,
+  "missing_reward_item_ids": [],
+  "foreign_key_violations": 0
+}

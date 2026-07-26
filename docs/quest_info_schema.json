@@ -1,0 +1,4995 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-24T13:46:43.045601+00:00",
+  "source_file": "original_data/mb/quest/quest_info.txt",
+  "index_file": "original_data/index_list.txt",
+  "physical_line_count": 8830,
+  "header_line_count": 1,
+  "data_row_count": 8829,
+  "column_count": 106,
+  "unique_quest_id_count": 8828,
+  "duplicate_quest_ids": [
+    {
+      "quest_id": 11257,
+      "records": [
+        {
+          "source_row": 6211,
+          "quest_name": "孟浪多疑10",
+          "nonempty_columns": {
+            "1": "孟浪多疑10",
+            "2": "11257",
+            "3": "1181",
+            "4": "5",
+            "5": "99",
+            "6": "3",
+            "8": "3",
+            "10": "99",
+            "12": "5",
+            "79": "0"
+          }
+        },
+        {
+          "source_row": 6212,
+          "quest_name": "孟浪多疑11",
+          "nonempty_columns": {
+            "1": "孟浪多疑11",
+            "2": "11257",
+            "3": "1181",
+            "4": "5",
+            "5": "99",
+            "6": "3",
+            "8": "3",
+            "10": "99",
+            "12": "5",
+            "79": "0"
+          }
+        }
+      ]
+    }
+  ],
+  "reference_checks": {
+    "category_id": {
+      "column": 3,
+      "unique_refs": 102,
+      "matched": 102,
+      "missing": []
+    },
+    "accept_npc_id": {
+      "columns": [
+        6,
+        7
+      ],
+      "unique_refs": 2080,
+      "matched": 2080,
+      "missing": []
+    },
+    "submit_npc_id": {
+      "columns": [
+        8,
+        9
+      ],
+      "unique_refs": 2247,
+      "matched": 2247,
+      "missing": []
+    },
+    "next_quest_id": {
+      "column": 80,
+      "unique_refs": 4118,
+      "matched": 4118,
+      "missing": []
+    },
+    "tracking_target_id": {
+      "column": 90,
+      "unique_refs": 1703,
+      "matched": 1703,
+      "missing": []
+    }
+  },
+  "fields": [
+    {
+      "column": 1,
+      "stable_name": "quest_name",
+      "meaning": "任务名称",
+      "confidence": "high",
+      "declared_type": "string",
+      "empirical_type": "star_delimited_string",
+      "nullable": false,
+      "nonempty_count": 8829,
+      "empty_count": 0,
+      "unique_count": 7235,
+      "top_values": [
+        {
+          "value": "【联盟】联盟悬赏任务",
+          "count": 79
+        },
+        {
+          "value": "跑环领奖福报多",
+          "count": 78
+        },
+        {
+          "value": "【门派】积功劳门派跑环",
+          "count": 64
+        },
+        {
+          "value": "【VIP】奔波忙必有福报",
+          "count": 51
+        },
+        {
+          "value": "【门派】积贡献门派跑环",
+          "count": 44
+        },
+        {
+          "value": "0",
+          "count": 38
+        },
+        {
+          "value": "漫漫求仙路",
+          "count": 36
+        },
+        {
+          "value": "同筑门派有礼送",
+          "count": 30
+        }
+      ],
+      "sample_values": [
+        "【正传】寻仙道起始小桑村",
+        "【正传】初入世道长小试",
+        "【正传】缘起黄家祸横生",
+        "【正传】小娘子求方救夫【壹】",
+        "【正传】小娘子求方救夫【贰】",
+        "【正传】小娘子求方救夫【叁】",
+        "【正传】凝香神草助疗伤",
+        "【正传】小桑村外斗野猪"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 2,
+      "stable_name": "quest_id",
+      "meaning": "任务编号",
+      "confidence": "high",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": false,
+      "nonempty_count": 8829,
+      "empty_count": 0,
+      "unique_count": 8828,
+      "top_values": [
+        {
+          "value": "11257",
+          "count": 2
+        },
+        {
+          "value": "1",
+          "count": 1
+        },
+        {
+          "value": "2",
+          "count": 1
+        },
+        {
+          "value": "3",
+          "count": 1
+        },
+        {
+          "value": "4",
+          "count": 1
+        },
+        {
+          "value": "5",
+          "count": 1
+        },
+        {
+          "value": "6",
+          "count": 1
+        },
+        {
+          "value": "7",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 3,
+      "stable_name": "category_id",
+      "meaning": "任务类型/分类ID",
+      "confidence": "high",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 8796,
+      "empty_count": 33,
+      "unique_count": 102,
+      "top_values": [
+        {
+          "value": "1000",
+          "count": 1831
+        },
+        {
+          "value": "1181",
+          "count": 1540
+        },
+        {
+          "value": "1110",
+          "count": 439
+        },
+        {
+          "value": "1001",
+          "count": 404
+        },
+        {
+          "value": "1009",
+          "count": 372
+        },
+        {
+          "value": "1002",
+          "count": 288
+        },
+        {
+          "value": "1100",
+          "count": 256
+        },
+        {
+          "value": "258",
+          "count": 198
+        }
+      ],
+      "sample_values": [
+        "1181",
+        "293",
+        "1000",
+        "1110",
+        "1003",
+        "1",
+        "1004",
+        "1001"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 4,
+      "stable_name": "max_level",
+      "meaning": "最高等级",
+      "confidence": "high",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 4225,
+      "empty_count": 4604,
+      "unique_count": 24,
+      "top_values": [
+        {
+          "value": "5",
+          "count": 2369
+        },
+        {
+          "value": "7",
+          "count": 964
+        },
+        {
+          "value": "4",
+          "count": 310
+        },
+        {
+          "value": "3",
+          "count": 276
+        },
+        {
+          "value": "1",
+          "count": 58
+        },
+        {
+          "value": "172",
+          "count": 32
+        },
+        {
+          "value": "38",
+          "count": 32
+        },
+        {
+          "value": "98",
+          "count": 25
+        }
+      ],
+      "sample_values": [
+        "5",
+        "4",
+        "7",
+        "3",
+        "1",
+        "2",
+        "98",
+        "99"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 5,
+      "stable_name": "level_requirement",
+      "meaning": "等级限制",
+      "confidence": "high",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 8791,
+      "empty_count": 38,
+      "unique_count": 126,
+      "top_values": [
+        {
+          "value": "100",
+          "count": 858
+        },
+        {
+          "value": "80",
+          "count": 517
+        },
+        {
+          "value": "40",
+          "count": 377
+        },
+        {
+          "value": "70",
+          "count": 348
+        },
+        {
+          "value": "60",
+          "count": 347
+        },
+        {
+          "value": "240",
+          "count": 316
+        },
+        {
+          "value": "98",
+          "count": 288
+        },
+        {
+          "value": "200",
+          "count": 265
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "10"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 6,
+      "stable_name": "accept_object_type",
+      "meaning": "接取对象类型",
+      "confidence": "high",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 7869,
+      "empty_count": 960,
+      "unique_count": 2,
+      "top_values": [
+        {
+          "value": "3",
+          "count": 7773
+        },
+        {
+          "value": "2",
+          "count": 96
+        }
+      ],
+      "sample_values": [
+        "3",
+        "2"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 7,
+      "stable_name": "accept_object_id",
+      "meaning": "接取对象ID",
+      "confidence": "high",
+      "declared_type": "integer",
+      "empirical_type": "string",
+      "nullable": true,
+      "nonempty_count": 7849,
+      "empty_count": 980,
+      "unique_count": 2163,
+      "top_values": [
+        {
+          "value": "2608",
+          "count": 123
+        },
+        {
+          "value": "10031",
+          "count": 104
+        },
+        {
+          "value": "7003",
+          "count": 100
+        },
+        {
+          "value": "10689",
+          "count": 80
+        },
+        {
+          "value": "417",
+          "count": 60
+        },
+        {
+          "value": "12000",
+          "count": 55
+        },
+        {
+          "value": "11916",
+          "count": 54
+        },
+        {
+          "value": "3501",
+          "count": 49
+        }
+      ],
+      "sample_values": [
+        "5",
+        "7",
+        "1",
+        "13",
+        "14",
+        "15",
+        "18",
+        "17"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 8,
+      "stable_name": "submit_object_type",
+      "meaning": "提交对象类型",
+      "confidence": "high",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 8768,
+      "empty_count": 61,
+      "unique_count": 2,
+      "top_values": [
+        {
+          "value": "3",
+          "count": 8761
+        },
+        {
+          "value": "2",
+          "count": 7
+        }
+      ],
+      "sample_values": [
+        "3",
+        "2"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 9,
+      "stable_name": "submit_object_id",
+      "meaning": "提交对象ID",
+      "confidence": "high",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 8754,
+      "empty_count": 75,
+      "unique_count": 2252,
+      "top_values": [
+        {
+          "value": "2608",
+          "count": 132
+        },
+        {
+          "value": "7003",
+          "count": 115
+        },
+        {
+          "value": "10031",
+          "count": 110
+        },
+        {
+          "value": "10689",
+          "count": 80
+        },
+        {
+          "value": "417",
+          "count": 79
+        },
+        {
+          "value": "7620",
+          "count": 57
+        },
+        {
+          "value": "11916",
+          "count": 56
+        },
+        {
+          "value": "12000",
+          "count": 55
+        }
+      ],
+      "sample_values": [
+        "5",
+        "7",
+        "4",
+        "1",
+        "13",
+        "15",
+        "14",
+        "17"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 10,
+      "stable_name": "col_010",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 4684,
+      "empty_count": 4145,
+      "unique_count": 116,
+      "top_values": [
+        {
+          "value": "100",
+          "count": 407
+        },
+        {
+          "value": "80",
+          "count": 266
+        },
+        {
+          "value": "90",
+          "count": 263
+        },
+        {
+          "value": "60",
+          "count": 222
+        },
+        {
+          "value": "240",
+          "count": 217
+        },
+        {
+          "value": "200",
+          "count": 203
+        },
+        {
+          "value": "40",
+          "count": 203
+        },
+        {
+          "value": "70",
+          "count": 196
+        }
+      ],
+      "sample_values": [
+        "1",
+        "17",
+        "6",
+        "5",
+        "10",
+        "2",
+        "15",
+        "3"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 11,
+      "stable_name": "col_011",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1258,
+      "empty_count": 7571,
+      "unique_count": 94,
+      "top_values": [
+        {
+          "value": "30",
+          "count": 119
+        },
+        {
+          "value": "59",
+          "count": 103
+        },
+        {
+          "value": "100",
+          "count": 87
+        },
+        {
+          "value": "79",
+          "count": 83
+        },
+        {
+          "value": "80",
+          "count": 75
+        },
+        {
+          "value": "60",
+          "count": 54
+        },
+        {
+          "value": "90",
+          "count": 54
+        },
+        {
+          "value": "70",
+          "count": 50
+        }
+      ],
+      "sample_values": [
+        "23",
+        "20",
+        "18",
+        "16",
+        "40",
+        "26",
+        "30",
+        "200"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 12,
+      "stable_name": "precondition_1_object_type",
+      "meaning": "前置条件槽位1：条件对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 6172,
+      "empty_count": 2657,
+      "unique_count": 18,
+      "top_values": [
+        {
+          "value": "5",
+          "count": 5268
+        },
+        {
+          "value": "6",
+          "count": 167
+        },
+        {
+          "value": "20",
+          "count": 158
+        },
+        {
+          "value": "23",
+          "count": 120
+        },
+        {
+          "value": "15",
+          "count": 105
+        },
+        {
+          "value": "9",
+          "count": 100
+        },
+        {
+          "value": "8",
+          "count": 88
+        },
+        {
+          "value": "21",
+          "count": 44
+        }
+      ],
+      "sample_values": [
+        "5",
+        "17",
+        "15",
+        "12",
+        "6",
+        "2",
+        "9",
+        "8"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 13,
+      "stable_name": "precondition_1_object_id",
+      "meaning": "前置条件槽位1：条件对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 6158,
+      "empty_count": 2671,
+      "unique_count": 4581,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 133
+        },
+        {
+          "value": "3727",
+          "count": 97
+        },
+        {
+          "value": "2",
+          "count": 91
+        },
+        {
+          "value": "42",
+          "count": 86
+        },
+        {
+          "value": "207",
+          "count": 60
+        },
+        {
+          "value": "23",
+          "count": 59
+        },
+        {
+          "value": "33",
+          "count": 33
+        },
+        {
+          "value": "3",
+          "count": 26
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "72",
+        "150"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 14,
+      "stable_name": "precondition_1_comparison",
+      "meaning": "前置条件槽位1：条件比较方式",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 6164,
+      "empty_count": 2665,
+      "unique_count": 71,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 5505
+        },
+        {
+          "value": "0",
+          "count": 136
+        },
+        {
+          "value": "2",
+          "count": 99
+        },
+        {
+          "value": "3",
+          "count": 87
+        },
+        {
+          "value": "5",
+          "count": 50
+        },
+        {
+          "value": "4",
+          "count": 35
+        },
+        {
+          "value": "7",
+          "count": 27
+        },
+        {
+          "value": "6",
+          "count": 25
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "100",
+        "0",
+        "3",
+        "4",
+        "8",
+        "7"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 15,
+      "stable_name": "precondition_1_value",
+      "meaning": "前置条件槽位1：条件比较值/数量",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 5960,
+      "empty_count": 2869,
+      "unique_count": 37,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 5446
+        },
+        {
+          "value": "3",
+          "count": 159
+        },
+        {
+          "value": "0",
+          "count": 93
+        },
+        {
+          "value": "2",
+          "count": 48
+        },
+        {
+          "value": "5",
+          "count": 34
+        },
+        {
+          "value": "4",
+          "count": 27
+        },
+        {
+          "value": "10",
+          "count": 14
+        },
+        {
+          "value": "8",
+          "count": 12
+        }
+      ],
+      "sample_values": [
+        "1",
+        "3",
+        "0",
+        "2",
+        "10",
+        "4",
+        "8",
+        "7"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 16,
+      "stable_name": "precondition_2_object_type",
+      "meaning": "前置条件槽位2：条件对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 593,
+      "empty_count": 8236,
+      "unique_count": 14,
+      "top_values": [
+        {
+          "value": "5",
+          "count": 276
+        },
+        {
+          "value": "6",
+          "count": 120
+        },
+        {
+          "value": "2",
+          "count": 69
+        },
+        {
+          "value": "9",
+          "count": 55
+        },
+        {
+          "value": "21",
+          "count": 25
+        },
+        {
+          "value": "17",
+          "count": 10
+        },
+        {
+          "value": "19",
+          "count": 8
+        },
+        {
+          "value": "20",
+          "count": 7
+        }
+      ],
+      "sample_values": [
+        "5",
+        "17",
+        "2",
+        "6",
+        "21",
+        "20",
+        "35",
+        "9"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 17,
+      "stable_name": "precondition_2_object_id",
+      "meaning": "前置条件槽位2：条件对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 593,
+      "empty_count": 8236,
+      "unique_count": 296,
+      "top_values": [
+        {
+          "value": "42",
+          "count": 66
+        },
+        {
+          "value": "32",
+          "count": 30
+        },
+        {
+          "value": "207",
+          "count": 26
+        },
+        {
+          "value": "33",
+          "count": 21
+        },
+        {
+          "value": "1583",
+          "count": 15
+        },
+        {
+          "value": "211",
+          "count": 14
+        },
+        {
+          "value": "1",
+          "count": 11
+        },
+        {
+          "value": "10101",
+          "count": 9
+        }
+      ],
+      "sample_values": [
+        "112",
+        "186",
+        "38",
+        "20",
+        "178",
+        "158",
+        "5",
+        "222"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 18,
+      "stable_name": "precondition_2_comparison",
+      "meaning": "前置条件槽位2：条件比较方式",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 593,
+      "empty_count": 8236,
+      "unique_count": 20,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 273
+        },
+        {
+          "value": "0",
+          "count": 201
+        },
+        {
+          "value": "2",
+          "count": 39
+        },
+        {
+          "value": "3",
+          "count": 19
+        },
+        {
+          "value": "4",
+          "count": 11
+        },
+        {
+          "value": "5",
+          "count": 8
+        },
+        {
+          "value": "6",
+          "count": 6
+        },
+        {
+          "value": "7",
+          "count": 6
+        }
+      ],
+      "sample_values": [
+        "2",
+        "1",
+        "0",
+        "12",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 19,
+      "stable_name": "precondition_2_value",
+      "meaning": "前置条件槽位2：条件比较值/数量",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 579,
+      "empty_count": 8250,
+      "unique_count": 20,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 255
+        },
+        {
+          "value": "0",
+          "count": 181
+        },
+        {
+          "value": "2",
+          "count": 38
+        },
+        {
+          "value": "3",
+          "count": 24
+        },
+        {
+          "value": "999",
+          "count": 14
+        },
+        {
+          "value": "10",
+          "count": 13
+        },
+        {
+          "value": "4",
+          "count": 11
+        },
+        {
+          "value": "5",
+          "count": 8
+        }
+      ],
+      "sample_values": [
+        "3",
+        "1",
+        "0",
+        "12",
+        "2",
+        "4",
+        "5",
+        "6"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 20,
+      "stable_name": "precondition_3_object_type",
+      "meaning": "前置条件槽位3：条件对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 124,
+      "empty_count": 8705,
+      "unique_count": 8,
+      "top_values": [
+        {
+          "value": "9",
+          "count": 48
+        },
+        {
+          "value": "5",
+          "count": 44
+        },
+        {
+          "value": "2",
+          "count": 12
+        },
+        {
+          "value": "21",
+          "count": 9
+        },
+        {
+          "value": "19",
+          "count": 5
+        },
+        {
+          "value": "17",
+          "count": 3
+        },
+        {
+          "value": "6",
+          "count": 2
+        },
+        {
+          "value": "20",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "17",
+        "5",
+        "2",
+        "9",
+        "21",
+        "6",
+        "19",
+        "20"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 21,
+      "stable_name": "precondition_3_object_id",
+      "meaning": "前置条件槽位3：条件对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 124,
+      "empty_count": 8705,
+      "unique_count": 59,
+      "top_values": [
+        {
+          "value": "207",
+          "count": 44
+        },
+        {
+          "value": "62194",
+          "count": 5
+        },
+        {
+          "value": "506",
+          "count": 5
+        },
+        {
+          "value": "504",
+          "count": 4
+        },
+        {
+          "value": "4780",
+          "count": 3
+        },
+        {
+          "value": "10513",
+          "count": 3
+        },
+        {
+          "value": "1758",
+          "count": 2
+        },
+        {
+          "value": "5110",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "1",
+        "21",
+        "2",
+        "821",
+        "734",
+        "733",
+        "1758",
+        "1757"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 22,
+      "stable_name": "precondition_3_comparison",
+      "meaning": "前置条件槽位3：条件比较方式",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 124,
+      "empty_count": 8705,
+      "unique_count": 3,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 68
+        },
+        {
+          "value": "0",
+          "count": 50
+        },
+        {
+          "value": "2",
+          "count": 6
+        }
+      ],
+      "sample_values": [
+        "0",
+        "1",
+        "2"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 23,
+      "stable_name": "precondition_3_value",
+      "meaning": "前置条件槽位3：条件比较值/数量",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 124,
+      "empty_count": 8705,
+      "unique_count": 4,
+      "top_values": [
+        {
+          "value": "0",
+          "count": 45
+        },
+        {
+          "value": "1",
+          "count": 43
+        },
+        {
+          "value": "3",
+          "count": 30
+        },
+        {
+          "value": "2",
+          "count": 6
+        }
+      ],
+      "sample_values": [
+        "0",
+        "1",
+        "3",
+        "2"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 24,
+      "stable_name": "precondition_4_object_type",
+      "meaning": "前置条件槽位4：条件对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 25,
+      "empty_count": 8804,
+      "unique_count": 3,
+      "top_values": [
+        {
+          "value": "5",
+          "count": 22
+        },
+        {
+          "value": "2",
+          "count": 2
+        },
+        {
+          "value": "20",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "5",
+        "2",
+        "20"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 25,
+      "stable_name": "precondition_4_object_id",
+      "meaning": "前置条件槽位4：条件对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 25,
+      "empty_count": 8804,
+      "unique_count": 25,
+      "top_values": [
+        {
+          "value": "825",
+          "count": 1
+        },
+        {
+          "value": "1818",
+          "count": 1
+        },
+        {
+          "value": "54117",
+          "count": 1
+        },
+        {
+          "value": "54121",
+          "count": 1
+        },
+        {
+          "value": "3877",
+          "count": 1
+        },
+        {
+          "value": "3899",
+          "count": 1
+        },
+        {
+          "value": "4732",
+          "count": 1
+        },
+        {
+          "value": "4880",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "825",
+        "1818",
+        "54117",
+        "54121",
+        "3877",
+        "3899",
+        "4732",
+        "4880"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 26,
+      "stable_name": "precondition_4_comparison",
+      "meaning": "前置条件槽位4：条件比较方式",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 25,
+      "empty_count": 8804,
+      "unique_count": 2,
+      "top_values": [
+        {
+          "value": "0",
+          "count": 16
+        },
+        {
+          "value": "1",
+          "count": 9
+        }
+      ],
+      "sample_values": [
+        "1",
+        "0"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 27,
+      "stable_name": "precondition_4_value",
+      "meaning": "前置条件槽位4：条件比较值/数量",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 25,
+      "empty_count": 8804,
+      "unique_count": 2,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 23
+        },
+        {
+          "value": "0",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "1",
+        "0"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 28,
+      "stable_name": "required_object_1_object_type",
+      "meaning": "需求/消耗对象槽位1：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1114,
+      "empty_count": 7715,
+      "unique_count": 3,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 1095
+        },
+        {
+          "value": "20",
+          "count": 13
+        },
+        {
+          "value": "4",
+          "count": 6
+        }
+      ],
+      "sample_values": [
+        "2",
+        "4",
+        "20"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 29,
+      "stable_name": "required_object_1_object_id",
+      "meaning": "需求/消耗对象槽位1：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1114,
+      "empty_count": 7715,
+      "unique_count": 816,
+      "top_values": [
+        {
+          "value": "9717",
+          "count": 87
+        },
+        {
+          "value": "9715",
+          "count": 49
+        },
+        {
+          "value": "49434",
+          "count": 26
+        },
+        {
+          "value": "9716",
+          "count": 21
+        },
+        {
+          "value": "92",
+          "count": 9
+        },
+        {
+          "value": "9204",
+          "count": 7
+        },
+        {
+          "value": "9207",
+          "count": 7
+        },
+        {
+          "value": "9242",
+          "count": 7
+        }
+      ],
+      "sample_values": [
+        "131",
+        "59",
+        "17",
+        "18",
+        "19",
+        "146",
+        "106",
+        "145"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 30,
+      "stable_name": "required_object_1_amount",
+      "meaning": "需求/消耗对象槽位1：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1114,
+      "empty_count": 7715,
+      "unique_count": 14,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 1029
+        },
+        {
+          "value": "3",
+          "count": 23
+        },
+        {
+          "value": "2",
+          "count": 16
+        },
+        {
+          "value": "5",
+          "count": 15
+        },
+        {
+          "value": "10",
+          "count": 11
+        },
+        {
+          "value": "4",
+          "count": 4
+        },
+        {
+          "value": "6",
+          "count": 3
+        },
+        {
+          "value": "45",
+          "count": 3
+        }
+      ],
+      "sample_values": [
+        "2",
+        "1",
+        "3",
+        "600",
+        "6",
+        "10",
+        "15",
+        "300"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 31,
+      "stable_name": "required_object_2_object_type",
+      "meaning": "需求/消耗对象槽位2：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 90,
+      "empty_count": 8739,
+      "unique_count": 3,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 75
+        },
+        {
+          "value": "1",
+          "count": 13
+        },
+        {
+          "value": "20",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "2",
+        "20",
+        "1"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 32,
+      "stable_name": "required_object_2_object_id",
+      "meaning": "需求/消耗对象槽位2：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 77,
+      "empty_count": 8752,
+      "unique_count": 71,
+      "top_values": [
+        {
+          "value": "86",
+          "count": 4
+        },
+        {
+          "value": "886",
+          "count": 3
+        },
+        {
+          "value": "53300",
+          "count": 2
+        },
+        {
+          "value": "9",
+          "count": 1
+        },
+        {
+          "value": "4413",
+          "count": 1
+        },
+        {
+          "value": "41",
+          "count": 1
+        },
+        {
+          "value": "51",
+          "count": 1
+        },
+        {
+          "value": "16031",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "86",
+        "9",
+        "4413",
+        "41",
+        "51",
+        "16031",
+        "23031",
+        "612"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 33,
+      "stable_name": "required_object_2_amount",
+      "meaning": "需求/消耗对象槽位2：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 77,
+      "empty_count": 8752,
+      "unique_count": 6,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 70
+        },
+        {
+          "value": "4",
+          "count": 2
+        },
+        {
+          "value": "2",
+          "count": 2
+        },
+        {
+          "value": "3",
+          "count": 1
+        },
+        {
+          "value": "10",
+          "count": 1
+        },
+        {
+          "value": "5",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "4",
+        "2",
+        "1",
+        "3",
+        "10",
+        "5"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 34,
+      "stable_name": "required_object_3_object_type",
+      "meaning": "需求/消耗对象槽位3：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 17,
+      "empty_count": 8812,
+      "unique_count": 1,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 17
+        }
+      ],
+      "sample_values": [
+        "2"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 35,
+      "stable_name": "required_object_3_object_id",
+      "meaning": "需求/消耗对象槽位3：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 17,
+      "empty_count": 8812,
+      "unique_count": 17,
+      "top_values": [
+        {
+          "value": "4414",
+          "count": 1
+        },
+        {
+          "value": "23032",
+          "count": 1
+        },
+        {
+          "value": "21121",
+          "count": 1
+        },
+        {
+          "value": "963",
+          "count": 1
+        },
+        {
+          "value": "956",
+          "count": 1
+        },
+        {
+          "value": "977",
+          "count": 1
+        },
+        {
+          "value": "985",
+          "count": 1
+        },
+        {
+          "value": "9594",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "4414",
+        "23032",
+        "21121",
+        "963",
+        "956",
+        "977",
+        "985",
+        "9594"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 36,
+      "stable_name": "required_object_3_amount",
+      "meaning": "需求/消耗对象槽位3：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 17,
+      "empty_count": 8812,
+      "unique_count": 1,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 17
+        }
+      ],
+      "sample_values": [
+        "1"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 37,
+      "stable_name": "required_object_4_object_type",
+      "meaning": "需求/消耗对象槽位4：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 10,
+      "empty_count": 8819,
+      "unique_count": 1,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 10
+        }
+      ],
+      "sample_values": [
+        "2"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 38,
+      "stable_name": "required_object_4_object_id",
+      "meaning": "需求/消耗对象槽位4：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 10,
+      "empty_count": 8819,
+      "unique_count": 10,
+      "top_values": [
+        {
+          "value": "4415",
+          "count": 1
+        },
+        {
+          "value": "988",
+          "count": 1
+        },
+        {
+          "value": "958",
+          "count": 1
+        },
+        {
+          "value": "9595",
+          "count": 1
+        },
+        {
+          "value": "62269",
+          "count": 1
+        },
+        {
+          "value": "848",
+          "count": 1
+        },
+        {
+          "value": "852",
+          "count": 1
+        },
+        {
+          "value": "891",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "4415",
+        "988",
+        "958",
+        "9595",
+        "62269",
+        "848",
+        "852",
+        "891"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 39,
+      "stable_name": "required_object_4_amount",
+      "meaning": "需求/消耗对象槽位4：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 10,
+      "empty_count": 8819,
+      "unique_count": 2,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 8
+        },
+        {
+          "value": "3",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "1",
+        "3"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 40,
+      "stable_name": "objective_1_object_type",
+      "meaning": "任务目标槽位1：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 5520,
+      "empty_count": 3309,
+      "unique_count": 7,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 2090
+        },
+        {
+          "value": "3",
+          "count": 1750
+        },
+        {
+          "value": "13",
+          "count": 1579
+        },
+        {
+          "value": "6",
+          "count": 91
+        },
+        {
+          "value": "9",
+          "count": 6
+        },
+        {
+          "value": "32",
+          "count": 3
+        },
+        {
+          "value": "20",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "3",
+        "2",
+        "13",
+        "20",
+        "6",
+        "9",
+        "32"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 41,
+      "stable_name": "objective_1_object_id",
+      "meaning": "任务目标槽位1：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 5515,
+      "empty_count": 3314,
+      "unique_count": 3257,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 89
+        },
+        {
+          "value": "248",
+          "count": 29
+        },
+        {
+          "value": "12039",
+          "count": 24
+        },
+        {
+          "value": "837",
+          "count": 17
+        },
+        {
+          "value": "1911",
+          "count": 17
+        },
+        {
+          "value": "595",
+          "count": 16
+        },
+        {
+          "value": "1080",
+          "count": 15
+        },
+        {
+          "value": "49430",
+          "count": 14
+        }
+      ],
+      "sample_values": [
+        "11",
+        "83",
+        "131",
+        "12",
+        "22",
+        "6",
+        "3",
+        "4"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 42,
+      "stable_name": "objective_1_amount",
+      "meaning": "任务目标槽位1：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 5520,
+      "empty_count": 3309,
+      "unique_count": 68,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 3315
+        },
+        {
+          "value": "10",
+          "count": 440
+        },
+        {
+          "value": "5",
+          "count": 426
+        },
+        {
+          "value": "3",
+          "count": 204
+        },
+        {
+          "value": "20",
+          "count": 194
+        },
+        {
+          "value": "2",
+          "count": 177
+        },
+        {
+          "value": "6",
+          "count": 161
+        },
+        {
+          "value": "4",
+          "count": 131
+        }
+      ],
+      "sample_values": [
+        "5",
+        "4",
+        "2",
+        "1",
+        "6",
+        "10",
+        "3",
+        "20"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 43,
+      "stable_name": "objective_2_object_type",
+      "meaning": "任务目标槽位2：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1558,
+      "empty_count": 7271,
+      "unique_count": 6,
+      "top_values": [
+        {
+          "value": "3",
+          "count": 650
+        },
+        {
+          "value": "2",
+          "count": 645
+        },
+        {
+          "value": "13",
+          "count": 255
+        },
+        {
+          "value": "6",
+          "count": 6
+        },
+        {
+          "value": "20",
+          "count": 1
+        },
+        {
+          "value": "24542",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "2",
+        "3",
+        "13",
+        "6",
+        "20",
+        "24542"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 44,
+      "stable_name": "objective_2_object_id",
+      "meaning": "任务目标槽位2：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1558,
+      "empty_count": 7271,
+      "unique_count": 989,
+      "top_values": [
+        {
+          "value": "9717",
+          "count": 87
+        },
+        {
+          "value": "9715",
+          "count": 49
+        },
+        {
+          "value": "9716",
+          "count": 21
+        },
+        {
+          "value": "49431",
+          "count": 14
+        },
+        {
+          "value": "19747",
+          "count": 14
+        },
+        {
+          "value": "1",
+          "count": 11
+        },
+        {
+          "value": "7373",
+          "count": 11
+        },
+        {
+          "value": "1221",
+          "count": 9
+        }
+      ],
+      "sample_values": [
+        "86",
+        "11",
+        "25",
+        "32",
+        "9",
+        "7",
+        "190",
+        "79"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 45,
+      "stable_name": "objective_2_amount",
+      "meaning": "任务目标槽位2：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1557,
+      "empty_count": 7272,
+      "unique_count": 28,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 901
+        },
+        {
+          "value": "10",
+          "count": 145
+        },
+        {
+          "value": "5",
+          "count": 119
+        },
+        {
+          "value": "20",
+          "count": 74
+        },
+        {
+          "value": "3",
+          "count": 73
+        },
+        {
+          "value": "6",
+          "count": 56
+        },
+        {
+          "value": "4",
+          "count": 52
+        },
+        {
+          "value": "2",
+          "count": 30
+        }
+      ],
+      "sample_values": [
+        "4",
+        "2",
+        "1",
+        "6",
+        "5",
+        "25",
+        "7",
+        "10"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 46,
+      "stable_name": "objective_3_object_type",
+      "meaning": "任务目标槽位3：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 470,
+      "empty_count": 8359,
+      "unique_count": 3,
+      "top_values": [
+        {
+          "value": "3",
+          "count": 254
+        },
+        {
+          "value": "2",
+          "count": 116
+        },
+        {
+          "value": "13",
+          "count": 100
+        }
+      ],
+      "sample_values": [
+        "2",
+        "3",
+        "13"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 47,
+      "stable_name": "objective_3_object_id",
+      "meaning": "任务目标槽位3：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 470,
+      "empty_count": 8359,
+      "unique_count": 356,
+      "top_values": [
+        {
+          "value": "49432",
+          "count": 14
+        },
+        {
+          "value": "569",
+          "count": 9
+        },
+        {
+          "value": "12004",
+          "count": 8
+        },
+        {
+          "value": "1626",
+          "count": 7
+        },
+        {
+          "value": "12046",
+          "count": 7
+        },
+        {
+          "value": "12041",
+          "count": 6
+        },
+        {
+          "value": "761",
+          "count": 5
+        },
+        {
+          "value": "10310",
+          "count": 4
+        }
+      ],
+      "sample_values": [
+        "139",
+        "80",
+        "161",
+        "170",
+        "380",
+        "10",
+        "431",
+        "435"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 48,
+      "stable_name": "objective_3_amount",
+      "meaning": "任务目标槽位3：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 470,
+      "empty_count": 8359,
+      "unique_count": 19,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 278
+        },
+        {
+          "value": "10",
+          "count": 39
+        },
+        {
+          "value": "5",
+          "count": 34
+        },
+        {
+          "value": "3",
+          "count": 25
+        },
+        {
+          "value": "20",
+          "count": 18
+        },
+        {
+          "value": "4",
+          "count": 16
+        },
+        {
+          "value": "2",
+          "count": 12
+        },
+        {
+          "value": "6",
+          "count": 11
+        }
+      ],
+      "sample_values": [
+        "1",
+        "6",
+        "5",
+        "4",
+        "8",
+        "10",
+        "3",
+        "2"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 49,
+      "stable_name": "objective_4_object_type",
+      "meaning": "任务目标槽位4：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 134,
+      "empty_count": 8695,
+      "unique_count": 3,
+      "top_values": [
+        {
+          "value": "3",
+          "count": 54
+        },
+        {
+          "value": "2",
+          "count": 49
+        },
+        {
+          "value": "13",
+          "count": 31
+        }
+      ],
+      "sample_values": [
+        "2",
+        "13",
+        "3"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 50,
+      "stable_name": "objective_4_object_id",
+      "meaning": "任务目标槽位4：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 134,
+      "empty_count": 8695,
+      "unique_count": 102,
+      "top_values": [
+        {
+          "value": "92",
+          "count": 9
+        },
+        {
+          "value": "12047",
+          "count": 7
+        },
+        {
+          "value": "58109",
+          "count": 4
+        },
+        {
+          "value": "58108",
+          "count": 3
+        },
+        {
+          "value": "58110",
+          "count": 3
+        },
+        {
+          "value": "58107",
+          "count": 3
+        },
+        {
+          "value": "7363",
+          "count": 3
+        },
+        {
+          "value": "54060",
+          "count": 3
+        }
+      ],
+      "sample_values": [
+        "81",
+        "11",
+        "430",
+        "46",
+        "279",
+        "284",
+        "6945",
+        "1498"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 51,
+      "stable_name": "objective_4_amount",
+      "meaning": "任务目标槽位4：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 134,
+      "empty_count": 8695,
+      "unique_count": 14,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 92
+        },
+        {
+          "value": "10",
+          "count": 9
+        },
+        {
+          "value": "5",
+          "count": 8
+        },
+        {
+          "value": "3",
+          "count": 6
+        },
+        {
+          "value": "6",
+          "count": 4
+        },
+        {
+          "value": "200",
+          "count": 3
+        },
+        {
+          "value": "20",
+          "count": 3
+        },
+        {
+          "value": "15",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "1",
+        "6",
+        "5",
+        "10",
+        "3",
+        "15",
+        "2",
+        "8"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 52,
+      "stable_name": "fixed_reward_1_object_type",
+      "meaning": "固定物品奖励槽位1：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 260,
+      "empty_count": 8569,
+      "unique_count": 1,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 260
+        }
+      ],
+      "sample_values": [
+        "2"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 53,
+      "stable_name": "fixed_reward_1_object_id",
+      "meaning": "固定物品奖励槽位1：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 260,
+      "empty_count": 8569,
+      "unique_count": 190,
+      "top_values": [
+        {
+          "value": "31316",
+          "count": 15
+        },
+        {
+          "value": "9804",
+          "count": 12
+        },
+        {
+          "value": "21752",
+          "count": 6
+        },
+        {
+          "value": "9920",
+          "count": 5
+        },
+        {
+          "value": "1461",
+          "count": 4
+        },
+        {
+          "value": "1466",
+          "count": 4
+        },
+        {
+          "value": "2033",
+          "count": 3
+        },
+        {
+          "value": "47862",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "47862",
+        "1461",
+        "47866",
+        "47870",
+        "47878",
+        "47874",
+        "47882",
+        "47894"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 54,
+      "stable_name": "fixed_reward_1_amount",
+      "meaning": "固定物品奖励槽位1：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 260,
+      "empty_count": 8569,
+      "unique_count": 23,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 215
+        },
+        {
+          "value": "5",
+          "count": 13
+        },
+        {
+          "value": "8",
+          "count": 8
+        },
+        {
+          "value": "3",
+          "count": 2
+        },
+        {
+          "value": "10",
+          "count": 2
+        },
+        {
+          "value": "30",
+          "count": 2
+        },
+        {
+          "value": "40",
+          "count": 2
+        },
+        {
+          "value": "2",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "8",
+        "5",
+        "10",
+        "12",
+        "16"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 55,
+      "stable_name": "fixed_reward_2_object_type",
+      "meaning": "固定物品奖励槽位2：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 258,
+      "empty_count": 8571,
+      "unique_count": 1,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 258
+        }
+      ],
+      "sample_values": [
+        "2"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 56,
+      "stable_name": "fixed_reward_2_object_id",
+      "meaning": "固定物品奖励槽位2：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 258,
+      "empty_count": 8571,
+      "unique_count": 189,
+      "top_values": [
+        {
+          "value": "16337",
+          "count": 15
+        },
+        {
+          "value": "9813",
+          "count": 12
+        },
+        {
+          "value": "21754",
+          "count": 6
+        },
+        {
+          "value": "19271",
+          "count": 5
+        },
+        {
+          "value": "1471",
+          "count": 4
+        },
+        {
+          "value": "1476",
+          "count": 4
+        },
+        {
+          "value": "47863",
+          "count": 2
+        },
+        {
+          "value": "47867",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "47863",
+        "1471",
+        "47867",
+        "47871",
+        "47879",
+        "47875",
+        "47883",
+        "47895"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 57,
+      "stable_name": "fixed_reward_2_amount",
+      "meaning": "固定物品奖励槽位2：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 258,
+      "empty_count": 8571,
+      "unique_count": 23,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 225
+        },
+        {
+          "value": "8",
+          "count": 8
+        },
+        {
+          "value": "3",
+          "count": 2
+        },
+        {
+          "value": "15",
+          "count": 2
+        },
+        {
+          "value": "45",
+          "count": 2
+        },
+        {
+          "value": "60",
+          "count": 2
+        },
+        {
+          "value": "2",
+          "count": 1
+        },
+        {
+          "value": "5",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "8",
+        "5",
+        "15",
+        "18",
+        "24"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 58,
+      "stable_name": "fixed_reward_3_object_type",
+      "meaning": "固定物品奖励槽位3：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 191,
+      "empty_count": 8638,
+      "unique_count": 1,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 191
+        }
+      ],
+      "sample_values": [
+        "2"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 59,
+      "stable_name": "fixed_reward_3_object_id",
+      "meaning": "固定物品奖励槽位3：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 191,
+      "empty_count": 8638,
+      "unique_count": 151,
+      "top_values": [
+        {
+          "value": "23383",
+          "count": 15
+        },
+        {
+          "value": "16560",
+          "count": 6
+        },
+        {
+          "value": "47864",
+          "count": 2
+        },
+        {
+          "value": "47868",
+          "count": 2
+        },
+        {
+          "value": "47872",
+          "count": 2
+        },
+        {
+          "value": "47880",
+          "count": 2
+        },
+        {
+          "value": "47876",
+          "count": 2
+        },
+        {
+          "value": "47884",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "47864",
+        "47868",
+        "47872",
+        "47880",
+        "47876",
+        "47884",
+        "47896",
+        "47888"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 60,
+      "stable_name": "fixed_reward_3_amount",
+      "meaning": "固定物品奖励槽位3：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 191,
+      "empty_count": 8638,
+      "unique_count": 20,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 169
+        },
+        {
+          "value": "10",
+          "count": 2
+        },
+        {
+          "value": "30",
+          "count": 2
+        },
+        {
+          "value": "40",
+          "count": 2
+        },
+        {
+          "value": "3",
+          "count": 1
+        },
+        {
+          "value": "12",
+          "count": 1
+        },
+        {
+          "value": "16",
+          "count": 1
+        },
+        {
+          "value": "22",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "1",
+        "3",
+        "10",
+        "12",
+        "16",
+        "22",
+        "30",
+        "40"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 61,
+      "stable_name": "fixed_reward_4_object_type",
+      "meaning": "固定物品奖励槽位4：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 162,
+      "empty_count": 8667,
+      "unique_count": 1,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 162
+        }
+      ],
+      "sample_values": [
+        "2"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 62,
+      "stable_name": "fixed_reward_4_object_id",
+      "meaning": "固定物品奖励槽位4：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 162,
+      "empty_count": 8667,
+      "unique_count": 125,
+      "top_values": [
+        {
+          "value": "30623",
+          "count": 15
+        },
+        {
+          "value": "56806",
+          "count": 6
+        },
+        {
+          "value": "47865",
+          "count": 2
+        },
+        {
+          "value": "47869",
+          "count": 2
+        },
+        {
+          "value": "47873",
+          "count": 2
+        },
+        {
+          "value": "47881",
+          "count": 2
+        },
+        {
+          "value": "47877",
+          "count": 2
+        },
+        {
+          "value": "47885",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "47865",
+        "47869",
+        "47873",
+        "47881",
+        "47877",
+        "47885",
+        "47897",
+        "47889"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 63,
+      "stable_name": "fixed_reward_4_amount",
+      "meaning": "固定物品奖励槽位4：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 162,
+      "empty_count": 8667,
+      "unique_count": 21,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 141
+        },
+        {
+          "value": "10",
+          "count": 2
+        },
+        {
+          "value": "2",
+          "count": 1
+        },
+        {
+          "value": "3",
+          "count": 1
+        },
+        {
+          "value": "4",
+          "count": 1
+        },
+        {
+          "value": "6",
+          "count": 1
+        },
+        {
+          "value": "8",
+          "count": 1
+        },
+        {
+          "value": "15",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "6",
+        "8",
+        "10",
+        "15"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 64,
+      "stable_name": "reward_1_object_type",
+      "meaning": "通用奖励槽位1：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 4236,
+      "empty_count": 4593,
+      "unique_count": 16,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 2616
+        },
+        {
+          "value": "15",
+          "count": 1132
+        },
+        {
+          "value": "25",
+          "count": 141
+        },
+        {
+          "value": "21",
+          "count": 120
+        },
+        {
+          "value": "9",
+          "count": 116
+        },
+        {
+          "value": "20",
+          "count": 41
+        },
+        {
+          "value": "6",
+          "count": 19
+        },
+        {
+          "value": "7",
+          "count": 13
+        }
+      ],
+      "sample_values": [
+        "20",
+        "2",
+        "15",
+        "18",
+        "6",
+        "21",
+        "12",
+        "9"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 65,
+      "stable_name": "reward_1_object_id",
+      "meaning": "通用奖励槽位1：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 4236,
+      "empty_count": 4593,
+      "unique_count": 1229,
+      "top_values": [
+        {
+          "value": "101",
+          "count": 168
+        },
+        {
+          "value": "0",
+          "count": 147
+        },
+        {
+          "value": "64219",
+          "count": 146
+        },
+        {
+          "value": "24",
+          "count": 145
+        },
+        {
+          "value": "23",
+          "count": 120
+        },
+        {
+          "value": "86",
+          "count": 120
+        },
+        {
+          "value": "62382",
+          "count": 99
+        },
+        {
+          "value": "76",
+          "count": 82
+        }
+      ],
+      "sample_values": [
+        "462",
+        "15304",
+        "1461",
+        "15310",
+        "15002",
+        "15633",
+        "15632",
+        "15003"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 66,
+      "stable_name": "reward_1_amount",
+      "meaning": "通用奖励槽位1：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 4236,
+      "empty_count": 4593,
+      "unique_count": 75,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 1955
+        },
+        {
+          "value": "30",
+          "count": 342
+        },
+        {
+          "value": "50",
+          "count": 233
+        },
+        {
+          "value": "2",
+          "count": 182
+        },
+        {
+          "value": "6",
+          "count": 167
+        },
+        {
+          "value": "100",
+          "count": 164
+        },
+        {
+          "value": "20",
+          "count": 134
+        },
+        {
+          "value": "10",
+          "count": 127
+        }
+      ],
+      "sample_values": [
+        "1",
+        "50",
+        "10",
+        "5",
+        "100",
+        "6",
+        "2",
+        "20"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 67,
+      "stable_name": "reward_2_object_type",
+      "meaning": "通用奖励槽位2：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1223,
+      "empty_count": 7606,
+      "unique_count": 15,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 905
+        },
+        {
+          "value": "15",
+          "count": 176
+        },
+        {
+          "value": "10",
+          "count": 70
+        },
+        {
+          "value": "21",
+          "count": 19
+        },
+        {
+          "value": "8",
+          "count": 12
+        },
+        {
+          "value": "20",
+          "count": 11
+        },
+        {
+          "value": "27",
+          "count": 11
+        },
+        {
+          "value": "25",
+          "count": 6
+        }
+      ],
+      "sample_values": [
+        "2",
+        "18",
+        "6",
+        "5",
+        "10",
+        "15",
+        "21",
+        "20"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 68,
+      "stable_name": "reward_2_object_id",
+      "meaning": "通用奖励槽位2：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1223,
+      "empty_count": 7606,
+      "unique_count": 401,
+      "top_values": [
+        {
+          "value": "24005",
+          "count": 103
+        },
+        {
+          "value": "1",
+          "count": 39
+        },
+        {
+          "value": "2",
+          "count": 38
+        },
+        {
+          "value": "24",
+          "count": 30
+        },
+        {
+          "value": "1077",
+          "count": 28
+        },
+        {
+          "value": "5682",
+          "count": 24
+        },
+        {
+          "value": "0",
+          "count": 22
+        },
+        {
+          "value": "1991",
+          "count": 21
+        }
+      ],
+      "sample_values": [
+        "19251",
+        "26",
+        "47837",
+        "15630",
+        "91",
+        "15029",
+        "15302",
+        "19252"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 69,
+      "stable_name": "reward_2_amount",
+      "meaning": "通用奖励槽位2：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1223,
+      "empty_count": 7606,
+      "unique_count": 115,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 677
+        },
+        {
+          "value": "10",
+          "count": 55
+        },
+        {
+          "value": "40",
+          "count": 48
+        },
+        {
+          "value": "300",
+          "count": 35
+        },
+        {
+          "value": "20",
+          "count": 28
+        },
+        {
+          "value": "50",
+          "count": 28
+        },
+        {
+          "value": "5",
+          "count": 27
+        },
+        {
+          "value": "2",
+          "count": 26
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "100",
+        "4",
+        "0",
+        "10079",
+        "10615"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 70,
+      "stable_name": "reward_3_object_type",
+      "meaning": "通用奖励槽位3：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 405,
+      "empty_count": 8424,
+      "unique_count": 9,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 241
+        },
+        {
+          "value": "11",
+          "count": 88
+        },
+        {
+          "value": "15",
+          "count": 42
+        },
+        {
+          "value": "29",
+          "count": 11
+        },
+        {
+          "value": "21",
+          "count": 9
+        },
+        {
+          "value": "25",
+          "count": 5
+        },
+        {
+          "value": "9",
+          "count": 4
+        },
+        {
+          "value": "12",
+          "count": 4
+        }
+      ],
+      "sample_values": [
+        "17",
+        "2",
+        "9",
+        "21",
+        "25",
+        "15",
+        "12",
+        "11"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 71,
+      "stable_name": "reward_3_object_id",
+      "meaning": "通用奖励槽位3：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 405,
+      "empty_count": 8424,
+      "unique_count": 107,
+      "top_values": [
+        {
+          "value": "24005",
+          "count": 63
+        },
+        {
+          "value": "59",
+          "count": 44
+        },
+        {
+          "value": "61",
+          "count": 44
+        },
+        {
+          "value": "12047",
+          "count": 21
+        },
+        {
+          "value": "0",
+          "count": 20
+        },
+        {
+          "value": "69",
+          "count": 16
+        },
+        {
+          "value": "55130",
+          "count": 9
+        },
+        {
+          "value": "4",
+          "count": 8
+        }
+      ],
+      "sample_values": [
+        "20",
+        "47837",
+        "1481",
+        "12047",
+        "50073",
+        "15655",
+        "1940",
+        "50075"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 72,
+      "stable_name": "reward_3_amount",
+      "meaning": "通用奖励槽位3：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 405,
+      "empty_count": 8424,
+      "unique_count": 39,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 208
+        },
+        {
+          "value": "100",
+          "count": 27
+        },
+        {
+          "value": "20",
+          "count": 17
+        },
+        {
+          "value": "50",
+          "count": 16
+        },
+        {
+          "value": "2",
+          "count": 15
+        },
+        {
+          "value": "14",
+          "count": 9
+        },
+        {
+          "value": "85",
+          "count": 9
+        },
+        {
+          "value": "10",
+          "count": 8
+        }
+      ],
+      "sample_values": [
+        "1",
+        "3",
+        "2",
+        "14",
+        "100",
+        "20",
+        "6",
+        "999"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 73,
+      "stable_name": "reward_4_object_type",
+      "meaning": "通用奖励槽位4：对象类型",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 107,
+      "empty_count": 8722,
+      "unique_count": 3,
+      "top_values": [
+        {
+          "value": "2",
+          "count": 100
+        },
+        {
+          "value": "10",
+          "count": 4
+        },
+        {
+          "value": "21",
+          "count": 3
+        }
+      ],
+      "sample_values": [
+        "2",
+        "10",
+        "21"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 74,
+      "stable_name": "reward_4_object_id",
+      "meaning": "通用奖励槽位4：对象ID",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 107,
+      "empty_count": 8722,
+      "unique_count": 58,
+      "top_values": [
+        {
+          "value": "21131",
+          "count": 20
+        },
+        {
+          "value": "5107",
+          "count": 5
+        },
+        {
+          "value": "557",
+          "count": 4
+        },
+        {
+          "value": "22155",
+          "count": 4
+        },
+        {
+          "value": "55021",
+          "count": 4
+        },
+        {
+          "value": "11962",
+          "count": 4
+        },
+        {
+          "value": "215",
+          "count": 3
+        },
+        {
+          "value": "24015",
+          "count": 3
+        }
+      ],
+      "sample_values": [
+        "5182",
+        "87",
+        "15468",
+        "78",
+        "5192",
+        "15362",
+        "15363",
+        "15364"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 75,
+      "stable_name": "reward_4_amount",
+      "meaning": "通用奖励槽位4：数量/参数",
+      "confidence": "medium",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 107,
+      "empty_count": 8722,
+      "unique_count": 18,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 64
+        },
+        {
+          "value": "10",
+          "count": 7
+        },
+        {
+          "value": "7",
+          "count": 6
+        },
+        {
+          "value": "100",
+          "count": 5
+        },
+        {
+          "value": "35",
+          "count": 4
+        },
+        {
+          "value": "5",
+          "count": 3
+        },
+        {
+          "value": "2",
+          "count": 3
+        },
+        {
+          "value": "15655",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "100",
+        "15655",
+        "1",
+        "19040",
+        "999",
+        "5",
+        "200",
+        "10"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 76,
+      "stable_name": "reward_formula",
+      "meaning": "奖励公式字符串（具体语义待确认）",
+      "confidence": "low",
+      "declared_type": "string_array",
+      "empirical_type": "star_delimited_string",
+      "nullable": true,
+      "nonempty_count": 6444,
+      "empty_count": 2385,
+      "unique_count": 2342,
+      "top_values": [
+        {
+          "value": "cp*10000000",
+          "count": 162
+        },
+        {
+          "value": "cp*100000",
+          "count": 149
+        },
+        {
+          "value": "cp*2000",
+          "count": 132
+        },
+        {
+          "value": "cp*1000",
+          "count": 116
+        },
+        {
+          "value": "cp*50",
+          "count": 93
+        },
+        {
+          "value": "cp*500",
+          "count": 82
+        },
+        {
+          "value": "cp*80000",
+          "count": 82
+        },
+        {
+          "value": "cp*500000",
+          "count": 81
+        }
+      ],
+      "sample_values": [
+        "cp*100",
+        "cp*1800",
+        "cp*400",
+        "cp*500",
+        "cp*2000",
+        "cp*600",
+        "cp*3000",
+        "cp*610"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 77,
+      "stable_name": "col_077",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 87,
+      "empty_count": 8742,
+      "unique_count": 1,
+      "top_values": [
+        {
+          "value": "100",
+          "count": 87
+        }
+      ],
+      "sample_values": [
+        "100"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 78,
+      "stable_name": "col_078",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "empty",
+      "nullable": true,
+      "nonempty_count": 0,
+      "empty_count": 8829,
+      "unique_count": 0,
+      "top_values": [],
+      "sample_values": [],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 79,
+      "stable_name": "reward_numeric_value",
+      "meaning": "奖励数值（具体种类待确认）",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 6266,
+      "empty_count": 2563,
+      "unique_count": 402,
+      "top_values": [
+        {
+          "value": "0",
+          "count": 3901
+        },
+        {
+          "value": "30000",
+          "count": 95
+        },
+        {
+          "value": "1500",
+          "count": 85
+        },
+        {
+          "value": "60000",
+          "count": 80
+        },
+        {
+          "value": "300000",
+          "count": 76
+        },
+        {
+          "value": "3000",
+          "count": 73
+        },
+        {
+          "value": "4500",
+          "count": 72
+        },
+        {
+          "value": "150000",
+          "count": 68
+        }
+      ],
+      "sample_values": [
+        "0",
+        "600",
+        "60",
+        "90",
+        "30",
+        "150",
+        "225",
+        "240"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 80,
+      "stable_name": "next_quest_id",
+      "meaning": "后续任务ID",
+      "confidence": "high",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 4285,
+      "empty_count": 4544,
+      "unique_count": 4119,
+      "top_values": [
+        {
+          "value": "0",
+          "count": 101
+        },
+        {
+          "value": "10104",
+          "count": 9
+        },
+        {
+          "value": "2494",
+          "count": 3
+        },
+        {
+          "value": "5176",
+          "count": 3
+        },
+        {
+          "value": "123",
+          "count": 2
+        },
+        {
+          "value": "185",
+          "count": 2
+        },
+        {
+          "value": "912",
+          "count": 2
+        },
+        {
+          "value": "329",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "72",
+        "150"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 81,
+      "stable_name": "col_081",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 3576,
+      "empty_count": 5253,
+      "unique_count": 79,
+      "top_values": [
+        {
+          "value": "0",
+          "count": 2350
+        },
+        {
+          "value": "278",
+          "count": 219
+        },
+        {
+          "value": "1294",
+          "count": 169
+        },
+        {
+          "value": "48",
+          "count": 162
+        },
+        {
+          "value": "1578",
+          "count": 110
+        },
+        {
+          "value": "146",
+          "count": 87
+        },
+        {
+          "value": "44",
+          "count": 80
+        },
+        {
+          "value": "277",
+          "count": 66
+        }
+      ],
+      "sample_values": [
+        "44",
+        "0",
+        "99",
+        "285",
+        "236",
+        "84",
+        "235",
+        "286"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 82,
+      "stable_name": "col_082",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 831,
+      "empty_count": 7998,
+      "unique_count": 529,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 48
+        },
+        {
+          "value": "4625",
+          "count": 24
+        },
+        {
+          "value": "23",
+          "count": 21
+        },
+        {
+          "value": "2",
+          "count": 17
+        },
+        {
+          "value": "31",
+          "count": 16
+        },
+        {
+          "value": "17",
+          "count": 13
+        },
+        {
+          "value": "19",
+          "count": 13
+        },
+        {
+          "value": "100",
+          "count": 13
+        }
+      ],
+      "sample_values": [
+        "1",
+        "85",
+        "127",
+        "10000",
+        "2118",
+        "17",
+        "19",
+        "23"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 83,
+      "stable_name": "col_083",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 59,
+      "empty_count": 8770,
+      "unique_count": 10,
+      "top_values": [
+        {
+          "value": "10",
+          "count": 12
+        },
+        {
+          "value": "20",
+          "count": 9
+        },
+        {
+          "value": "30",
+          "count": 8
+        },
+        {
+          "value": "1",
+          "count": 8
+        },
+        {
+          "value": "11",
+          "count": 8
+        },
+        {
+          "value": "12",
+          "count": 5
+        },
+        {
+          "value": "21",
+          "count": 4
+        },
+        {
+          "value": "31",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "10",
+        "20",
+        "30",
+        "102",
+        "1",
+        "12",
+        "31",
+        "2"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 84,
+      "stable_name": "col_084",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 20,
+      "empty_count": 8809,
+      "unique_count": 5,
+      "top_values": [
+        {
+          "value": "11",
+          "count": 7
+        },
+        {
+          "value": "1",
+          "count": 6
+        },
+        {
+          "value": "21",
+          "count": 4
+        },
+        {
+          "value": "31",
+          "count": 2
+        },
+        {
+          "value": "2",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "2",
+        "31",
+        "1",
+        "11",
+        "21"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 85,
+      "stable_name": "col_085",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 20,
+      "empty_count": 8809,
+      "unique_count": 7,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 4
+        },
+        {
+          "value": "2",
+          "count": 4
+        },
+        {
+          "value": "3",
+          "count": 3
+        },
+        {
+          "value": "4",
+          "count": 3
+        },
+        {
+          "value": "7",
+          "count": 2
+        },
+        {
+          "value": "5",
+          "count": 2
+        },
+        {
+          "value": "6",
+          "count": 2
+        }
+      ],
+      "sample_values": [
+        "7",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 86,
+      "stable_name": "col_086",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1793,
+      "empty_count": 7036,
+      "unique_count": 1339,
+      "top_values": [
+        {
+          "value": "5413",
+          "count": 24
+        },
+        {
+          "value": "6664",
+          "count": 21
+        },
+        {
+          "value": "5412",
+          "count": 16
+        },
+        {
+          "value": "2784",
+          "count": 14
+        },
+        {
+          "value": "2788",
+          "count": 12
+        },
+        {
+          "value": "2287",
+          "count": 10
+        },
+        {
+          "value": "2168",
+          "count": 10
+        },
+        {
+          "value": "2883",
+          "count": 10
+        }
+      ],
+      "sample_values": [
+        "2201",
+        "2202",
+        "2203",
+        "2204",
+        "2205",
+        "1364",
+        "7001",
+        "2206"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 87,
+      "stable_name": "col_087",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1801,
+      "empty_count": 7028,
+      "unique_count": 27,
+      "top_values": [
+        {
+          "value": "0",
+          "count": 1587
+        },
+        {
+          "value": "-200",
+          "count": 57
+        },
+        {
+          "value": "-100",
+          "count": 21
+        },
+        {
+          "value": "-500",
+          "count": 16
+        },
+        {
+          "value": "604800",
+          "count": 16
+        },
+        {
+          "value": "-6",
+          "count": 14
+        },
+        {
+          "value": "-600",
+          "count": 10
+        },
+        {
+          "value": "-400",
+          "count": 10
+        }
+      ],
+      "sample_values": [
+        "0",
+        "18000",
+        "-6",
+        "86400",
+        "-600",
+        "-500",
+        "-100",
+        "64800"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 88,
+      "stable_name": "col_088",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 1801,
+      "empty_count": 7028,
+      "unique_count": 7,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 1213
+        },
+        {
+          "value": "2",
+          "count": 336
+        },
+        {
+          "value": "3",
+          "count": 191
+        },
+        {
+          "value": "10",
+          "count": 28
+        },
+        {
+          "value": "5",
+          "count": 27
+        },
+        {
+          "value": "20",
+          "count": 5
+        },
+        {
+          "value": "4",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "10",
+        "3",
+        "1",
+        "5",
+        "2",
+        "20",
+        "4"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 89,
+      "stable_name": "col_089",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 48,
+      "empty_count": 8781,
+      "unique_count": 3,
+      "top_values": [
+        {
+          "value": "0",
+          "count": 19
+        },
+        {
+          "value": "4",
+          "count": 18
+        },
+        {
+          "value": "2",
+          "count": 11
+        }
+      ],
+      "sample_values": [
+        "0",
+        "2",
+        "4"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 90,
+      "stable_name": "tracking_target_id",
+      "meaning": "任务追踪/寻路目标ID",
+      "confidence": "high",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 5500,
+      "empty_count": 3329,
+      "unique_count": 1703,
+      "top_values": [
+        {
+          "value": "546",
+          "count": 61
+        },
+        {
+          "value": "5139",
+          "count": 39
+        },
+        {
+          "value": "1971",
+          "count": 33
+        },
+        {
+          "value": "2821",
+          "count": 33
+        },
+        {
+          "value": "5302",
+          "count": 33
+        },
+        {
+          "value": "1541",
+          "count": 32
+        },
+        {
+          "value": "4573",
+          "count": 30
+        },
+        {
+          "value": "3056",
+          "count": 29
+        }
+      ],
+      "sample_values": [
+        "2",
+        "3",
+        "1",
+        "7",
+        "8",
+        "6",
+        "11",
+        "9"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 91,
+      "stable_name": "col_091",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 228,
+      "empty_count": 8601,
+      "unique_count": 39,
+      "top_values": [
+        {
+          "value": "48",
+          "count": 24
+        },
+        {
+          "value": "46",
+          "count": 17
+        },
+        {
+          "value": "40",
+          "count": 17
+        },
+        {
+          "value": "47",
+          "count": 16
+        },
+        {
+          "value": "45",
+          "count": 15
+        },
+        {
+          "value": "50",
+          "count": 13
+        },
+        {
+          "value": "36",
+          "count": 13
+        },
+        {
+          "value": "4",
+          "count": 10
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "10"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 92,
+      "stable_name": "col_092",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 87,
+      "empty_count": 8742,
+      "unique_count": 2,
+      "top_values": [
+        {
+          "value": "556",
+          "count": 80
+        },
+        {
+          "value": "751",
+          "count": 7
+        }
+      ],
+      "sample_values": [
+        "751",
+        "556"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 93,
+      "stable_name": "col_093",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "empty",
+      "nullable": true,
+      "nonempty_count": 0,
+      "empty_count": 8829,
+      "unique_count": 0,
+      "top_values": [],
+      "sample_values": [],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 94,
+      "stable_name": "col_094",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 26,
+      "empty_count": 8803,
+      "unique_count": 22,
+      "top_values": [
+        {
+          "value": "3449",
+          "count": 3
+        },
+        {
+          "value": "4818",
+          "count": 2
+        },
+        {
+          "value": "3734",
+          "count": 2
+        },
+        {
+          "value": "4799",
+          "count": 1
+        },
+        {
+          "value": "3708",
+          "count": 1
+        },
+        {
+          "value": "4844",
+          "count": 1
+        },
+        {
+          "value": "3478",
+          "count": 1
+        },
+        {
+          "value": "3479",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "4799",
+        "3708",
+        "4844",
+        "3449",
+        "3478",
+        "3479",
+        "3480",
+        "3481"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 95,
+      "stable_name": "col_095",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 337,
+      "empty_count": 8492,
+      "unique_count": 1,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 337
+        }
+      ],
+      "sample_values": [
+        "1"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 96,
+      "stable_name": "col_096",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 293,
+      "empty_count": 8536,
+      "unique_count": 1,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 293
+        }
+      ],
+      "sample_values": [
+        "1"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 97,
+      "stable_name": "col_097",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "empty",
+      "nullable": true,
+      "nonempty_count": 0,
+      "empty_count": 8829,
+      "unique_count": 0,
+      "top_values": [],
+      "sample_values": [],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 98,
+      "stable_name": "col_098",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "empty",
+      "nullable": true,
+      "nonempty_count": 0,
+      "empty_count": 8829,
+      "unique_count": 0,
+      "top_values": [],
+      "sample_values": [],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 99,
+      "stable_name": "col_099",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 5,
+      "empty_count": 8824,
+      "unique_count": 5,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 1
+        },
+        {
+          "value": "2",
+          "count": 1
+        },
+        {
+          "value": "3",
+          "count": 1
+        },
+        {
+          "value": "4",
+          "count": 1
+        },
+        {
+          "value": "5",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 100,
+      "stable_name": "col_100",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "empty",
+      "nullable": true,
+      "nonempty_count": 0,
+      "empty_count": 8829,
+      "unique_count": 0,
+      "top_values": [],
+      "sample_values": [],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 101,
+      "stable_name": "col_101",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "empty",
+      "nullable": true,
+      "nonempty_count": 0,
+      "empty_count": 8829,
+      "unique_count": 0,
+      "top_values": [],
+      "sample_values": [],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 102,
+      "stable_name": "col_102",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "integer",
+      "nullable": true,
+      "nonempty_count": 11,
+      "empty_count": 8818,
+      "unique_count": 11,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 1
+        },
+        {
+          "value": "2",
+          "count": 1
+        },
+        {
+          "value": "3",
+          "count": 1
+        },
+        {
+          "value": "4",
+          "count": 1
+        },
+        {
+          "value": "5",
+          "count": 1
+        },
+        {
+          "value": "6",
+          "count": 1
+        },
+        {
+          "value": "7",
+          "count": 1
+        },
+        {
+          "value": "8",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 103,
+      "stable_name": "col_103",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer_array",
+      "empirical_type": "star_delimited_string",
+      "nullable": true,
+      "nonempty_count": 12,
+      "empty_count": 8817,
+      "unique_count": 12,
+      "top_values": [
+        {
+          "value": "5116*5118*5121",
+          "count": 1
+        },
+        {
+          "value": "5135*5155",
+          "count": 1
+        },
+        {
+          "value": "5141*5152",
+          "count": 1
+        },
+        {
+          "value": "5144*5148",
+          "count": 1
+        },
+        {
+          "value": "5163*5167",
+          "count": 1
+        },
+        {
+          "value": "5171*5173",
+          "count": 1
+        },
+        {
+          "value": "5177*5181",
+          "count": 1
+        },
+        {
+          "value": "5185*5187",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "5116*5118*5121",
+        "5135*5155",
+        "5141*5152",
+        "5144*5148",
+        "5163*5167",
+        "5171*5173",
+        "5177*5181",
+        "5185*5187"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 104,
+      "stable_name": "col_104",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer_array",
+      "empirical_type": "star_delimited_string",
+      "nullable": true,
+      "nonempty_count": 3,
+      "empty_count": 8826,
+      "unique_count": 2,
+      "top_values": [
+        {
+          "value": "62325*62326*62327*62328",
+          "count": 2
+        },
+        {
+          "value": "62322*62323*62324",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "62322*62323*62324",
+        "62325*62326*62327*62328"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 105,
+      "stable_name": "col_105",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer",
+      "empirical_type": "empty",
+      "nullable": true,
+      "nonempty_count": 0,
+      "empty_count": 8829,
+      "unique_count": 0,
+      "top_values": [],
+      "sample_values": [],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    },
+    {
+      "column": 106,
+      "stable_name": "col_106",
+      "meaning": "未知字段，保留原始列",
+      "confidence": "low",
+      "declared_type": "integer_array",
+      "empirical_type": "star_delimited_string",
+      "nullable": true,
+      "nonempty_count": 5,
+      "empty_count": 8824,
+      "unique_count": 5,
+      "top_values": [
+        {
+          "value": "5000*5102*5000*5104",
+          "count": 1
+        },
+        {
+          "value": "5000*5112*5000*5128",
+          "count": 1
+        },
+        {
+          "value": "3000*5157*7000*5159",
+          "count": 1
+        },
+        {
+          "value": "6000*5195*4000*5204",
+          "count": 1
+        },
+        {
+          "value": "6500*5215*3500*5220",
+          "count": 1
+        }
+      ],
+      "sample_values": [
+        "5000*5102*5000*5104",
+        "5000*5112*5000*5128",
+        "3000*5157*7000*5159",
+        "6000*5195*4000*5204",
+        "6500*5215*3500*5220"
+      ],
+      "source": "quest_info column order; index_list declared type; empirical profile"
+    }
+  ],
+  "approval_topics": [
+    {
+      "id": "field_names",
+      "question": "是否接受中等置信度的条件、目标和奖励槽位命名？",
+      "recommendation": "接受为暂定名；保留列号和raw，后续发现代码证据时再迁移名称。"
+    },
+    {
+      "id": "unknown_fields",
+      "question": "未知列是否统一使用 col_### 并原样保留？",
+      "recommendation": "是；不得根据少量样例编造业务含义。"
+    },
+    {
+      "id": "duplicate_11257",
+      "question": "任务ID 11257的两个原始版本如何进入规范化主表？",
+      "recommendation": "两个原始版本均保留；规范化表增加版本序号和冲突标记，不静默选一个。"
+    }
+  ]
+}

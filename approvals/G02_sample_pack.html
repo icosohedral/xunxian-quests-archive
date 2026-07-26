@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>G02 · 任务数据库 MVP 抽查包</title>
+  <style>
+    :root { --navy:#17324d; --blue:#246b9e; --teal:#2f7d7a; --paper:#f5f7f8;
+      --line:#cad5dd; --ink:#1f2a33; --muted:#657582; --green:#216e39; --amber:#8a5a00; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif; }
+    .hero { background:var(--navy); color:white; padding:44px max(5vw,28px); }
+    .hero h1 { margin:0 0 10px; font-size:30px; }
+    .hero p { margin:0; color:#d8e6ef; }
+    main { max-width:1180px; margin:0 auto; padding:28px 22px 60px; }
+    .metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin-bottom:28px; }
+    .metric { background:white; border:1px solid var(--line); border-radius:10px; padding:15px; }
+    .metric strong { display:block; font-size:23px; color:var(--teal); }
+    .metric span { font-size:13px; color:var(--muted); }
+    .card { background:white; border:1px solid var(--line); border-radius:12px;
+      padding:24px; margin:0 0 22px; box-shadow:0 4px 14px rgba(23,50,77,.06); }
+    .card header { border-bottom:2px solid #eaf3f8; padding-bottom:14px; }
+    .card h2 { margin:8px 0 5px; color:var(--navy); }
+    .card h3 { color:var(--blue); margin:24px 0 10px; font-size:17px; }
+    .card header p { margin:0; color:var(--muted); }
+    .qid { font-weight:700; color:var(--blue); }
+    .badge { border-radius:999px; padding:3px 9px; margin-left:8px; font-size:12px; font-weight:700; }
+    .badge.ok { background:#ddf2e2; color:var(--green); }
+    .badge.warn { background:#fff1cc; color:var(--amber); }
+    .facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin-top:18px; }
+    .facts div { background:#f3f5f7; padding:11px; border-radius:7px; }
+    .facts strong,.facts span { display:block; }
+    .facts strong { font-size:12px; color:var(--muted); margin-bottom:4px; }
+    table { border-collapse:collapse; width:100%; font-size:14px; }
+    th,td { border-bottom:1px solid var(--line); text-align:left; padding:9px 8px; vertical-align:top; }
+    th { background:#eaf3f8; color:var(--navy); }
+    .text-block { border-left:4px solid var(--teal); background:#f8fbfb; padding:13px 15px; margin:10px 0; }
+    .source { color:var(--muted); font-size:12px; margin-bottom:8px; }
+    dl { margin:0; display:grid; grid-template-columns:90px 1fr; gap:7px 12px; }
+    dt { color:var(--blue); font-weight:700; }
+    dd { margin:0; white-space:pre-wrap; }
+    .notice { background:#fff1cc; color:var(--amber); padding:12px; border-radius:7px; }
+    details { margin-top:20px; }
+    summary { cursor:pointer; color:var(--blue); font-weight:700; }
+    pre { white-space:pre-wrap; word-break:break-all; background:#f3f5f7; padding:12px; max-height:260px; overflow:auto; }
+    .footnote { background:#e8f4f2; border-radius:10px; padding:16px 18px; color:#285b59; }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <h1>G02 · 任务数据库 MVP 抽查包</h1>
+    <p>运行 20260724T132751Z · 任务 1、2、1694、7304，以及重复 ID 11257 的两个版本</p>
+  </section>
+  <main>
+    <section class="metrics">
+      <div class='metric'><strong>8829</strong><span>quest_rows</span></div><div class='metric'><strong>8828</strong><span>unique_quest_ids</span></div><div class='metric'><strong>8723</strong><span>text_rows</span></div><div class='metric'><strong>109</strong><span>category_rows</span></div><div class='metric'><strong>7450</strong><span>npc_rows</span></div><div class='metric'><strong>6000</strong><span>target_rows</span></div><div class='metric'><strong>47414</strong><span>item_rows</span></div><div class='metric'><strong>6842</strong><span>reward_rows</span></div><div class='metric'><strong>0</strong><span>foreign_key_violations</span></div>
+    </section>
+    <div class="footnote">本页展示的是当前已通过自动校验的 MVP 聚合结果。条件、目标组逻辑和任务链将在 G02 批准后继续深化。</div>
+    
+                <article class="card">
+                  <header>
+                    <div><span class="qid">任务 1 · v1</span>
+                    <span class='badge ok'>普通记录</span></div>
+                    <h2>【正传】寻仙道起始小桑村</h2>
+                    <p>任务关闭</p>
+                  </header>
+                  <div class="facts">
+                    <div><strong>等级限制</strong><span>1</span></div>
+                    <div><strong>最高等级</strong><span>5</span></div>
+                    <div><strong>寻路目标</strong><span>—</span></div>
+                    <div><strong>原始来源</strong><span>mb/quest/quest_info.txt:2</span></div>
+                  </div>
+                  <h3>接取与提交对象</h3>
+                  <table><thead><tr><th>阶段</th><th>对象</th><th>已解析</th><th>来源列</th></tr></thead>
+                  <tbody><tr><td>提交</td><td>NPC · 5 · 戊阳子</td><td>是</td><td>第8/9列</td></tr></tbody></table>
+                  <h3>任务文本</h3>
+                  <div class='text-block'><div class='source'>文本来源：mb/quest/quest_text.txt:2</div><dl><dt>提示</dt><dd> </dd><dt>完成文本</dt><dd>　　[眼前一亮]无量天尊，此地名唤小桑村，你乃何人？\n　　[待你自报家门后，微微点头]&lt;character:55&gt;，贫道看你资质不错，日后必成大器，如今这小桑村出了一些棘手的事端，你能助贫道一臂之力否？</dd></dl></div>
+                  <h3>普通奖励</h3>
+                  <table><thead><tr><th>分组</th><th>槽位</th><th>对象</th><th>数量</th><th>已解析</th></tr></thead>
+                  <tbody><tr><td colspan='5'>无普通奖励槽位</td></tr></tbody></table>
+                  <details><summary>原始 quest_info 行预览</summary>
+                    <pre>【正传】寻仙道起始小桑村	1	1181	5	1			3	5	1																																																																		cp*100			0	2																										</pre>
+                  </details>
+                </article>
+                
+                <article class="card">
+                  <header>
+                    <div><span class="qid">任务 2 · v1</span>
+                    <span class='badge ok'>普通记录</span></div>
+                    <h2>【正传】初入世道长小试</h2>
+                    <p>任务关闭</p>
+                  </header>
+                  <div class="facts">
+                    <div><strong>等级限制</strong><span>1</span></div>
+                    <div><strong>最高等级</strong><span>5</span></div>
+                    <div><strong>寻路目标</strong><span>2 · 戊阳子 · 小桑村</span></div>
+                    <div><strong>原始来源</strong><span>mb/quest/quest_info.txt:3</span></div>
+                  </div>
+                  <h3>接取与提交对象</h3>
+                  <table><thead><tr><th>阶段</th><th>对象</th><th>已解析</th><th>来源列</th></tr></thead>
+                  <tbody><tr><td>接取</td><td>NPC · 5 · 戊阳子</td><td>是</td><td>第6/7列</td></tr><tr><td>提交</td><td>NPC · 5 · 戊阳子</td><td>是</td><td>第8/9列</td></tr></tbody></table>
+                  <h3>任务文本</h3>
+                  <div class='text-block'><div class='source'>文本来源：mb/quest/quest_text.txt:3</div><dl><dt>接取文本</dt><dd>　　贫道乃是三清派宁阳观的道人。\n　　几日前，小桑村百姓入我山门，说村中出了档怪事——此事说来话长，且不忙讲，你身负神功，便让贫道看看你的本事吧。\n　　适才我派弟子打探，发现一伙豺狗来到小桑村周围，不赶走这些畜生，恐伤着村中百姓。你可愿意前去消灭豺狗吗？</dd><dt>任务说明</dt><dd>　　仙途初始风波起，道影妖踪平地生。世间苍茫，少不得许多奇事异闻。话说这宁海县境内的小桑村，突生离奇怪病。不得已请来三清派戊阳子道长，前来看个究竟。（小桑村翻开了崭新的一页，此前种种将成为您修仙途中的一座里程碑。现在您可返回小桑村寻找戊阳子道长接取全新的新手任务，重温曾经相似而又不同的寻仙。）</dd><dt>提示</dt><dd>&lt;item:（提示：小桑村翻开了崭新的一页，此前种种将成为您修仙途中的一座里程碑。请您删除此任务，并向小桑村的戊阳子道长重新接取任务，来体验一个不同的寻仙。）&gt;</dd><dt>进行中</dt><dd>　　不赶走这些豺狗，恐伤着村中百姓。你可愿意前去消灭豺狗吗？</dd><dt>完成文本</dt><dd>　　好！贫道果然没有看走眼！你若能潜心修炼，日后即使面对天劫，想必也能渡劫成功啊！</dd></dl></div>
+                  <h3>普通奖励</h3>
+                  <table><thead><tr><th>分组</th><th>槽位</th><th>对象</th><th>数量</th><th>已解析</th></tr></thead>
+                  <tbody><tr><td>固定</td><td>1</td><td>道具 · 47862 · 简陋长裤</td><td>1</td><td>是</td></tr><tr><td>固定</td><td>2</td><td>道具 · 47863 · 结实长裤</td><td>1</td><td>是</td></tr><tr><td>固定</td><td>3</td><td>道具 · 47864 · 方便长裤</td><td>1</td><td>是</td></tr><tr><td>固定</td><td>4</td><td>道具 · 47865 · 好用长裤</td><td>1</td><td>是</td></tr><tr><td>通用</td><td>1</td><td>状态 · 462</td><td>1</td><td>是</td></tr></tbody></table>
+                  <details><summary>原始 quest_info 行预览</summary>
+                    <pre>【正传】初入世道长小试	2	1181	5	1	3	5	3	5			5	1	1	1																									3	11	5										2	47862	1	2	47863	1	2	47864	1	2	47865	1	20	462	1										cp*1800			600	3										2																</pre>
+                  </details>
+                </article>
+                
+                <article class="card">
+                  <header>
+                    <div><span class="qid">任务 1694 · v1</span>
+                    <span class='badge ok'>普通记录</span></div>
+                    <h2>【正传】万事结却有忧虑在</h2>
+                    <p>【正传】</p>
+                  </header>
+                  <div class="facts">
+                    <div><strong>等级限制</strong><span>75</span></div>
+                    <div><strong>最高等级</strong><span>—</span></div>
+                    <div><strong>寻路目标</strong><span>2090 · 古松居士 · 求仙镇</span></div>
+                    <div><strong>原始来源</strong><span>mb/quest/quest_info.txt:1680</span></div>
+                  </div>
+                  <h3>接取与提交对象</h3>
+                  <table><thead><tr><th>阶段</th><th>对象</th><th>已解析</th><th>来源列</th></tr></thead>
+                  <tbody><tr><td>接取</td><td>NPC · 6609 · 古松居士</td><td>是</td><td>第6/7列</td></tr><tr><td>提交</td><td>NPC · 6609 · 古松居士</td><td>是</td><td>第8/9列</td></tr></tbody></table>
+                  <h3>任务文本</h3>
+                  <div class='text-block'><div class='source'>文本来源：mb/quest/quest_text.txt:1685</div><dl><dt>接取文本</dt><dd>　　道友前来一定是受了断水之托吧？贫道已经年迈，不如那些后辈有精神，万事由他们做主。至于断水所言的那种感觉，贫道身上也出现过，依照贫道对暮蝉的了解，恐怕这事不会就如此简单。不过道友十方之内表现的勇猛、机智，果然是修道的不世之才——是我道派的福分啊！</dd><dt>任务说明</dt><dd>　　古松居士笑成年迈，要将天下交给后辈，同时道出了心中不安，按他对暮蝉的认识，事情并不会这么容易就解决，不过还是对你的功劳给予了肯定。</dd><dt>提示</dt><dd>　　与&lt;target:2090&gt;对话了解他对十方的看法。&lt;item:（提示：进入东山岛后，点击带有下划线的文字便可以出现寻路路线。）&gt;</dd><dt>完成文本</dt><dd>　　贫道感觉，一切都不会如此简单的！</dd></dl></div>
+                  <h3>普通奖励</h3>
+                  <table><thead><tr><th>分组</th><th>槽位</th><th>对象</th><th>数量</th><th>已解析</th></tr></thead>
+                  <tbody><tr><td>通用</td><td>1</td><td>道具 · 9376 · 智慧仙丹（4000万经验）</td><td>2</td><td>是</td></tr></tbody></table>
+                  <details><summary>原始 quest_info 行预览</summary>
+                    <pre>【正传】万事结却有忧虑在	1694	1000		75	3	6609	3	6609			5	1693	1	1																									6	1	81																						2	9376	2										cp*655550			3306		0									2090					1											</pre>
+                  </details>
+                </article>
+                
+                <article class="card">
+                  <header>
+                    <div><span class="qid">任务 7304 · v1</span>
+                    <span class='badge ok'>普通记录</span></div>
+                    <h2>女儿国主公遭难</h2>
+                    <p>五岳山麓支线</p>
+                  </header>
+                  <div class="facts">
+                    <div><strong>等级限制</strong><span>100</span></div>
+                    <div><strong>最高等级</strong><span>—</span></div>
+                    <div><strong>寻路目标</strong><span>5380 · 阿卓 · 山海县</span></div>
+                    <div><strong>原始来源</strong><span>mb/quest/quest_info.txt:4955</span></div>
+                  </div>
+                  <h3>接取与提交对象</h3>
+                  <table><thead><tr><th>阶段</th><th>对象</th><th>已解析</th><th>来源列</th></tr></thead>
+                  <tbody><tr><td>接取</td><td>NPC · 1949 · 阿卓</td><td>是</td><td>第6/7列</td></tr><tr><td>提交</td><td>NPC · 1949 · 阿卓</td><td>是</td><td>第8/9列</td></tr></tbody></table>
+                  <h3>任务文本</h3>
+                  <div class='text-block'><div class='source'>文本来源：mb/quest/quest_text.txt:4904</div><dl><dt>接取文本</dt><dd>　　[焦急地拉着仙友，仿佛有什么迫切要对仙友说]我怕来到这里语言不通，便把我的故事画了下来。[只见她迅速拿出了一份手札]</dd><dt>任务说明</dt><dd>　　阿卓确定仙友的身份后，大为激动，对仙友诉说起了她的故事。</dd><dt>提示</dt><dd>　　听&lt;target:5380&gt;的故事。&lt;item:（提示：点击带有下划线的文字便可以出现寻路路线。）&gt;</dd><dt>进行中</dt><dd>　　我必须要早些回到女儿国。</dd><dt>完成文本</dt><dd>　　[仙友终是抵不住阿卓可怜祈求的眼神，欣然应允，阿卓高兴地转起了圈]太好了！我们现在就出发吧！</dd></dl></div>
+                  <h3>普通奖励</h3>
+                  <table><thead><tr><th>分组</th><th>槽位</th><th>对象</th><th>数量</th><th>已解析</th></tr></thead>
+                  <tbody><tr><td>通用</td><td>1</td><td>道具 · 1574 · 理气灵药</td><td>2</td><td>是</td></tr></tbody></table>
+                  <details><summary>原始 quest_info 行预览</summary>
+                    <pre>女儿国主公遭难	7304	299		100	3	1949	3	1949	100		5	7303	1	1																									13	1063	1																						2	1574	2										cp*2500000			230000	7305										5380																</pre>
+                  </details>
+                </article>
+                
+                <article class="card">
+                  <header>
+                    <div><span class="qid">任务 11257 · v1</span>
+                    <span class='badge warn'>冲突版本</span></div>
+                    <h2>孟浪多疑10</h2>
+                    <p>任务关闭</p>
+                  </header>
+                  <div class="facts">
+                    <div><strong>等级限制</strong><span>99</span></div>
+                    <div><strong>最高等级</strong><span>5</span></div>
+                    <div><strong>寻路目标</strong><span>—</span></div>
+                    <div><strong>原始来源</strong><span>mb/quest/quest_info.txt:6211</span></div>
+                  </div>
+                  <h3>接取与提交对象</h3>
+                  <table><thead><tr><th>阶段</th><th>对象</th><th>已解析</th><th>来源列</th></tr></thead>
+                  <tbody><tr><td colspan='4'>无可解析的接交对象</td></tr></tbody></table>
+                  <h3>任务文本</h3>
+                  <div class='text-block'><div class='source'>文本来源：mb/quest/quest_text.txt:6180</div><dl><dd>该行常用文本列为空，原始行仍已保存。</dd></dl></div>
+                  <h3>普通奖励</h3>
+                  <table><thead><tr><th>分组</th><th>槽位</th><th>对象</th><th>数量</th><th>已解析</th></tr></thead>
+                  <tbody><tr><td colspan='5'>无普通奖励槽位</td></tr></tbody></table>
+                  <details><summary>原始 quest_info 行预览</summary>
+                    <pre>孟浪多疑10	11257	1181	5	99	3		3		99		5																																																																			0																											</pre>
+                  </details>
+                </article>
+                
+                <article class="card">
+                  <header>
+                    <div><span class="qid">任务 11257 · v2</span>
+                    <span class='badge warn'>冲突版本</span></div>
+                    <h2>孟浪多疑11</h2>
+                    <p>任务关闭</p>
+                  </header>
+                  <div class="facts">
+                    <div><strong>等级限制</strong><span>99</span></div>
+                    <div><strong>最高等级</strong><span>5</span></div>
+                    <div><strong>寻路目标</strong><span>—</span></div>
+                    <div><strong>原始来源</strong><span>mb/quest/quest_info.txt:6212</span></div>
+                  </div>
+                  <h3>接取与提交对象</h3>
+                  <table><thead><tr><th>阶段</th><th>对象</th><th>已解析</th><th>来源列</th></tr></thead>
+                  <tbody><tr><td colspan='4'>无可解析的接交对象</td></tr></tbody></table>
+                  <h3>任务文本</h3>
+                  <div class='text-block'><div class='source'>文本来源：mb/quest/quest_text.txt:6180</div><dl><dd>该行常用文本列为空，原始行仍已保存。</dd></dl></div>
+                  <h3>普通奖励</h3>
+                  <table><thead><tr><th>分组</th><th>槽位</th><th>对象</th><th>数量</th><th>已解析</th></tr></thead>
+                  <tbody><tr><td colspan='5'>无普通奖励槽位</td></tr></tbody></table>
+                  <details><summary>原始 quest_info 行预览</summary>
+                    <pre>孟浪多疑11	11257	1181	5	99	3		3		99		5																																																																			0																											</pre>
+                  </details>
+                </article>
+                
+  </main>
+</body>
+</html>

@@ -1,0 +1,404 @@
+{
+  "run_id": "20260724T132751Z",
+  "generated_at": "2026-07-24T14:16:51Z",
+  "database": "outputs/quest_database/runs/20260724T132751Z/quest.db",
+  "metrics": {
+    "quest_rows": 8829,
+    "unique_quest_ids": 8828,
+    "text_rows": 8723,
+    "category_rows": 109,
+    "npc_rows": 7450,
+    "target_rows": 6000,
+    "item_rows": 47414,
+    "reward_rows": 6842,
+    "foreign_key_violations": 0
+  },
+  "samples": {
+    "1": [
+      {
+        "quest": {
+          "quest_id": 1,
+          "version_no": 1,
+          "conflict_flag": 0,
+          "quest_name": "【正传】寻仙道起始小桑村",
+          "category_id": 1181,
+          "max_level": 5,
+          "level_requirement": 1,
+          "accept_object_type": null,
+          "accept_object_id": null,
+          "submit_object_type": 3,
+          "submit_object_id": 5,
+          "next_quest_id": 2,
+          "tracking_target_id": null,
+          "raw_values_json": "[\"【正传】寻仙道起始小桑村\",\"1\",\"1181\",\"5\",\"1\",\"\",\"\",\"3\",\"5\",\"1\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"cp*100\",\"\",\"\",\"0\",\"2\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "source_file": "mb/quest/quest_info.txt",
+          "source_row": 2,
+          "raw_value": "【正传】寻仙道起始小桑村\t1\t1181\t5\t1\t\t\t3\t5\t1\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tcp*100\t\t\t0\t2\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+          "run_id": "20260724T132751Z",
+          "category_name": "任务关闭"
+        },
+        "texts": [
+          {
+            "source_row": 2,
+            "accept_dialogue": "",
+            "quest_description": "",
+            "hint_text": " ",
+            "progress_dialogue": "",
+            "completion_dialogue": "　　[眼前一亮]无量天尊，此地名唤小桑村，你乃何人？\\n　　[待你自报家门后，微微点头]<character:55>，贫道看你资质不错，日后必成大器，如今这小桑村出了一些棘手的事端，你能助贫道一臂之力否？",
+            "source_file": "mb/quest/quest_text.txt"
+          }
+        ],
+        "endpoints": [
+          {
+            "endpoint_kind": "submit",
+            "object_type_id": 3,
+            "object_id": 5,
+            "resolved": 1,
+            "source_column_type": 8,
+            "source_column_id": 9,
+            "display": "NPC · 5 · 戊阳子"
+          }
+        ],
+        "target": null,
+        "rewards": []
+      }
+    ],
+    "2": [
+      {
+        "quest": {
+          "quest_id": 2,
+          "version_no": 1,
+          "conflict_flag": 0,
+          "quest_name": "【正传】初入世道长小试",
+          "category_id": 1181,
+          "max_level": 5,
+          "level_requirement": 1,
+          "accept_object_type": 3,
+          "accept_object_id": 5,
+          "submit_object_type": 3,
+          "submit_object_id": 5,
+          "next_quest_id": 3,
+          "tracking_target_id": 2,
+          "raw_values_json": "[\"【正传】初入世道长小试\",\"2\",\"1181\",\"5\",\"1\",\"3\",\"5\",\"3\",\"5\",\"\",\"\",\"5\",\"1\",\"1\",\"1\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"3\",\"11\",\"5\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"2\",\"47862\",\"1\",\"2\",\"47863\",\"1\",\"2\",\"47864\",\"1\",\"2\",\"47865\",\"1\",\"20\",\"462\",\"1\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"cp*1800\",\"\",\"\",\"600\",\"3\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"2\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "source_file": "mb/quest/quest_info.txt",
+          "source_row": 3,
+          "raw_value": "【正传】初入世道长小试\t2\t1181\t5\t1\t3\t5\t3\t5\t\t\t5\t1\t1\t1\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t3\t11\t5\t\t\t\t\t\t\t\t\t\t2\t47862\t1\t2\t47863\t1\t2\t47864\t1\t2\t47865\t1\t20\t462\t1\t\t\t\t\t\t\t\t\t\tcp*1800\t\t\t600\t3\t\t\t\t\t\t\t\t\t\t2\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+          "run_id": "20260724T132751Z",
+          "category_name": "任务关闭"
+        },
+        "texts": [
+          {
+            "source_row": 3,
+            "accept_dialogue": "　　贫道乃是三清派宁阳观的道人。\\n　　几日前，小桑村百姓入我山门，说村中出了档怪事——此事说来话长，且不忙讲，你身负神功，便让贫道看看你的本事吧。\\n　　适才我派弟子打探，发现一伙豺狗来到小桑村周围，不赶走这些畜生，恐伤着村中百姓。你可愿意前去消灭豺狗吗？",
+            "quest_description": "　　仙途初始风波起，道影妖踪平地生。世间苍茫，少不得许多奇事异闻。话说这宁海县境内的小桑村，突生离奇怪病。不得已请来三清派戊阳子道长，前来看个究竟。（小桑村翻开了崭新的一页，此前种种将成为您修仙途中的一座里程碑。现在您可返回小桑村寻找戊阳子道长接取全新的新手任务，重温曾经相似而又不同的寻仙。）",
+            "hint_text": "<item:（提示：小桑村翻开了崭新的一页，此前种种将成为您修仙途中的一座里程碑。请您删除此任务，并向小桑村的戊阳子道长重新接取任务，来体验一个不同的寻仙。）>",
+            "progress_dialogue": "　　不赶走这些豺狗，恐伤着村中百姓。你可愿意前去消灭豺狗吗？",
+            "completion_dialogue": "　　好！贫道果然没有看走眼！你若能潜心修炼，日后即使面对天劫，想必也能渡劫成功啊！",
+            "source_file": "mb/quest/quest_text.txt"
+          }
+        ],
+        "endpoints": [
+          {
+            "endpoint_kind": "accept",
+            "object_type_id": 3,
+            "object_id": 5,
+            "resolved": 1,
+            "source_column_type": 6,
+            "source_column_id": 7,
+            "display": "NPC · 5 · 戊阳子"
+          },
+          {
+            "endpoint_kind": "submit",
+            "object_type_id": 3,
+            "object_id": 5,
+            "resolved": 1,
+            "source_column_type": 8,
+            "source_column_id": 9,
+            "display": "NPC · 5 · 戊阳子"
+          }
+        ],
+        "target": {
+          "target_id": 2,
+          "target_name": "戊阳子",
+          "area_name": "小桑村",
+          "resource_key": "nhx_xsc_sqpwuyangzi",
+          "source_file": "mb/quest/quest_target.txt",
+          "source_row": 3
+        },
+        "rewards": [
+          {
+            "reward_group": "fixed",
+            "slot_no": 1,
+            "object_type_id": 2,
+            "object_id": 47862,
+            "amount": 1,
+            "item_resolved": 1,
+            "display": "道具 · 47862 · 简陋长裤"
+          },
+          {
+            "reward_group": "fixed",
+            "slot_no": 2,
+            "object_type_id": 2,
+            "object_id": 47863,
+            "amount": 1,
+            "item_resolved": 1,
+            "display": "道具 · 47863 · 结实长裤"
+          },
+          {
+            "reward_group": "fixed",
+            "slot_no": 3,
+            "object_type_id": 2,
+            "object_id": 47864,
+            "amount": 1,
+            "item_resolved": 1,
+            "display": "道具 · 47864 · 方便长裤"
+          },
+          {
+            "reward_group": "fixed",
+            "slot_no": 4,
+            "object_type_id": 2,
+            "object_id": 47865,
+            "amount": 1,
+            "item_resolved": 1,
+            "display": "道具 · 47865 · 好用长裤"
+          },
+          {
+            "reward_group": "general",
+            "slot_no": 1,
+            "object_type_id": 20,
+            "object_id": 462,
+            "amount": 1,
+            "item_resolved": 0,
+            "display": "状态 · 462"
+          }
+        ]
+      }
+    ],
+    "1694": [
+      {
+        "quest": {
+          "quest_id": 1694,
+          "version_no": 1,
+          "conflict_flag": 0,
+          "quest_name": "【正传】万事结却有忧虑在",
+          "category_id": 1000,
+          "max_level": null,
+          "level_requirement": 75,
+          "accept_object_type": 3,
+          "accept_object_id": 6609,
+          "submit_object_type": 3,
+          "submit_object_id": 6609,
+          "next_quest_id": null,
+          "tracking_target_id": 2090,
+          "raw_values_json": "[\"【正传】万事结却有忧虑在\",\"1694\",\"1000\",\"\",\"75\",\"3\",\"6609\",\"3\",\"6609\",\"\",\"\",\"5\",\"1693\",\"1\",\"1\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"6\",\"1\",\"81\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"2\",\"9376\",\"2\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"cp*655550\",\"\",\"\",\"3306\",\"\",\"0\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"2090\",\"\",\"\",\"\",\"\",\"1\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "source_file": "mb/quest/quest_info.txt",
+          "source_row": 1680,
+          "raw_value": "【正传】万事结却有忧虑在\t1694\t1000\t\t75\t3\t6609\t3\t6609\t\t\t5\t1693\t1\t1\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t6\t1\t81\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t2\t9376\t2\t\t\t\t\t\t\t\t\t\tcp*655550\t\t\t3306\t\t0\t\t\t\t\t\t\t\t\t2090\t\t\t\t\t1\t\t\t\t\t\t\t\t\t\t\t",
+          "run_id": "20260724T132751Z",
+          "category_name": "【正传】"
+        },
+        "texts": [
+          {
+            "source_row": 1685,
+            "accept_dialogue": "　　道友前来一定是受了断水之托吧？贫道已经年迈，不如那些后辈有精神，万事由他们做主。至于断水所言的那种感觉，贫道身上也出现过，依照贫道对暮蝉的了解，恐怕这事不会就如此简单。不过道友十方之内表现的勇猛、机智，果然是修道的不世之才——是我道派的福分啊！",
+            "quest_description": "　　古松居士笑成年迈，要将天下交给后辈，同时道出了心中不安，按他对暮蝉的认识，事情并不会这么容易就解决，不过还是对你的功劳给予了肯定。",
+            "hint_text": "　　与<target:2090>对话了解他对十方的看法。<item:（提示：进入东山岛后，点击带有下划线的文字便可以出现寻路路线。）>",
+            "progress_dialogue": "",
+            "completion_dialogue": "　　贫道感觉，一切都不会如此简单的！",
+            "source_file": "mb/quest/quest_text.txt"
+          }
+        ],
+        "endpoints": [
+          {
+            "endpoint_kind": "accept",
+            "object_type_id": 3,
+            "object_id": 6609,
+            "resolved": 1,
+            "source_column_type": 6,
+            "source_column_id": 7,
+            "display": "NPC · 6609 · 古松居士"
+          },
+          {
+            "endpoint_kind": "submit",
+            "object_type_id": 3,
+            "object_id": 6609,
+            "resolved": 1,
+            "source_column_type": 8,
+            "source_column_id": 9,
+            "display": "NPC · 6609 · 古松居士"
+          }
+        ],
+        "target": {
+          "target_id": 2090,
+          "target_name": "古松居士",
+          "area_name": "求仙镇",
+          "resource_key": "nhx_dshd_shxw_gusongjushi",
+          "source_file": "mb/quest/quest_target.txt",
+          "source_row": 2091
+        },
+        "rewards": [
+          {
+            "reward_group": "general",
+            "slot_no": 1,
+            "object_type_id": 2,
+            "object_id": 9376,
+            "amount": 2,
+            "item_resolved": 1,
+            "display": "道具 · 9376 · 智慧仙丹（4000万经验）"
+          }
+        ]
+      }
+    ],
+    "7304": [
+      {
+        "quest": {
+          "quest_id": 7304,
+          "version_no": 1,
+          "conflict_flag": 0,
+          "quest_name": "女儿国主公遭难",
+          "category_id": 299,
+          "max_level": null,
+          "level_requirement": 100,
+          "accept_object_type": 3,
+          "accept_object_id": 1949,
+          "submit_object_type": 3,
+          "submit_object_id": 1949,
+          "next_quest_id": 7305,
+          "tracking_target_id": 5380,
+          "raw_values_json": "[\"女儿国主公遭难\",\"7304\",\"299\",\"\",\"100\",\"3\",\"1949\",\"3\",\"1949\",\"100\",\"\",\"5\",\"7303\",\"1\",\"1\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"13\",\"1063\",\"1\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"2\",\"1574\",\"2\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"cp*2500000\",\"\",\"\",\"230000\",\"7305\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"5380\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "source_file": "mb/quest/quest_info.txt",
+          "source_row": 4955,
+          "raw_value": "女儿国主公遭难\t7304\t299\t\t100\t3\t1949\t3\t1949\t100\t\t5\t7303\t1\t1\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t13\t1063\t1\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t2\t1574\t2\t\t\t\t\t\t\t\t\t\tcp*2500000\t\t\t230000\t7305\t\t\t\t\t\t\t\t\t\t5380\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+          "run_id": "20260724T132751Z",
+          "category_name": "五岳山麓支线"
+        },
+        "texts": [
+          {
+            "source_row": 4904,
+            "accept_dialogue": "　　[焦急地拉着仙友，仿佛有什么迫切要对仙友说]我怕来到这里语言不通，便把我的故事画了下来。[只见她迅速拿出了一份手札]",
+            "quest_description": "　　阿卓确定仙友的身份后，大为激动，对仙友诉说起了她的故事。",
+            "hint_text": "　　听<target:5380>的故事。<item:（提示：点击带有下划线的文字便可以出现寻路路线。）>",
+            "progress_dialogue": "　　我必须要早些回到女儿国。",
+            "completion_dialogue": "　　[仙友终是抵不住阿卓可怜祈求的眼神，欣然应允，阿卓高兴地转起了圈]太好了！我们现在就出发吧！",
+            "source_file": "mb/quest/quest_text.txt"
+          }
+        ],
+        "endpoints": [
+          {
+            "endpoint_kind": "accept",
+            "object_type_id": 3,
+            "object_id": 1949,
+            "resolved": 1,
+            "source_column_type": 6,
+            "source_column_id": 7,
+            "display": "NPC · 1949 · 阿卓"
+          },
+          {
+            "endpoint_kind": "submit",
+            "object_type_id": 3,
+            "object_id": 1949,
+            "resolved": 1,
+            "source_column_type": 8,
+            "source_column_id": 9,
+            "display": "NPC · 1949 · 阿卓"
+          }
+        ],
+        "target": {
+          "target_id": 5380,
+          "target_name": "阿卓",
+          "area_name": "山海县",
+          "resource_key": "wyshl_shhx_azh",
+          "source_file": "mb/quest/quest_target.txt",
+          "source_row": 4264
+        },
+        "rewards": [
+          {
+            "reward_group": "general",
+            "slot_no": 1,
+            "object_type_id": 2,
+            "object_id": 1574,
+            "amount": 2,
+            "item_resolved": 1,
+            "display": "道具 · 1574 · 理气灵药"
+          }
+        ]
+      }
+    ],
+    "11257": [
+      {
+        "quest": {
+          "quest_id": 11257,
+          "version_no": 1,
+          "conflict_flag": 1,
+          "quest_name": "孟浪多疑10",
+          "category_id": 1181,
+          "max_level": 5,
+          "level_requirement": 99,
+          "accept_object_type": 3,
+          "accept_object_id": null,
+          "submit_object_type": 3,
+          "submit_object_id": null,
+          "next_quest_id": null,
+          "tracking_target_id": null,
+          "raw_values_json": "[\"孟浪多疑10\",\"11257\",\"1181\",\"5\",\"99\",\"3\",\"\",\"3\",\"\",\"99\",\"\",\"5\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"0\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "source_file": "mb/quest/quest_info.txt",
+          "source_row": 6211,
+          "raw_value": "孟浪多疑10\t11257\t1181\t5\t99\t3\t\t3\t\t99\t\t5\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t0\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+          "run_id": "20260724T132751Z",
+          "category_name": "任务关闭"
+        },
+        "texts": [
+          {
+            "source_row": 6180,
+            "accept_dialogue": "",
+            "quest_description": "",
+            "hint_text": "",
+            "progress_dialogue": "",
+            "completion_dialogue": "",
+            "source_file": "mb/quest/quest_text.txt"
+          }
+        ],
+        "endpoints": [],
+        "target": null,
+        "rewards": []
+      },
+      {
+        "quest": {
+          "quest_id": 11257,
+          "version_no": 2,
+          "conflict_flag": 1,
+          "quest_name": "孟浪多疑11",
+          "category_id": 1181,
+          "max_level": 5,
+          "level_requirement": 99,
+          "accept_object_type": 3,
+          "accept_object_id": null,
+          "submit_object_type": 3,
+          "submit_object_id": null,
+          "next_quest_id": null,
+          "tracking_target_id": null,
+          "raw_values_json": "[\"孟浪多疑11\",\"11257\",\"1181\",\"5\",\"99\",\"3\",\"\",\"3\",\"\",\"99\",\"\",\"5\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"0\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "source_file": "mb/quest/quest_info.txt",
+          "source_row": 6212,
+          "raw_value": "孟浪多疑11\t11257\t1181\t5\t99\t3\t\t3\t\t99\t\t5\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t0\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+          "run_id": "20260724T132751Z",
+          "category_name": "任务关闭"
+        },
+        "texts": [
+          {
+            "source_row": 6180,
+            "accept_dialogue": "",
+            "quest_description": "",
+            "hint_text": "",
+            "progress_dialogue": "",
+            "completion_dialogue": "",
+            "source_file": "mb/quest/quest_text.txt"
+          }
+        ],
+        "endpoints": [],
+        "target": null,
+        "rewards": []
+      }
+    ]
+  }
+}

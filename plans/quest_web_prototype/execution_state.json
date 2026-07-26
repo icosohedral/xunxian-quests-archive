@@ -1,0 +1,48 @@
+{
+  "plan_id": "quest-web-prototype-vibecoding",
+  "version": 1,
+  "updated_at": "2026-07-25T08:32:42Z",
+  "active_task": "WEB10",
+  "latest_changes": [
+    "Frontend quest IDs removed; IDs remain internal for database joins.",
+    "Quest search now matches names only.",
+    "Category facets ordered by task count descending.",
+    "Area facets ordered by minimum quest level ascending."
+  ],
+  "tasks": {
+    "WEB01": {"status": "completed"},
+    "WEB02": {"status": "completed"},
+    "WEB03": {"status": "completed"},
+    "WEB04": {"status": "completed"},
+    "G-WEB-01": {
+      "status": "completed",
+      "decision": "approved",
+      "evidence": "approvals/G-WEB-01.md"
+    },
+    "WEB05": {"status": "completed"},
+    "WEB06": {"status": "completed"},
+    "WEB07": {"status": "completed"},
+    "WEB08": {"status": "completed"},
+    "WEB09": {"status": "completed"},
+    "WEB10": {
+      "status": "in_progress",
+      "issues": ["390x844 browser screenshot pending"]
+    },
+    "WEB11": {
+      "status": "in_progress",
+      "evidence": [
+        "../../apps/quest_viewer/reports/browser_qa.md",
+        "../../apps/quest_viewer/reports/desktop-task-90.png",
+        "../../apps/quest_viewer/reports/desktop-11257.png"
+      ]
+    },
+    "G-WEB-02": {"status": "pending"},
+    "WEB12": {
+      "status": "pending",
+      "outputs_prepared": [
+        "../../apps/quest_viewer/README.md",
+        "../../apps/quest_viewer/start.sh"
+      ]
+    }
+  }
+}

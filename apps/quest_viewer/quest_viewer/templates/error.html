@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>数据库不可用 · 寻仙任务卷宗台</title>
+  <link rel="icon" href="{{ url_for('static', path='/favicon.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+</head>
+<body class="error-page">
+  <main class="error-card">
+    <span aria-hidden="true">断</span>
+    <h1>任务数据库暂时不可用</h1>
+    <p>{{ message }}</p>
+    <p>请检查 <code>QUEST_DB_PATH</code> 是否指向有效的发布版 <code>quest.db</code>。</p>
+    <a class="primary-button" href="/">重新检查</a>
+  </main>
+</body>
+</html>

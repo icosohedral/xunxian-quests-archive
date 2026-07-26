@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "xunxian-quest-archive",
+  "main": "src/entry.py",
+  "compatibility_date": "2026-07-25",
+  "compatibility_flags": ["python_workers"],
+  "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "quests.xunxian.wiki",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "public",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "QUEST_DB",
+      "database_name": "xunxian-quest-archive",
+      "database_id": "834bf339-c727-45fb-afea-fbff74972b23"
+    },
+    {
+      "binding": "VISITS_DB",
+      "database_name": "xunxian-visits",
+      "database_id": "c916e43e-4e69-4a1e-8c67-a23ebd1a5896"
+    }
+  ]
+}

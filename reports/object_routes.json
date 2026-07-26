@@ -1,0 +1,225 @@
+{
+  "run_id": "20260724T132751Z",
+  "counts": {
+    "object_type": 39,
+    "quest_item_source": 2784,
+    "quest_item": 2782,
+    "quest_event": 1920,
+    "quest_attribute": 11,
+    "quest_camp": 24
+  },
+  "required_routes": {
+    "2": "quest_item",
+    "3": "quest_npc",
+    "5": "quest_identity",
+    "6": "quest_attribute",
+    "13": "quest_event",
+    "15": "quest_camp"
+  },
+  "required_routes_ok": true,
+  "unknown_route_types": [
+    {
+      "object_type_id": 4,
+      "object_type_name": "计时器",
+      "index_no": 1
+    },
+    {
+      "object_type_id": 7,
+      "object_type_name": "个人Bit标志位",
+      "index_no": 142
+    },
+    {
+      "object_type_id": 8,
+      "object_type_name": "个人QBit标志位",
+      "index_no": 143
+    },
+    {
+      "object_type_id": 9,
+      "object_type_name": "个人Byte标志位",
+      "index_no": 144
+    },
+    {
+      "object_type_id": 10,
+      "object_type_name": "个人Word标志位",
+      "index_no": 145
+    },
+    {
+      "object_type_id": 11,
+      "object_type_name": "个人DWord标志位",
+      "index_no": 146
+    },
+    {
+      "object_type_id": 12,
+      "object_type_name": "个人DWord临时",
+      "index_no": 150
+    },
+    {
+      "object_type_id": 14,
+      "object_type_name": "建筑",
+      "index_no": 104
+    },
+    {
+      "object_type_id": 16,
+      "object_type_name": "风物志",
+      "index_no": 250
+    },
+    {
+      "object_type_id": 17,
+      "object_type_name": "生活职业",
+      "index_no": 61
+    },
+    {
+      "object_type_id": 18,
+      "object_type_name": "生活技能",
+      "index_no": 63
+    },
+    {
+      "object_type_id": 19,
+      "object_type_name": "冷却时间",
+      "index_no": 1
+    },
+    {
+      "object_type_id": 20,
+      "object_type_name": "状态",
+      "index_no": 205
+    },
+    {
+      "object_type_id": 21,
+      "object_type_name": "称号ID",
+      "index_no": 265
+    },
+    {
+      "object_type_id": 22,
+      "object_type_name": "称号组",
+      "index_no": 266
+    },
+    {
+      "object_type_id": 23,
+      "object_type_name": "阵营好感级别",
+      "index_no": 270
+    },
+    {
+      "object_type_id": 24,
+      "object_type_name": "门派发展度",
+      "index_no": 1
+    },
+    {
+      "object_type_id": 25,
+      "object_type_name": "门派贡献",
+      "index_no": 1
+    },
+    {
+      "object_type_id": 26,
+      "object_type_name": "积分商城推荐",
+      "index_no": 1
+    },
+    {
+      "object_type_id": 27,
+      "object_type_name": "战绩",
+      "index_no": 1
+    },
+    {
+      "object_type_id": 28,
+      "object_type_name": "师徒状态",
+      "index_no": 1
+    },
+    {
+      "object_type_id": 29,
+      "object_type_name": "总战绩",
+      "index_no": 1
+    },
+    {
+      "object_type_id": 30,
+      "object_type_name": "未定义对象类型30",
+      "index_no": null
+    },
+    {
+      "object_type_id": 31,
+      "object_type_name": "队长",
+      "index_no": 1
+    },
+    {
+      "object_type_id": 32,
+      "object_type_name": "道具拓展",
+      "index_no": 1972
+    },
+    {
+      "object_type_id": 33,
+      "object_type_name": "NPC拓展",
+      "index_no": 104
+    },
+    {
+      "object_type_id": 34,
+      "object_type_name": "事件拓展",
+      "index_no": 1971
+    },
+    {
+      "object_type_id": 35,
+      "object_type_name": "多组前提",
+      "index_no": 1973
+    },
+    {
+      "object_type_id": 36,
+      "object_type_name": "任务要求完成情况",
+      "index_no": 1973
+    },
+    {
+      "object_type_id": 10028,
+      "object_type_name": "未定义对象类型10028",
+      "index_no": null
+    },
+    {
+      "object_type_id": 10112,
+      "object_type_name": "未定义对象类型10112",
+      "index_no": null
+    },
+    {
+      "object_type_id": 24542,
+      "object_type_name": "未定义对象类型24542",
+      "index_no": null
+    }
+  ],
+  "undefined_referenced_types": [
+    30,
+    10028,
+    10112,
+    24542
+  ],
+  "source_conflicts": [
+    {
+      "table": "quest_item",
+      "id": 14961,
+      "versions": [
+        {
+          "version_no": 1,
+          "source_row": 2073,
+          "name": "跨区副本奖励任务（50令牌残片）"
+        },
+        {
+          "version_no": 2,
+          "source_row": 2074,
+          "name": "跨区副本奖励任务（100令牌残片）"
+        }
+      ],
+      "strategy": "first_source_is_canonical_all_versions_preserved"
+    },
+    {
+      "table": "quest_item",
+      "id": 14962,
+      "versions": [
+        {
+          "version_no": 1,
+          "source_row": 2075,
+          "name": "跨区副本奖励任务（2令牌）"
+        },
+        {
+          "version_no": 2,
+          "source_row": 2076,
+          "name": "跨区副本奖励任务（5令牌）"
+        }
+      ],
+      "strategy": "first_source_is_canonical_all_versions_preserved"
+    }
+  ],
+  "foreign_key_violations": 0
+}

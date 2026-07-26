@@ -1,0 +1,46 @@
+{
+  "run_id": "20260724T132751Z",
+  "unresolved_reference_rows": 673,
+  "references_by_object_type": {
+    "7": 37,
+    "8": 112,
+    "9": 329,
+    "10": 76,
+    "11": 95,
+    "12": 24
+  },
+  "dependencies": [
+    {
+      "object_type": 7,
+      "expected_path": "mb/server/flag_bit_player.txt",
+      "status": "missing"
+    },
+    {
+      "object_type": 8,
+      "expected_path": "mb/server/flag_qbit_player.txt",
+      "status": "missing"
+    },
+    {
+      "object_type": 9,
+      "expected_path": "mb/server/flag_byte_player.txt",
+      "status": "missing"
+    },
+    {
+      "object_type": 10,
+      "expected_path": "mb/server/flag_word_player.txt",
+      "status": "missing"
+    },
+    {
+      "object_type": 11,
+      "expected_path": "mb/server/flag_dword_player.txt",
+      "status": "missing"
+    },
+    {
+      "object_type": 12,
+      "expected_path": "mb/server/temp_dword_player.txt",
+      "status": "missing"
+    }
+  ],
+  "all_numeric_references_preserved": true,
+  "foreign_key_violations": 0
+}

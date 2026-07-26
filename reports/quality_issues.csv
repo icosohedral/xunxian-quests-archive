@@ -1,0 +1,8 @@
+﻿issue_id,severity,category,summary,status,action
+P1-RELATION-CYCLES,P1,任务关系,后续任务关系中发现54个环路,reported_not_modified,保留原始关系；不自动断环，供游戏逻辑核查
+P1-GROUP-ANOMALIES,P1,条件与目标,发现8个不完整或长度不一致对象组,raw_preserved,保留raw_group_json；不擅自补齐或确定AND/OR逻辑
+P1-TEXT-COVERAGE,P1,文本,157个任务缺文本，49个额外文本ID,accepted_preserved,保留缺失和孤立记录，不阻塞核心任务查询
+P1-NPC-MAPPING,P1,映射,NPC映射实际端缺7，任务端缺10,accepted_preserved,保留映射原始行和解析状态
+P1-UNDEFINED-TYPES,P1,对象类型,"未声明引用类型：[30, 10028, 10112, 24542]",accepted_preserved,使用占位类型，不赋予确定含义
+P1-FLAG-DEFINITIONS,P1,外部依赖,6个标志位定义文件缺失,external_blocker,数字引用已保存；补充资源后使用新run_id重建
+P2-SPECIAL-SEMANTICS,P2,特殊配置,部分特殊任务、任务池和脚本列缺少程序代码语义,raw_only,原始行已分类入库，不写入核心任务字段

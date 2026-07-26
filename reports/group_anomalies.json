@@ -1,0 +1,354 @@
+{
+  "run_id": "20260724T132751Z",
+  "counts": {
+    "precondition": 6920,
+    "objective": 7682,
+    "required_object": 1231,
+    "quest_precondition_group": 195
+  },
+  "roundtrip_mismatches": 0,
+  "type_35_36_references": [
+    {
+      "quest_id": 5095,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 2,
+      "object_type": 35,
+      "object_id": 788,
+      "source_row": 4546
+    },
+    {
+      "quest_id": 5106,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 329,
+      "source_row": 4552
+    },
+    {
+      "quest_id": 5109,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 330,
+      "source_row": 4555
+    },
+    {
+      "quest_id": 5110,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 331,
+      "source_row": 4556
+    },
+    {
+      "quest_id": 5111,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 332,
+      "source_row": 4557
+    },
+    {
+      "quest_id": 5123,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 333,
+      "source_row": 4569
+    },
+    {
+      "quest_id": 5124,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 340,
+      "source_row": 4570
+    },
+    {
+      "quest_id": 5126,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 341,
+      "source_row": 4572
+    },
+    {
+      "quest_id": 5175,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 334,
+      "source_row": 4621
+    },
+    {
+      "quest_id": 5176,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 335,
+      "source_row": 4622
+    },
+    {
+      "quest_id": 5189,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 336,
+      "source_row": 4635
+    },
+    {
+      "quest_id": 5190,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 337,
+      "source_row": 4636
+    },
+    {
+      "quest_id": 5202,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 2,
+      "object_type": 35,
+      "object_id": 780,
+      "source_row": 4648
+    },
+    {
+      "quest_id": 5214,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 338,
+      "source_row": 4660
+    },
+    {
+      "quest_id": 5215,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 338,
+      "source_row": 4661
+    },
+    {
+      "quest_id": 5216,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 2,
+      "object_type": 35,
+      "object_id": 339,
+      "source_row": 4662
+    },
+    {
+      "quest_id": 5220,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 338,
+      "source_row": 4666
+    },
+    {
+      "quest_id": 5221,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 2,
+      "object_type": 35,
+      "object_id": 338,
+      "source_row": 4667
+    },
+    {
+      "quest_id": 5236,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 344,
+      "source_row": 4682
+    },
+    {
+      "quest_id": 5239,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 36,
+      "object_id": 5223,
+      "source_row": 4685
+    },
+    {
+      "quest_id": 5240,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 36,
+      "object_id": 5224,
+      "source_row": 4686
+    },
+    {
+      "quest_id": 25437,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 6,
+      "source_row": 8725
+    },
+    {
+      "quest_id": 25438,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 7,
+      "source_row": 8726
+    },
+    {
+      "quest_id": 25439,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 8,
+      "source_row": 8727
+    },
+    {
+      "quest_id": 25475,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 6,
+      "source_row": 8763
+    },
+    {
+      "quest_id": 25476,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 7,
+      "source_row": 8764
+    },
+    {
+      "quest_id": 25477,
+      "version_no": 1,
+      "kind": "precondition",
+      "slot_no": 1,
+      "object_type": 35,
+      "object_id": 8,
+      "source_row": 8765
+    }
+  ],
+  "anomaly_count": 8,
+  "anomalies": [
+    {
+      "kind": "unparseable_condition_group",
+      "quest_id": 25100,
+      "version_no": 1,
+      "slot_no": 1,
+      "raw_group": [
+        "",
+        "",
+        "1",
+        "1"
+      ]
+    },
+    {
+      "kind": "unparseable_condition_group",
+      "quest_id": 25101,
+      "version_no": 1,
+      "slot_no": 1,
+      "raw_group": [
+        "",
+        "",
+        "1",
+        "1"
+      ]
+    },
+    {
+      "kind": "unparseable_condition_group",
+      "quest_id": 25102,
+      "version_no": 1,
+      "slot_no": 1,
+      "raw_group": [
+        "",
+        "",
+        "1",
+        "1"
+      ]
+    },
+    {
+      "kind": "unparseable_condition_group",
+      "quest_id": 25103,
+      "version_no": 1,
+      "slot_no": 1,
+      "raw_group": [
+        "",
+        "",
+        "1",
+        "1"
+      ]
+    },
+    {
+      "kind": "unparseable_condition_group",
+      "quest_id": 25104,
+      "version_no": 1,
+      "slot_no": 1,
+      "raw_group": [
+        "",
+        "",
+        "1",
+        "1"
+      ]
+    },
+    {
+      "kind": "unparseable_condition_group",
+      "quest_id": 25105,
+      "version_no": 1,
+      "slot_no": 1,
+      "raw_group": [
+        "",
+        "",
+        "1",
+        "1"
+      ]
+    },
+    {
+      "kind": "precondition_group_length_mismatch",
+      "group_id": 335,
+      "lengths": [
+        3,
+        3,
+        4,
+        4
+      ],
+      "source_row": 17
+    },
+    {
+      "kind": "precondition_group_length_mismatch",
+      "group_id": 765,
+      "lengths": [
+        1,
+        2,
+        2,
+        2
+      ],
+      "source_row": 147
+    }
+  ],
+  "logic_operator_policy": "unknown_preserved_in_raw; no AND/OR inference",
+  "foreign_key_violations": 0
+}

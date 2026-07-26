@@ -1,0 +1,16 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>任务数据库质量报告</title><style>
+body{margin:0;background:#f5f7f8;color:#1f2a33;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif}
+header{background:#17324d;color:#fff;padding:38px 5vw} main{max-width:1180px;margin:auto;padding:28px 22px 60px}
+.status{display:inline-block;padding:6px 12px;border-radius:999px;background:#ddf2e2;color:#216e39;font-weight:700}
+section{background:#fff;border:1px solid #cad5dd;border-radius:10px;padding:20px;margin:18px 0}
+table{width:100%;border-collapse:collapse} th,td{text-align:left;vertical-align:top;padding:9px;border-bottom:1px solid #cad5dd}
+th{background:#eaf3f8;color:#17324d} .ok{color:#216e39;font-weight:700} .bad{color:#a12622;font-weight:700}
+pre{white-space:pre-wrap;margin:0;font:inherit}</style></head>
+<body><header><h1>任务数据库质量报告</h1><p>运行 20260724T132751Z</p></header>
+<main><div class="status">所有P0检查通过</div>
+<section><h2>P0 自动检查</h2><table><thead><tr><th>ID</th><th>级别</th><th>检查</th><th>状态</th><th>详情</th></tr></thead>
+<tbody><tr><td>P0-01</td><td>P0</td><td>核心数据库校验</td><td class='ok'>通过</td><td><pre>[]</pre></td></tr><tr><td>P0-02</td><td>P0</td><td>后续任务引用完整</td><td class='ok'>通过</td><td><pre>[]</pre></td></tr><tr><td>P0-03</td><td>P0</td><td>任务对象引用完整</td><td class='ok'>通过</td><td><pre>[]</pre></td></tr><tr><td>P0-04</td><td>P0</td><td>对象组可往返重组</td><td class='ok'>通过</td><td><pre>0</pre></td></tr><tr><td>P0-05</td><td>P0</td><td>寻路区域引用完整</td><td class='ok'>通过</td><td><pre>[]</pre></td></tr></tbody></table></section>
+<section><h2>已知 P1/P2 问题</h2><table><thead><tr><th>ID</th><th>级别</th><th>类别</th><th>摘要</th><th>状态</th><th>处置</th></tr></thead>
+<tbody><tr><td>P1-RELATION-CYCLES</td><td>P1</td><td>任务关系</td><td>后续任务关系中发现54个环路</td><td>reported_not_modified</td><td>保留原始关系；不自动断环，供游戏逻辑核查</td></tr><tr><td>P1-GROUP-ANOMALIES</td><td>P1</td><td>条件与目标</td><td>发现8个不完整或长度不一致对象组</td><td>raw_preserved</td><td>保留raw_group_json；不擅自补齐或确定AND/OR逻辑</td></tr><tr><td>P1-TEXT-COVERAGE</td><td>P1</td><td>文本</td><td>157个任务缺文本，49个额外文本ID</td><td>accepted_preserved</td><td>保留缺失和孤立记录，不阻塞核心任务查询</td></tr><tr><td>P1-NPC-MAPPING</td><td>P1</td><td>映射</td><td>NPC映射实际端缺7，任务端缺10</td><td>accepted_preserved</td><td>保留映射原始行和解析状态</td></tr><tr><td>P1-UNDEFINED-TYPES</td><td>P1</td><td>对象类型</td><td>未声明引用类型：[30, 10028, 10112, 24542]</td><td>accepted_preserved</td><td>使用占位类型，不赋予确定含义</td></tr><tr><td>P1-FLAG-DEFINITIONS</td><td>P1</td><td>外部依赖</td><td>6个标志位定义文件缺失</td><td>external_blocker</td><td>数字引用已保存；补充资源后使用新run_id重建</td></tr><tr><td>P2-SPECIAL-SEMANTICS</td><td>P2</td><td>特殊配置</td><td>部分特殊任务、任务池和脚本列缺少程序代码语义</td><td>raw_only</td><td>原始行已分类入库，不写入核心任务字段</td></tr></tbody></table></section></main></body></html>

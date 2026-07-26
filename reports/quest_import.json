@@ -1,0 +1,22 @@
+{
+  "run_id": "20260724T132751Z",
+  "source_file": "mb/quest/quest_info.txt",
+  "source_rows": 8829,
+  "quest_rows": 8829,
+  "unique_quest_ids": 8828,
+  "duplicate_quest_ids": [
+    {
+      "quest_id": 11257,
+      "version_count": 2,
+      "strategy": "preserve_all"
+    }
+  ],
+  "g01_strategy": {
+    "primary_key": [
+      "quest_id",
+      "version_no"
+    ],
+    "conflict_flag": true
+  },
+  "foreign_key_violations": 0
+}
