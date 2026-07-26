@@ -61,7 +61,13 @@ def test_default_page_renders_real_quest_90() -> None:
     assert "作者与维护者" in response.text
     assert "<h3>icosohedral</h3>" in response.text
     assert "<span>GitHub</span>" in response.text
-    assert "icosohedral/xunxian-quests-archive" in response.text
+    assert re.search(
+        r'<a class="about-credits__github"[^>]*>\s*'
+        r"<span>GitHub</span>\s*icosohedral\s*"
+        r'<span aria-hidden="true">↗</span>',
+        response.text,
+    )
+    assert ">icosohedral/xunxian-quests-archive" not in response.text
     assert "寻仙任务资料库的整理、维护与网站开发。" in response.text
     assert "特别鸣谢" in response.text
     assert "贴吧用户「耳目清净」" in response.text
