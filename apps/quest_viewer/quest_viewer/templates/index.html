@@ -306,7 +306,7 @@
           <div class="context-title">
             <h3>任务关系</h3>
           </div>
-          <div class="relation-graph" role="img" aria-label="当前任务的直接前后关系">
+          <div class="relation-graph" role="img" aria-label="任务之间的直接关系">
             {% set incoming_next = detail.relations.incoming|selectattr("relation_type", "equalto", "next")|list %}
             {% set outgoing_next = detail.relations.outgoing|selectattr("relation_type", "equalto", "next")|list %}
             {% set incoming_confirmed = detail.relations.incoming|selectattr("relation_type", "equalto", "completion_requirement")|list %}
@@ -318,21 +318,18 @@
             {% if incoming_context %}
               {% for relation in incoming_context %}
                 <a class="relation-node relation-node--muted" href="/?selected={{ relation.from_quest_id }}{% if preserved_query %}&{{ preserved_query }}{% endif %}"{% if relation.inference_basis %} title="{{ relation.inference_basis }}"{% endif %}>
-                  <span>{% if relation.relation_type == "version_update" %}版本衔接 · 前章{% elif relation.relation_type == "completion_requirement" %}明确衔接 · 前章{% else %}前序任务{% endif %}</span>
                   <strong>{{ relation.from_quest_name }}</strong>
                 </a>
               {% endfor %}
               <span class="relation-line" aria-hidden="true"></span>
             {% endif %}
             <div class="relation-node relation-node--current">
-              <span>当前任务</span>
               <strong>{{ detail.summary.quest_name }}</strong>
             </div>
             {% if outgoing_context %}
               <span class="relation-line" aria-hidden="true"></span>
               {% for relation in outgoing_context %}
                 <a class="relation-node" href="/?selected={{ relation.to_quest_id }}{% if preserved_query %}&{{ preserved_query }}{% endif %}"{% if relation.inference_basis %} title="{{ relation.inference_basis }}"{% endif %}>
-                  <span>{% if relation.relation_type == "version_update" %}版本衔接 · 后章{% elif relation.relation_type == "completion_requirement" %}明确衔接 · 后章{% else %}后续任务{% endif %}</span>
                   <strong>{{ relation.to_quest_name or "未找到任务" }}</strong>
                 </a>
               {% endfor %}
