@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .db import readonly_connection
+from .story_connections import story_context_relations
 
 
 SERIES_CATEGORIES = {
@@ -887,6 +888,9 @@ class QuestRepository:
                     (quest_id,),
                 )
             )
+            story_connections = story_context_relations(quest_id)
+            outgoing.extend(story_connections["outgoing"])
+            incoming.extend(story_connections["incoming"])
 
         return {
             "summary": summary,

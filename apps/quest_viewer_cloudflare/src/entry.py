@@ -18,6 +18,7 @@ from workers import WorkerEntrypoint
 from generated_facets import AREA_FILTER_MEMBERS, FACETS
 from generated_template import TEMPLATE_SOURCE
 from generated_version import SITE_VERSION
+from generated_story_connections import story_context_relations
 
 
 PAGE_SIZE = 5
@@ -169,7 +170,33 @@ async def _get_detail(database: Any, quest_id: int) -> dict[str, Any] | None:
         """
     ).bind(quest_id).run()
     rows = _result_rows(result)
-    return _decode_detail(rows[0]["detail_z"]) if rows else None
+    if not rows:
+        return None
+    detail = _decode_detail(rows[0]["detail_z"])
+    story_connections = story_context_relations(quest_id)
+    relations = detail.setdefault(
+        "relations", {"incoming": [], "outgoing": []}
+    )
+    for direction in ("incoming", "outgoing"):
+        existing = {
+            (
+                relation.get("from_quest_id"),
+                relation.get("to_quest_id"),
+                relation.get("relation_type"),
+            )
+            for relation in relations[direction]
+        }
+        relations[direction].extend(
+            relation
+            for relation in story_connections[direction]
+            if (
+                relation["from_quest_id"],
+                relation["to_quest_id"],
+                relation["relation_type"],
+            )
+            not in existing
+        )
+    return detail
 
 
 async def _visitor_count(database: Any) -> int:

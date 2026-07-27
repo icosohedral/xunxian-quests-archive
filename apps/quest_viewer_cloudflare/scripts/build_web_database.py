@@ -30,6 +30,9 @@ OUTPUT_SQL = OUTPUT_DIRECTORY / "quest_web.sql"
 GENERATED_TEMPLATE = WORKER_ROOT / "src" / "generated_template.py"
 GENERATED_FACETS = WORKER_ROOT / "src" / "generated_facets.py"
 GENERATED_VERSION = WORKER_ROOT / "src" / "generated_version.py"
+GENERATED_STORY_CONNECTIONS = (
+    WORKER_ROOT / "src" / "generated_story_connections.py"
+)
 VERSION_FILE = LOCAL_VIEWER_ROOT / "VERSION"
 
 sys.path.insert(0, str(LOCAL_VIEWER_ROOT))
@@ -162,6 +165,10 @@ def _write_generated_modules() -> None:
     GENERATED_VERSION.write_text(
         "SITE_VERSION = " + repr(site_version) + "\n",
         encoding="utf-8",
+    )
+    shutil.copyfile(
+        LOCAL_VIEWER_ROOT / "quest_viewer" / "story_connections.py",
+        GENERATED_STORY_CONNECTIONS,
     )
     facets = repository.facets()
     GENERATED_FACETS.write_text(

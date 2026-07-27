@@ -202,6 +202,37 @@ def test_context_task_links_preserve_search_results() -> None:
     assert f'data-preserved-query="{preserved}"' in response.text
 
 
+def test_story_context_renders_confirmed_completion_bridge() -> None:
+    outgoing = client.get("/?selected=1643")
+    incoming = client.get("/?selected=1645")
+    assert outgoing.status_code == 200
+    assert incoming.status_code == 200
+    assert "明确衔接 · 后章" in outgoing.text
+    assert 'href="/?selected=1645&page=1"' in outgoing.text
+    assert "天数变神鹿遭劫难" in outgoing.text
+    assert "明确衔接 · 前章" in incoming.text
+    assert 'href="/?selected=1643&page=1"' in incoming.text
+
+
+def test_story_context_renders_version_update_bridge() -> None:
+    outgoing = client.get("/?selected=1648")
+    incoming = client.get("/?selected=123")
+    assert outgoing.status_code == 200
+    assert incoming.status_code == 200
+    assert "版本衔接 · 后章" in outgoing.text
+    assert 'href="/?selected=123&page=1"' in outgoing.text
+    assert 'title="同一 NPC 与任务文本直接承接"' in outgoing.text
+    assert "版本衔接 · 前章" in incoming.text
+    assert 'href="/?selected=1648&page=1"' in incoming.text
+
+
+def test_story_context_renders_every_confirmed_branch() -> None:
+    response = client.get("/?selected=3869")
+    assert response.status_code == 200
+    for quest_id in (559, 3870, 3872, 3874, 3876):
+        assert f'href="/?selected={quest_id}&page=1"' in response.text
+
+
 def test_character_call_is_rendered_as_dynamic_player_address() -> None:
     response = client.get("/?selected=2911")
     assert response.status_code == 200

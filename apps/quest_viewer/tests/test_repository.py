@@ -7,6 +7,10 @@ import pytest
 from quest_viewer.config import load_settings
 from quest_viewer.db import connect_readonly, database_health
 from quest_viewer.repository import QuestRepository
+from quest_viewer.story_connections import (
+    CONFIRMED_COMPLETION_BRIDGES,
+    VERSION_UPDATE_BRIDGES,
+)
 from quest_viewer.tags import tokenize_text
 
 
@@ -539,3 +543,102 @@ def test_11257_is_losslessly_merged_for_display(
     assert detail["safe_display_merge"] is True
     assert detail["conflict_columns"] == []
     assert [item["source_row"] for item in detail["variants"]] == [6211, 6212]
+
+
+def test_confirmed_story_connections_match_completion_conditions() -> None:
+    settings = load_settings()
+    connection = connect_readonly(settings.database_path)
+    try:
+        rows = connection.execute(
+            """
+            WITH main AS (
+                SELECT *
+                FROM quest_full
+                WHERE category_id = 1000
+            )
+            SELECT old.quest_id,
+                   old.quest_name,
+                   new.quest_id,
+                   new.quest_name
+            FROM quest_condition AS condition
+            JOIN main AS old ON old.quest_id = condition.object_id
+            JOIN main AS new ON new.quest_id = condition.quest_id
+            WHERE condition.condition_kind = 'precondition'
+              AND condition.object_type_id = 5
+              AND condition.comparison_code = 1
+              AND condition.comparison_value = 1
+              AND COALESCE(old.next_quest_id, 0) = 0
+            GROUP BY old.quest_id, new.quest_id
+            """
+        ).fetchall()
+    finally:
+        connection.close()
+
+    database_bridges = {tuple(row) for row in rows}
+    configured_bridges = set(CONFIRMED_COMPLETION_BRIDGES)
+    assert len(configured_bridges) == 69
+    assert configured_bridges == database_bridges
+
+
+def test_story_context_includes_confirmed_and_version_update_bridges(
+    repository: QuestRepository,
+) -> None:
+    confirmed = repository.get(1643)
+    confirmed_target = repository.get(1645)
+    version_update = repository.get(1648)
+    version_target = repository.get(123)
+    assert confirmed is not None
+    assert confirmed_target is not None
+    assert version_update is not None
+    assert version_target is not None
+
+    confirmed_relation = next(
+        relation
+        for relation in confirmed["relations"]["outgoing"]
+        if relation["to_quest_id"] == 1645
+        and relation["relation_type"] == "completion_requirement"
+    )
+    assert confirmed_relation["inferred"] is False
+    assert confirmed_relation["confidence"] == "confirmed"
+    assert any(
+        relation["from_quest_id"] == 1643
+        and relation["relation_type"] == "completion_requirement"
+        for relation in confirmed_target["relations"]["incoming"]
+    )
+
+    version_relation = next(
+        relation
+        for relation in version_update["relations"]["outgoing"]
+        if relation["to_quest_id"] == 123
+        and relation["relation_type"] == "version_update"
+    )
+    assert version_relation["inferred"] is True
+    assert version_relation["confidence"] == "high"
+    assert any(
+        relation["from_quest_id"] == 1648
+        and relation["relation_type"] == "version_update"
+        for relation in version_target["relations"]["incoming"]
+    )
+    assert len(VERSION_UPDATE_BRIDGES) == 20
+
+
+def test_story_context_keeps_all_parallel_branches(
+    repository: QuestRepository,
+) -> None:
+    confirmed = repository.get(3869)
+    version_update = repository.get(3311)
+    assert confirmed is not None
+    assert version_update is not None
+
+    confirmed_targets = {
+        relation["to_quest_id"]
+        for relation in confirmed["relations"]["outgoing"]
+        if relation["relation_type"] == "completion_requirement"
+    }
+    version_targets = {
+        relation["to_quest_id"]
+        for relation in version_update["relations"]["outgoing"]
+        if relation["relation_type"] == "version_update"
+    }
+    assert confirmed_targets == {559, 3870, 3872, 3874, 3876}
+    assert version_targets == {3313, 3332}
