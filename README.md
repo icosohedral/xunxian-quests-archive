@@ -52,3 +52,13 @@
 ## 参与整理
 
 如果你发现任务名称、人物、地区、分类或任务关系存在错误，或者还记得某段值得补充的故事，欢迎通过 GitHub Issue 提交反馈。
+
+## 导出资源关系
+
+与道具、宠物和称号资料库交换数据时，不复制任务数据库。使用发布数据库生成轻量 JSON：
+
+```bash
+uv run python scripts/export_resource_links.py
+```
+
+默认产物位于 `outputs/resource_exchange/quest_resource_links.json`，只包含任务 ID、资源复合身份、关系语义和来源证据。
