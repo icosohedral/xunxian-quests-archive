@@ -120,7 +120,7 @@
 
       <div class="result-heading" id="search-result-heading">
         <span>检索结果</span>
-        <small id="search-result-summary">{{ search.total }} 条 · 第 {{ search.page }}/{{ search.page_count }} 页</small>
+        <small id="search-result-summary">{{ search.total }} 条{% if search.search_active %} · 总经验 {{ search.total_experience|compact_number }}{% endif %} · 第 {{ search.page }}/{{ search.page_count }} 页</small>
       </div>
 
       <div class="quest-list" id="search-result-list" aria-live="polite">

@@ -36,6 +36,13 @@ def compact_number(value: int | float | str | None) -> str:
         return "0"
     number = int(value)
     absolute = abs(number)
+    if absolute >= 1_000_000_000_000:
+        rounded_tenths = (
+            absolute + 50_000_000_000
+        ) // 100_000_000_000
+        whole, decimal = divmod(rounded_tenths, 10)
+        display = f"{whole}.{decimal}" if decimal else str(whole)
+        return f"{'-' if number < 0 else ''}{display}万亿"
     if absolute >= 100_000_000:
         rounded = (absolute + 50_000_000) // 100_000_000
         return f"{'-' if number < 0 else ''}{rounded}亿"

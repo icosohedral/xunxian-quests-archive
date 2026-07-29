@@ -31,6 +31,13 @@ def compact_number(value: int | float | str | None) -> str:
         return "0"
     number = int(value)
     absolute = abs(number)
+    if absolute >= 1_000_000_000_000:
+        rounded_tenths = (
+            absolute + 50_000_000_000
+        ) // 100_000_000_000
+        whole, decimal = divmod(rounded_tenths, 10)
+        display = f"{whole}.{decimal}" if decimal else str(whole)
+        return f"{'-' if number < 0 else ''}{display}万亿"
     if absolute >= 100_000_000:
         rounded = (absolute + 50_000_000) // 100_000_000
         return f"{'-' if number < 0 else ''}{rounded}亿"
@@ -114,15 +121,24 @@ async def _search(
     if subcategory:
         conditions.append("COALESCE(sub_category_name, '') = ?")
         parameters.append(subcategory)
+    search_active = any((q, npc, area, category, subcategory))
     where_sql = " AND ".join(conditions)
 
     count_statement = database.prepare(
-        f"SELECT COUNT(*) AS total FROM web_quest WHERE {where_sql}"
+        f"""
+        SELECT COUNT(*) AS total,
+               COALESCE(SUM(experience_reward), 0) AS total_experience
+        FROM web_quest
+        WHERE {where_sql}
+        """
     )
     if parameters:
         count_statement = count_statement.bind(*parameters)
     count_rows = _result_rows(await count_statement.run())
     total = int(count_rows[0]["total"]) if count_rows else 0
+    total_experience = (
+        int(count_rows[0]["total_experience"]) if count_rows else 0
+    )
 
     page_count = max(1, math.ceil(total / PAGE_SIZE))
     window_start_page = max(1, page - window)
@@ -154,6 +170,8 @@ async def _search(
     return {
         "items": prefetched_pages.get(str(page), []),
         "total": total,
+        "total_experience": total_experience,
+        "search_active": search_active,
         "page": page,
         "page_size": PAGE_SIZE,
         "page_count": page_count,

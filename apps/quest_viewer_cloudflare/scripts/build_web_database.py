@@ -55,6 +55,14 @@ def _build_one(quest_id: int) -> tuple[int, str, str]:
     if not detail:
         raise RuntimeError(f"任务 {quest_id} 无法读取")
     summary = detail["summary"]
+    experience_reward = next(
+        (
+            int(reward["amount"])
+            for reward in detail.get("rewards", [])
+            if reward.get("object_type_name") == "经验值"
+        ),
+        0,
+    )
     search_summary = {
         "quest_id": quest_id,
         "version_no": detail["primary"]["version_no"],
@@ -73,6 +81,7 @@ def _build_one(quest_id: int) -> tuple[int, str, str]:
         "text_row_count": summary.get("text_row_count", 0),
         "objective_count": summary.get("objective_count", 0),
         "reward_count": summary.get("reward_count", 0),
+        "experience_reward": experience_reward,
         "source_variant_count": len(detail.get("variants", [])),
     }
     return (
@@ -125,6 +134,7 @@ def _create_output_database() -> sqlite3.Connection:
             main_category_name TEXT,
             sub_category_name TEXT,
             level_requirement INTEGER,
+            experience_reward INTEGER NOT NULL DEFAULT 0,
             summary_json TEXT NOT NULL,
             detail_z TEXT NOT NULL
         );
@@ -211,8 +221,8 @@ def build(limit: int | None, processes: int) -> None:
         INSERT INTO web_quest (
             quest_id, quest_name, npc_search_text,
             root_area_name, main_category_name, sub_category_name,
-            level_requirement, summary_json, detail_z
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            level_requirement, experience_reward, summary_json, detail_z
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """
 
     if processes == 1:
@@ -236,6 +246,7 @@ def build(limit: int | None, processes: int) -> None:
                     summary.get("main_category_name"),
                     summary.get("sub_category_name"),
                     summary.get("level_requirement"),
+                    summary.get("experience_reward", 0),
                     summary_json,
                     detail_z,
                 ),

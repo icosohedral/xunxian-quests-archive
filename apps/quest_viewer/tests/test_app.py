@@ -6,7 +6,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-from quest_viewer.app import app, visitor_counter
+from quest_viewer.app import app, compact_number, visitor_counter
 
 
 visitor_test_directory = tempfile.TemporaryDirectory()
@@ -17,6 +17,14 @@ site_version = (
     Path(__file__).resolve().parents[1] / "VERSION"
 ).read_text(encoding="utf-8").strip()
 client = TestClient(app)
+
+
+def test_compact_number_uses_wan_yi_for_trillion_values() -> None:
+    assert compact_number(1_000_000_000_000) == "1万亿"
+    assert compact_number(1_200_000_000_000) == "1.2万亿"
+    assert compact_number(1_260_000_000_000) == "1.3万亿"
+    assert compact_number(-1_200_000_000_000) == "-1.2万亿"
+    assert compact_number(600_000_000_000) == "6000亿"
 
 
 def test_health_endpoint() -> None:
@@ -116,6 +124,7 @@ def test_default_page_renders_real_quest_90() -> None:
     assert "任务 ID 或名称" not in response.text
     assert response.text.count('class="quest-card ') == 5
     assert "1 / 1766" in response.text
+    assert "8828 条 · 总经验" not in response.text
 
 
 def test_quest_90_page_contains_five_text_tabs_and_tags() -> None:
@@ -299,7 +308,10 @@ def test_two_level_category_filter_preserves_child_on_pagination() -> None:
         params={"category": "重复任务", "subcategory": "六百里号山"},
     )
     assert response.status_code == 200
-    assert "57 条 · 第 1/12 页" in response.text
+    assert re.search(
+        r"57 条 · 总经验 [^<]+ · 第 1/12 页",
+        response.text,
+    )
     assert '<option value="重复任务" selected' in response.text
     assert 'value="六百里号山"' in response.text
     assert "subcategory=%E5%85%AD%E7%99%BE%E9%87%8C%E5%8F%B7%E5%B1%B1" in response.text
@@ -338,3 +350,4 @@ def test_search_pagination_uses_partial_api_refresh() -> None:
     assert 'history.pushState({}, "", questLink(selected || "", params))' in script.text
     assert 'searchPagination?.addEventListener("click"' in script.text
     assert "prefetchAdjacentSearchPages" in script.text
+    assert "compactNumber(data.total_experience)" in script.text

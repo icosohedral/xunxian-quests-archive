@@ -38,10 +38,40 @@ def test_database_is_healthy_and_read_only() -> None:
 def test_search_uses_quest_name_not_quest_id(repository: QuestRepository) -> None:
     result = repository.search(q="大战黄风洞")
     assert result["total"] == 1
+    assert result["total_experience"] == 2000
+    assert result["search_active"] is True
     assert result["items"][0]["quest_id"] == 90
     assert result["items"][0]["quest_name"] == "大战黄风洞"
     numeric_text = repository.search(q="90")
     assert all(item["quest_id"] != 90 for item in numeric_text["items"])
+
+
+def test_search_experience_sums_every_matching_page(
+    repository: QuestRepository,
+) -> None:
+    result = repository.search(
+        category="重复任务",
+        subcategory="六百里号山",
+    )
+    page_experience = sum(
+        (
+            reward["amount"]
+            for item in result["items"]
+            for reward in repository.get(item["quest_id"])["rewards"]
+            if reward.get("object_type_name") == "经验值"
+        ),
+        0,
+    )
+    assert result["total"] == 57
+    assert result["total_experience"] > page_experience
+
+
+def test_unfiltered_search_does_not_mark_summary_as_active(
+    repository: QuestRepository,
+) -> None:
+    result = repository.search()
+    assert result["search_active"] is False
+    assert result["total_experience"] > 0
 
 
 def test_search_orders_by_level_then_quest_id(

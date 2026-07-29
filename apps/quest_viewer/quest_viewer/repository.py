@@ -117,7 +117,7 @@ def _load_tab_name_index(path: Path) -> dict[int, str]:
     return names
 
 
-def _experience_reward(raw_values_json: str | None) -> dict[str, Any] | None:
+def _experience_amount(raw_values_json: str | None) -> int | None:
     raw_values = json.loads(raw_values_json) if raw_values_json else []
     formula = (
         str(raw_values[75]).strip()
@@ -127,6 +127,15 @@ def _experience_reward(raw_values_json: str | None) -> dict[str, Any] | None:
     match = re.fullmatch(r"(?:cp|exp)\*(\d+)", formula)
     if not match:
         return None
+    return int(match.group(1))
+
+
+def _experience_reward(raw_values_json: str | None) -> dict[str, Any] | None:
+    amount = _experience_amount(raw_values_json)
+    if amount is None:
+        return None
+    raw_values = json.loads(raw_values_json) if raw_values_json else []
+    formula = str(raw_values[75]).strip()
     return {
         "reward_id": None,
         "reward_group": "experience",
@@ -135,7 +144,7 @@ def _experience_reward(raw_values_json: str | None) -> dict[str, Any] | None:
         "object_type_name": "经验值",
         "object_id": None,
         "object_name": "经验值",
-        "amount": int(match.group(1)),
+        "amount": amount,
         "formula": formula,
     }
 
@@ -309,6 +318,11 @@ class QuestRepository:
         connection.create_function("display_area_name", 5, self._display_area_name)
         connection.create_function("main_category_name", 1, _main_category_name)
         connection.create_function("sub_category_name", 1, _sub_category_name)
+        connection.create_function(
+            "experience_reward",
+            1,
+            lambda raw_values_json: _experience_amount(raw_values_json) or 0,
+        )
 
     def search(
         self,
@@ -350,6 +364,10 @@ class QuestRepository:
         if subcategory.strip():
             conditions.append("COALESCE(sub_category_name, '') = ?")
             parameters.append(subcategory.strip())
+        search_active = any(
+            value.strip()
+            for value in (q, npc, area, category, subcategory)
+        )
 
         where_sql = " AND ".join(conditions)
         cte = """
@@ -376,6 +394,7 @@ class QuestRepository:
             ),
             enriched AS (
                 SELECT qf.*,
+                       q.raw_values_json AS quest_raw_values_json,
                        canonical_area_name(
                            qf.area_id,
                            qf.area_name,
@@ -397,6 +416,9 @@ class QuestRepository:
                        sub_category_name(qf.category_name)
                            AS sub_category_name
                 FROM quest_full qf
+                JOIN quest q
+                  ON q.quest_id=qf.quest_id
+                 AND q.version_no=qf.version_no
                 LEFT JOIN quest_target qt ON qt.target_id=qf.tracking_target_id
                 LEFT JOIN parent_map pm
                   ON pm.child_name=COALESCE(
@@ -416,10 +438,21 @@ class QuestRepository:
         """
         with readonly_connection(self.database_path) as connection:
             self._register_area_functions(connection)
-            total = connection.execute(
-                f"{cte} SELECT COUNT(*) FROM ranked WHERE {where_sql}",
+            aggregate = connection.execute(
+                f"""
+                {cte}
+                SELECT COUNT(*) AS total,
+                       COALESCE(
+                           SUM(experience_reward(quest_raw_values_json)),
+                           0
+                       ) AS total_experience
+                FROM ranked
+                WHERE {where_sql}
+                """,
                 parameters,
-            ).fetchone()[0]
+            ).fetchone()
+            total = int(aggregate["total"])
+            total_experience = int(aggregate["total_experience"])
             rows = _dicts(
                 connection.execute(
                     f"""
@@ -445,6 +478,8 @@ class QuestRepository:
         return {
             "items": rows,
             "total": total,
+            "total_experience": total_experience,
+            "search_active": search_active,
             "page": page,
             "page_size": self.page_size,
             "page_count": max(1, math.ceil(total / self.page_size)),

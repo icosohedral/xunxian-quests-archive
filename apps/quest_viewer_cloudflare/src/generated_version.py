@@ -1,1 +1,1 @@
-SITE_VERSION = '1.0.5'
+SITE_VERSION = '1.0.6'

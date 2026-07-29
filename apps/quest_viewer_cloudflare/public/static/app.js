@@ -208,11 +208,35 @@
       });
   };
 
+  const compactNumber = (value) => {
+    const number = Number(value) || 0;
+    const absolute = Math.abs(number);
+    const sign = number < 0 ? "-" : "";
+    if (absolute >= 1000000000000) {
+      const roundedTenths = Math.floor(
+        (absolute + 50000000000) / 100000000000
+      );
+      const whole = Math.floor(roundedTenths / 10);
+      const decimal = roundedTenths % 10;
+      return `${sign}${decimal ? `${whole}.${decimal}` : whole}万亿`;
+    }
+    if (absolute >= 100000000) {
+      return `${sign}${Math.floor((absolute + 50000000) / 100000000)}亿`;
+    }
+    if (absolute >= 10000) {
+      return `${sign}${Math.floor((absolute + 5000) / 10000)}万`;
+    }
+    return String(number);
+  };
+
   const renderSearchPage = (data, params) => {
     if (!searchResultList || !searchResultSummary || !searchPagination) return;
     const selected = new URLSearchParams(window.location.search).get("selected");
+    const experienceSummary = data.search_active
+      ? ` · 总经验 ${compactNumber(data.total_experience)}`
+      : "";
     searchResultSummary.textContent =
-      `${data.total} 条 · 第 ${data.page}/${data.page_count} 页`;
+      `${data.total} 条${experienceSummary} · 第 ${data.page}/${data.page_count} 页`;
     searchResultList.innerHTML = data.items.length
       ? data.items
           .map(
