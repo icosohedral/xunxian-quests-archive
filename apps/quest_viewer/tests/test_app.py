@@ -55,6 +55,11 @@ def test_default_page_renders_real_quest_90() -> None:
         response.text,
     )
     assert (
+        '<a class="topbar-resource-link" href="https://xunxian.wiki">'
+        "资源总站</a>"
+        in response.text
+    )
+    assert (
         'href="https://github.com/icosohedral/xunxian-quests-archive"'
         in response.text
     )

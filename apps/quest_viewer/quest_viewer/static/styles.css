@@ -165,7 +165,13 @@ summary:focus-visible,
   cursor: pointer;
 }
 
-.about-trigger:hover {
+.topbar-resource-link {
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+}
+
+.about-trigger:hover,
+.topbar-resource-link:hover {
   color: var(--ink);
   border-bottom-color: var(--brass);
 }
@@ -1426,11 +1432,13 @@ summary:focus-visible,
     font-size: 11px;
   }
 
-  .topbar-status > span {
+  .topbar-separator,
+  .topbar-visitors {
     display: none;
   }
 
-  .about-trigger {
+  .about-trigger,
+  .topbar-resource-link {
     font-size: 12px;
   }
 
