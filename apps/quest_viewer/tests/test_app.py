@@ -193,6 +193,16 @@ def test_title_reward_resolves_from_title_resource() -> None:
 def test_item_requirements_and_rewards_link_to_resource_archive() -> None:
     response = client.get("/?selected=117")
     assert response.status_code == 200
+    assert response.text.count(
+        'class="resource-detail-link"'
+    ) == len(
+        re.findall(
+            r'<a\s+class="resource-detail-link"\s+'
+            r'href="[^"]+"\s+target="_blank"\s+'
+            r'rel="noopener noreferrer"',
+            response.text,
+        )
+    )
     assert (
         'href="https://xunxian.wiki/resources/quest_item/5"'
         in response.text
