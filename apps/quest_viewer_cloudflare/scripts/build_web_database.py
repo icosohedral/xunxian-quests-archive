@@ -138,10 +138,34 @@ def _create_output_database() -> sqlite3.Connection:
             summary_json TEXT NOT NULL,
             detail_z TEXT NOT NULL
         );
-        CREATE INDEX idx_web_quest_area
-            ON web_quest(root_area_name, quest_id);
-        CREATE INDEX idx_web_quest_category
-            ON web_quest(main_category_name, sub_category_name, quest_id);
+        CREATE INDEX idx_web_quest_level_order
+            ON web_quest(
+                (level_requirement IS NULL),
+                level_requirement,
+                quest_id
+            );
+        CREATE INDEX idx_web_quest_area_level_order
+            ON web_quest(
+                root_area_name,
+                (level_requirement IS NULL),
+                level_requirement,
+                quest_id
+            );
+        CREATE INDEX idx_web_quest_category_level_order
+            ON web_quest(
+                main_category_name,
+                (level_requirement IS NULL),
+                level_requirement,
+                quest_id
+            );
+        CREATE INDEX idx_web_quest_subcategory_level_order
+            ON web_quest(
+                main_category_name,
+                sub_category_name,
+                (level_requirement IS NULL),
+                level_requirement,
+                quest_id
+            );
         CREATE TABLE web_metadata (
             metadata_key TEXT PRIMARY KEY,
             metadata_value TEXT NOT NULL

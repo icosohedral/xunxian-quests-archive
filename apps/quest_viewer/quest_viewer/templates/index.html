@@ -240,7 +240,10 @@
                       <strong>{% if item.object_type_id == 5 and item.object_id is not none %}<a
                         class="condition-quest-link"
                         href="/?selected={{ item.object_id }}{% if preserved_query %}&{{ preserved_query }}{% endif %}"
-                      >{{ item.object_name or ("任务 " ~ item.object_id) }}</a>{% elif item.object_name %}{% if item.object_type_id == 20 %}状态 {% elif item.object_type_id == 21 %}称号 {% elif item.object_type_id == 22 %}称号组 {% endif %}{{ item.object_name }}{% elif item.object_id is not none %}{{ item.object_type_name or "对象" }} {{ item.object_id }}{% else %}未确认条件组{% endif %}</strong>
+                      >{{ item.object_name or ("任务 " ~ item.object_id) }}</a>{% elif item.object_type_id in (2, 21) and item.object_id is not none and item.object_name %}<a
+                        class="resource-detail-link"
+                        href="https://xunxian.wiki/resources/{{ 'quest_item' if item.object_type_id == 2 else 'title' }}/{{ item.object_id }}"
+                      >{% if item.object_type_id == 21 %}称号 {% endif %}{{ item.object_name }}</a>{% elif item.object_name %}{% if item.object_type_id == 20 %}状态 {% elif item.object_type_id == 21 %}称号 {% elif item.object_type_id == 22 %}称号组 {% endif %}{{ item.object_name }}{% elif item.object_id is not none %}{{ item.object_type_name or "对象" }} {{ item.object_id }}{% else %}未确认条件组{% endif %}</strong>
                     </div>
                   </div>
                 {% endfor %}
@@ -256,7 +259,10 @@
                         class="role-trigger role-trigger--objective"
                         type="button"
                         data-evidence='{{ item.role_resolution|tojson }}'
-                      >{{ item.role_resolution.label }}</button>{% else %}{{ item.object_name or (item.object_type_name ~ " " ~ item.object_id) }}{% endif %}</strong>
+                      >{{ item.role_resolution.label }}</button>{% elif item.object_type_id == 2 and item.object_id is not none and item.object_name %}<a
+                        class="resource-detail-link"
+                        href="https://xunxian.wiki/resources/quest_item/{{ item.object_id }}"
+                      >{{ item.object_name }}</a>{% else %}{{ item.object_name or (item.object_type_name ~ " " ~ item.object_id) }}{% endif %}</strong>
                     </div>
                     <b>×{{ item.amount }}</b>
                   </div>
@@ -276,7 +282,10 @@
                 {% for reward in detail.rewards %}
                   <div class="reward-card">
                     <span>{% if reward.object_type_id == 21 %}称号{% elif reward.object_type_id == 22 %}称号组{% elif reward.object_type_name == "阵营" %}阵营声望{% else %}{{ reward.object_type_name or "对象" }}{% endif %}</span>
-                    <strong>{{ reward.object_name or ("ID " ~ reward.object_id) }}</strong>
+                    <strong>{% if reward.object_type_id in (2, 21) and reward.object_id is not none and reward.object_name %}<a
+                      class="resource-detail-link"
+                      href="https://xunxian.wiki/resources/{{ 'item' if reward.object_type_id == 2 else 'title' }}/{{ reward.object_id }}"
+                    >{{ reward.object_name }}</a>{% else %}{{ reward.object_name or ("ID " ~ reward.object_id) }}{% endif %}</strong>
                     <b>{{ "+" if reward.object_type_name in ("阵营", "经验值") else "×" }}{{ reward.amount|compact_number }}</b>
                   </div>
                 {% endfor %}

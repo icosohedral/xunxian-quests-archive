@@ -47,3 +47,10 @@ uv run python scripts/deploy_release.py
 npx wrangler d1 execute xunxian-quest-archive --remote --file=data/quest_web.sql
 npx wrangler d1 execute xunxian-visits --remote --file=data/visits.sql
 ```
+
+已有线上数据库只需执行尚未应用的迁移。例如任务检索索引：
+
+```bash
+npx wrangler d1 execute xunxian-quest-archive --remote \
+  --file=migrations/0001_search_performance.sql
+```

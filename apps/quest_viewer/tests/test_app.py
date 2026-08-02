@@ -186,6 +186,40 @@ def test_title_reward_resolves_from_title_resource() -> None:
     assert '<span>称号ID</span>' not in response.text
     assert "ID 505" not in response.text
     assert "称号ID 506" not in response.text
+    assert 'href="https://xunxian.wiki/resources/title/505"' in response.text
+    assert 'href="https://xunxian.wiki/resources/title/506"' in response.text
+
+
+def test_item_requirements_and_rewards_link_to_resource_archive() -> None:
+    response = client.get("/?selected=117")
+    assert response.status_code == 200
+    assert (
+        'href="https://xunxian.wiki/resources/quest_item/5"'
+        in response.text
+    )
+    assert 'href="https://xunxian.wiki/resources/item/91"' in response.text
+
+    objective = client.get("/?selected=74")
+    assert objective.status_code == 200
+    assert (
+        'href="https://xunxian.wiki/resources/quest_item/2"'
+        in objective.text
+    )
+
+    title_requirement = client.get("/?selected=13318")
+    assert title_requirement.status_code == 200
+    assert (
+        'href="https://xunxian.wiki/resources/title/47"'
+        in title_requirement.text
+    )
+
+
+def test_unresolved_resource_requirement_stays_plain_text() -> None:
+    response = client.get("/?selected=10977")
+    assert response.status_code == 200
+    assert 'href="https://xunxian.wiki/resources/quest_item/228"' not in (
+        response.text
+    )
 
 
 def test_state_conditions_and_rewards_resolve_from_state_resource() -> None:

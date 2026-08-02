@@ -720,13 +720,16 @@ summary:focus-visible,
   font-size: inherit;
 }
 
-.condition-quest-link {
+.condition-quest-link,
+.resource-detail-link {
   border-bottom: 1px dotted var(--pine);
   color: var(--pine);
 }
 
 .condition-quest-link:hover,
-.condition-quest-link:focus-visible {
+.condition-quest-link:focus-visible,
+.resource-detail-link:hover,
+.resource-detail-link:focus-visible {
   border-bottom-style: solid;
   color: var(--cinnabar);
 }

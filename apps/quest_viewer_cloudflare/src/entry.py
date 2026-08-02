@@ -22,6 +22,7 @@ from generated_story_connections import story_context_relations
 
 
 PAGE_SIZE = 5
+SEARCH_CACHE_TTL_SECONDS = 86_400
 CHINA_TIMEZONE = timezone(timedelta(hours=8))
 VISITOR_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{16,80}$")
 
@@ -82,6 +83,48 @@ def _decode_detail(value: str) -> dict[str, Any]:
     return json.loads(zlib.decompress(compressed).decode("utf-8"))
 
 
+async def _metadata_int(
+    database: Any,
+    metadata_key: str,
+    default: int = 0,
+) -> int:
+    rows = _result_rows(
+        await database.prepare(
+            """
+            SELECT metadata_value
+            FROM web_metadata
+            WHERE metadata_key=?
+            """
+        ).bind(metadata_key).run()
+    )
+    return int(rows[0]["metadata_value"]) if rows else default
+
+
+def _search_cache_key(
+    *,
+    q: str,
+    npc: str,
+    area: str,
+    category: str,
+    subcategory: str,
+    page: int,
+    window: int,
+) -> str:
+    query = urlencode(
+        {
+            "v": SITE_VERSION,
+            "q": q.strip(),
+            "npc": npc.strip(),
+            "area": area.strip(),
+            "category": category.strip(),
+            "subcategory": subcategory.strip(),
+            "page": max(1, page),
+            "window": max(0, min(3, window)),
+        }
+    )
+    return f"https://quests.xunxian.wiki/__search-cache?{query}"
+
+
 async def _search(
     database: Any,
     *,
@@ -111,34 +154,36 @@ async def _search(
     if area:
         area_members = AREA_FILTER_MEMBERS.get(area, (area,))
         placeholders = ", ".join("?" for _ in area_members)
-        conditions.append(
-            f"COALESCE(root_area_name, '') IN ({placeholders})"
-        )
+        conditions.append(f"root_area_name IN ({placeholders})")
         parameters.extend(area_members)
     if category:
-        conditions.append("COALESCE(main_category_name, '') = ?")
+        conditions.append("main_category_name = ?")
         parameters.append(category)
     if subcategory:
-        conditions.append("COALESCE(sub_category_name, '') = ?")
+        conditions.append("sub_category_name = ?")
         parameters.append(subcategory)
     search_active = any((q, npc, area, category, subcategory))
     where_sql = " AND ".join(conditions)
 
-    count_statement = database.prepare(
-        f"""
-        SELECT COUNT(*) AS total,
-               COALESCE(SUM(experience_reward), 0) AS total_experience
-        FROM web_quest
-        WHERE {where_sql}
-        """
-    )
-    if parameters:
-        count_statement = count_statement.bind(*parameters)
-    count_rows = _result_rows(await count_statement.run())
-    total = int(count_rows[0]["total"]) if count_rows else 0
-    total_experience = (
-        int(count_rows[0]["total_experience"]) if count_rows else 0
-    )
+    if search_active:
+        count_statement = database.prepare(
+            f"""
+            SELECT COUNT(*) AS total,
+                   COALESCE(SUM(experience_reward), 0) AS total_experience
+            FROM web_quest
+            WHERE {where_sql}
+            """
+        )
+        if parameters:
+            count_statement = count_statement.bind(*parameters)
+        count_rows = _result_rows(await count_statement.run())
+        total = int(count_rows[0]["total"]) if count_rows else 0
+        total_experience = (
+            int(count_rows[0]["total_experience"]) if count_rows else 0
+        )
+    else:
+        total = await _metadata_int(database, "quest_count")
+        total_experience = 0
 
     page_count = max(1, math.ceil(total / PAGE_SIZE))
     window_start_page = max(1, page - window)
@@ -177,6 +222,61 @@ async def _search(
         "page_count": page_count,
         "prefetched_pages": prefetched_pages if window else {},
     }
+
+
+async def _cached_search(
+    database: Any,
+    *,
+    q: str = "",
+    npc: str = "",
+    area: str = "",
+    category: str = "",
+    subcategory: str = "",
+    page: int = 1,
+    window: int = 0,
+) -> dict[str, Any]:
+    arguments = {
+        "q": q,
+        "npc": npc,
+        "area": area,
+        "category": category,
+        "subcategory": subcategory,
+        "page": page,
+        "window": window,
+    }
+    cache_key = _search_cache_key(**arguments)
+    cache = None
+    worker_response_class = None
+    try:
+        from js import Response as WorkerResponse, caches
+
+        cache = caches.default
+        worker_response_class = WorkerResponse
+        cached_response = await cache.match(cache_key)
+        if cached_response is not None:
+            return json.loads(await cached_response.text())
+    except Exception:
+        cache = None
+
+    result = await _search(database, **arguments)
+
+    if cache is not None and worker_response_class is not None:
+        try:
+            response = worker_response_class.new(
+                json.dumps(
+                    result,
+                    ensure_ascii=False,
+                    separators=(",", ":"),
+                )
+            )
+            response.headers.set(
+                "Cache-Control",
+                f"public, max-age={SEARCH_CACHE_TTL_SECONDS}",
+            )
+            await cache.put(cache_key, response)
+        except Exception:
+            pass
+    return result
 
 
 async def _get_detail(database: Any, quest_id: int) -> dict[str, Any] | None:
@@ -313,7 +413,7 @@ async def index(
     selected: int | None = Query(None, ge=1),
 ) -> HTMLResponse:
     env = request.scope["env"]
-    search = await _search(
+    search = await _cached_search(
         env.QUEST_DB,
         q=q,
         npc=npc,
@@ -412,8 +512,8 @@ async def api_quests(
     subcategory: str = "",
     page: int = Query(1, ge=1),
     window: int = Query(0, ge=0, le=3),
-) -> dict[str, Any]:
-    return await _search(
+) -> JSONResponse:
+    search = await _cached_search(
         request.scope["env"].QUEST_DB,
         q=q,
         npc=npc,
@@ -422,6 +522,15 @@ async def api_quests(
         subcategory=subcategory,
         page=page,
         window=window,
+    )
+    return JSONResponse(
+        search,
+        headers={
+            "Cache-Control": (
+                "public, max-age=300, "
+                f"s-maxage={SEARCH_CACHE_TTL_SECONDS}"
+            )
+        },
     )
 
 
