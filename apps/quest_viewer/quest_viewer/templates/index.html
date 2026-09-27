@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light">
+  <meta name="robots" content="{{ robots_content }}">
+  <link rel="canonical" href="{{ canonical_url }}">
   <title>{% if detail %}{{ detail.summary.quest_name }} · {% endif %}寻仙任务存档</title>
   <link rel="icon" href="{{ url_for('static', path='/favicon.svg') }}" type="image/svg+xml">
   <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}?v=20260726-visitor1">

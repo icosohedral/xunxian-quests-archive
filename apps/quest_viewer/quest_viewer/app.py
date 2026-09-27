@@ -4,7 +4,7 @@ from typing import Any
 from urllib.parse import urlencode
 
 from fastapi import FastAPI, HTTPException, Query, Request
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
@@ -198,6 +198,7 @@ def index(
     selected: int | None = Query(None, ge=1),
 ) -> HTMLResponse:
     visitor_count = visitor_counter.count()
+    explicit_selected = selected is not None
     try:
         search = repository.search(
             q=q,
@@ -258,7 +259,6 @@ def index(
                 category=category,
                 subcategory=subcategory,
                 page=max(1, page - 1),
-                selected=selected,
             ),
             "next_url": _query_url(
                 q=q,
@@ -267,16 +267,41 @@ def index(
                 category=category,
                 subcategory=subcategory,
                 page=min(search["page_count"], page + 1),
-                selected=selected,
+            ),
+            "canonical_url": (
+                f"https://quests.xunxian.wiki/quests/{selected}"
+                if selected
+                and (
+                    explicit_selected
+                    or request.url.path.startswith("/quests/")
+                )
+                else "https://quests.xunxian.wiki/"
+            ),
+            "robots_content": (
+                "index,follow"
+                if request.url.path.startswith("/quests/")
+                or not request.url.query
+                else "noindex,nofollow"
             ),
         },
     )
     return response
 
 
-@app.get("/quests/{quest_id}")
-def quest_page(quest_id: int) -> RedirectResponse:
-    return RedirectResponse(url=f"/?selected={quest_id}", status_code=302)
+@app.get("/quests/{quest_id}", response_class=HTMLResponse)
+def quest_page(request: Request, quest_id: int) -> HTMLResponse:
+    return index(request=request, page=1, selected=quest_id)
+
+
+@app.get("/robots.txt", include_in_schema=False)
+def robots() -> HTMLResponse:
+    return HTMLResponse(
+        "User-agent: *\n"
+        "Disallow: /api/\n"
+        "Disallow: /*?\n"
+        "Allow: /quests/\n",
+        media_type="text/plain",
+    )
 
 
 @app.post("/api/visit")

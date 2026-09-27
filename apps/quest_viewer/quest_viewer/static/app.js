@@ -138,7 +138,6 @@
   const searchApiUrl = (params) => {
     const apiParams = new URLSearchParams(params);
     apiParams.delete("selected");
-    apiParams.set("window", "2");
     return `/api/quests?${apiParams.toString()}`;
   };
 
@@ -147,17 +146,6 @@
     cacheParams.delete("selected");
     cacheParams.delete("window");
     return `/api/quests?${cacheParams.toString()}`;
-  };
-
-  const seedPrefetchedSearchPages = (data, params) => {
-    if (!data.prefetched_pages) return;
-    Object.entries(data.prefetched_pages).forEach(([page, items]) => {
-      const pageParams = new URLSearchParams(params);
-      pageParams.set("page", page);
-      const pageData = { ...data, page: Number(page), items };
-      delete pageData.prefetched_pages;
-      searchPageCache.set(searchCacheKey(pageParams), Promise.resolve(pageData));
-    });
   };
 
   const fetchSearchPage = (params, signal) => {
@@ -171,10 +159,6 @@
         .then((response) => {
           if (!response.ok) throw new Error(`检索请求失败：${response.status}`);
           return response.json();
-        })
-        .then((data) => {
-          seedPrefetchedSearchPages(data, params);
-          return data;
         })
         .catch((error) => {
           searchPageCache.delete(cacheKey);
@@ -193,6 +177,15 @@
       if (linkParams.get(key)) ordered.set(key, linkParams.get(key));
     });
     return `/?${ordered.toString()}`;
+  };
+
+  const searchPageLink = (params) => {
+    const ordered = new URLSearchParams();
+    ["q", "npc", "area", "category", "subcategory", "page"].forEach((key) => {
+      if (params.get(key)) ordered.set(key, params.get(key));
+    });
+    const query = ordered.toString();
+    return query ? `/?${query}` : "/";
   };
 
   const syncPreservedTaskLinks = (params) => {
@@ -260,9 +253,9 @@
         </div>`;
     const pageParams = new URLSearchParams(params);
     pageParams.set("page", String(Math.max(1, data.page - 1)));
-    const previousUrl = questLink(selected || "", pageParams);
+    const previousUrl = searchPageLink(pageParams);
     pageParams.set("page", String(Math.min(data.page_count, data.page + 1)));
-    const nextUrl = questLink(selected || "", pageParams);
+    const nextUrl = searchPageLink(pageParams);
     searchPagination.innerHTML = `
       <a href="${previousUrl}" aria-disabled="${data.page <= 1}">上一页</a>
       <span>${data.page} / ${data.page_count}</span>
@@ -271,16 +264,6 @@
     searchResultList.classList.remove("is-loading");
     syncPreservedTaskLinks(params);
     applyOverflowTitles(searchResultList);
-  };
-
-  const prefetchAdjacentSearchPages = (data, params) => {
-    [data.page - 1, data.page + 1]
-      .filter((page) => page >= 1 && page <= data.page_count)
-      .forEach((page) => {
-        const adjacentParams = new URLSearchParams(params);
-        adjacentParams.set("page", String(page));
-        fetchSearchPage(adjacentParams).catch(() => {});
-      });
   };
 
   const loadSearchPage = async (url, { updateHistory = true } = {}) => {
@@ -296,11 +279,9 @@
     try {
       const data = await fetchSearchPage(params, searchRequestController.signal);
       if (updateHistory) {
-        const selected = new URLSearchParams(window.location.search).get("selected");
-        history.pushState({}, "", questLink(selected || "", params));
+        history.pushState({}, "", searchPageLink(params));
       }
       renderSearchPage(data, params);
-      prefetchAdjacentSearchPages(data, params);
     } catch (error) {
       if (error.name === "AbortError") return;
       searchResultList.setAttribute("aria-busy", "false");
@@ -420,19 +401,6 @@
   applyOverflowTitles();
   syncPreservedTaskLinks(currentSearchParams());
   window.addEventListener("resize", () => applyOverflowTitles());
-
-  const initialPage = Number.parseInt(currentSearchParams().get("page") || "1", 10);
-  const initialPageCount = Number.parseInt(
-    searchPagination?.querySelector("span")?.textContent.split("/")[1] || "1",
-    10
-  );
-  const schedulePrefetch = window.requestIdleCallback || ((callback) => setTimeout(callback, 200));
-  schedulePrefetch(() => {
-    const params = currentSearchParams();
-    if (initialPage >= 1 && initialPage <= initialPageCount) {
-      fetchSearchPage(params).catch(() => {});
-    }
-  });
 
   document.querySelectorAll(".entity-tag, .role-trigger").forEach((tag) => {
     tag.addEventListener("click", () => {

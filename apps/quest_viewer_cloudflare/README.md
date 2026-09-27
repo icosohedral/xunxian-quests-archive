@@ -48,9 +48,12 @@ npx wrangler d1 execute xunxian-quest-archive --remote --file=data/quest_web.sql
 npx wrangler d1 execute xunxian-visits --remote --file=data/visits.sql
 ```
 
-已有线上数据库只需执行尚未应用的迁移。例如任务检索索引：
+已有线上数据库只需按顺序执行尚未应用的迁移。例如任务检索索引和
+无筛选列表的顺序号分页：
 
 ```bash
 npx wrangler d1 execute xunxian-quest-archive --remote \
   --file=migrations/0001_search_performance.sql
+npx wrangler d1 execute xunxian-quest-archive --remote \
+  --file=migrations/0002_sort_position_pagination.sql
 ```

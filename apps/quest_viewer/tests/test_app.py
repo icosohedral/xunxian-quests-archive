@@ -125,6 +125,11 @@ def test_default_page_renders_real_quest_90() -> None:
     assert response.text.count('class="quest-card ') == 5
     assert "1 / 1766" in response.text
     assert "8828 条 · 总经验" not in response.text
+    assert '<meta name="robots" content="index,follow">' in response.text
+    assert (
+        '<link rel="canonical" href="https://quests.xunxian.wiki/">'
+        in response.text
+    )
 
 
 def test_quest_90_page_contains_five_text_tabs_and_tags() -> None:
@@ -142,6 +147,32 @@ def test_quest_90_page_contains_five_text_tabs_and_tags() -> None:
     assert "阵营声望" in response.text
     assert ">+100</b>" in response.text
     assert "general · 槽位1" not in response.text
+    assert '<meta name="robots" content="noindex,nofollow">' in response.text
+    assert (
+        '<link rel="canonical" '
+        'href="https://quests.xunxian.wiki/quests/90">'
+        in response.text
+    )
+
+
+def test_canonical_quest_page_renders_without_redirect() -> None:
+    response = client.get("/quests/90", follow_redirects=False)
+    assert response.status_code == 200
+    assert "大战黄风洞" in response.text
+    assert '<meta name="robots" content="index,follow">' in response.text
+    assert (
+        '<link rel="canonical" '
+        'href="https://quests.xunxian.wiki/quests/90">'
+        in response.text
+    )
+
+
+def test_robots_blocks_api_and_query_pages() -> None:
+    response = client.get("/robots.txt")
+    assert response.status_code == 200
+    assert "Disallow: /api/" in response.text
+    assert "Disallow: /*?" in response.text
+    assert "Allow: /quests/" in response.text
 
 
 def test_unclassified_subcategory_is_hidden_in_quest_detail() -> None:
@@ -386,12 +417,18 @@ def test_search_pagination_uses_partial_api_refresh() -> None:
     assert 'id="search-result-list"' in page.text
     assert 'id="search-result-summary"' in page.text
     assert 'id="search-pagination"' in page.text
+    pagination = page.text.split(
+        '<nav class="pagination" id="search-pagination"', 1
+    )[1].split("</nav>", 1)[0]
+    assert "selected=" not in pagination
 
     script = client.get("/static/app.js")
     assert script.status_code == 200
     assert "fetchSearchPage" in script.text
     assert 'fetch(url, {' in script.text
-    assert 'history.pushState({}, "", questLink(selected || "", params))' in script.text
+    assert 'history.pushState({}, "", searchPageLink(params))' in script.text
     assert 'searchPagination?.addEventListener("click"' in script.text
-    assert "prefetchAdjacentSearchPages" in script.text
+    assert "prefetchAdjacentSearchPages" not in script.text
+    assert 'apiParams.set("window", "2")' not in script.text
+    assert "requestIdleCallback" not in script.text
     assert "compactNumber(data.total_experience)" in script.text

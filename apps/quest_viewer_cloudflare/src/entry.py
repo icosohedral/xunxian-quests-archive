@@ -11,7 +11,7 @@ from urllib.parse import urlencode
 
 import asgi
 from fastapi import FastAPI, HTTPException, Query, Request
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import BaseLoader, Environment, select_autoescape
 from workers import WorkerEntrypoint
 
@@ -188,22 +188,33 @@ async def _search(
     page_count = max(1, math.ceil(total / PAGE_SIZE))
     window_start_page = max(1, page - window)
     window_end_page = min(page_count, page + window)
-    list_parameters = [
-        *parameters,
-        (window_end_page - window_start_page + 1) * PAGE_SIZE,
-        (window_start_page - 1) * PAGE_SIZE,
-    ]
-    list_statement = database.prepare(
-        f"""
-        SELECT summary_json
-        FROM web_quest
-        WHERE {where_sql}
-        ORDER BY level_requirement IS NULL,
-                 level_requirement,
-                 quest_id
-        LIMIT ? OFFSET ?
+    if search_active:
+        list_parameters = [
+            *parameters,
+            (window_end_page - window_start_page + 1) * PAGE_SIZE,
+            (window_start_page - 1) * PAGE_SIZE,
+        ]
+        list_sql = f"""
+            SELECT summary_json
+            FROM web_quest
+            WHERE {where_sql}
+            ORDER BY level_requirement IS NULL,
+                     level_requirement,
+                     quest_id
+            LIMIT ? OFFSET ?
         """
-    ).bind(*list_parameters)
+    else:
+        list_parameters = [
+            (window_start_page - 1) * PAGE_SIZE + 1,
+            window_end_page * PAGE_SIZE,
+        ]
+        list_sql = """
+            SELECT summary_json
+            FROM web_quest
+            WHERE sort_position BETWEEN ? AND ?
+            ORDER BY sort_position
+        """
+    list_statement = database.prepare(list_sql).bind(*list_parameters)
     rows = _result_rows(await list_statement.run())
     window_items = [json.loads(row["summary_json"]) for row in rows]
     prefetched_pages: dict[str, list[dict[str, Any]]] = {}
@@ -413,6 +424,7 @@ async def index(
     selected: int | None = Query(None, ge=1),
 ) -> HTMLResponse:
     env = request.scope["env"]
+    explicit_selected = selected is not None
     search = await _cached_search(
         env.QUEST_DB,
         q=q,
@@ -464,7 +476,6 @@ async def index(
             category=category,
             subcategory=subcategory,
             page=max(1, page - 1),
-            selected=selected,
         ),
         next_url=_query_url(
             q=q,
@@ -473,15 +484,29 @@ async def index(
             category=category,
             subcategory=subcategory,
             page=min(search["page_count"], page + 1),
-            selected=selected,
+        ),
+        canonical_url=(
+            f"https://quests.xunxian.wiki/quests/{selected}"
+            if selected
+            and (
+                explicit_selected
+                or request.url.path.startswith("/quests/")
+            )
+            else "https://quests.xunxian.wiki/"
+        ),
+        robots_content=(
+            "index,follow"
+            if request.url.path.startswith("/quests/")
+            or not request.url.query
+            else "noindex,nofollow"
         ),
     )
     return HTMLResponse(html)
 
 
-@app.get("/quests/{quest_id}")
-async def quest_page(quest_id: int) -> RedirectResponse:
-    return RedirectResponse(url=f"/?selected={quest_id}", status_code=302)
+@app.get("/quests/{quest_id}", response_class=HTMLResponse)
+async def quest_page(request: Request, quest_id: int) -> HTMLResponse:
+    return await index(request=request, page=1, selected=quest_id)
 
 
 @app.post("/api/visit")
