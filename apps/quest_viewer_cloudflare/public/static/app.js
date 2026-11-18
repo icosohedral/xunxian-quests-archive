@@ -417,31 +417,80 @@
   const MIN_LIST_SIZE = 3;
   const MAX_LIST_SIZE = 30;
   const CARD_GAP = 2;
-  let cardHeight = 0;
+  // Rows may shrink by at most this share of their natural height so that
+  // one more row fits; otherwise the spare space stretches the rows instead.
+  const MAX_ROW_COMPRESSION = 0.1;
+  const ROW_HEIGHT_VAR = "--quest-card-height";
+  let naturalCardHeight = 0;
 
   const setPreferenceCookie = (name, value) => {
     document.cookie = `${name}=${value}; path=/; max-age=31536000; SameSite=Lax`;
   };
+  const clearPreferenceCookie = (name) => {
+    document.cookie = `${name}=; path=/; max-age=0; SameSite=Lax`;
+  };
 
-  const fittingListSize = () => {
+  // Height of a card at its CSS size, ignoring any fitted height already applied.
+  const measureNaturalCardHeight = () => {
+    const card = searchResultList.querySelector(".quest-card");
+    if (!card) return naturalCardHeight;
+    const fitted = searchResultList.style.getPropertyValue(ROW_HEIGHT_VAR);
+    searchResultList.style.removeProperty(ROW_HEIGHT_VAR);
+    naturalCardHeight = card.getBoundingClientRect().height;
+    if (fitted) searchResultList.style.setProperty(ROW_HEIGHT_VAR, fitted);
+    return naturalCardHeight;
+  };
+
+  // Rows of height h with gap g fill `available` when n*h + (n-1)*g = available.
+  const rowHeightFor = (available, rows) =>
+    // Round down to 1/100 px so rounding never pushes the list past the rail.
+    Math.floor(((available - (rows - 1) * CARD_GAP) / rows) * 100) / 100;
+
+  const fittingListLayout = () => {
     if (!searchRail || !searchResultList || !searchPagination) return null;
     // Only the desktop rail has a fixed height; the mobile sheet grows with content.
     if (getComputedStyle(searchRail).position !== "sticky") return null;
-    const card = searchResultList.querySelector(".quest-card");
-    if (card) cardHeight = card.offsetHeight;
-    if (!cardHeight || !searchRail.clientHeight) return null;
+    const natural = measureNaturalCardHeight();
+    if (!natural || !searchRail.clientHeight) return null;
     const available =
       searchRail.clientHeight -
       parseFloat(getComputedStyle(searchRail).paddingBottom) -
       searchPagination.offsetHeight -
       searchResultList.offsetTop;
-    const fit = Math.floor((available + CARD_GAP) / (cardHeight + CARD_GAP));
-    return Math.max(MIN_LIST_SIZE, Math.min(MAX_LIST_SIZE, fit));
+    const pitch = natural + CARD_GAP;
+    const rows = Math.floor((available + CARD_GAP) / pitch);
+    if (rows < MIN_LIST_SIZE) return { size: MIN_LIST_SIZE, height: null };
+    if (rows >= MAX_LIST_SIZE) return { size: MAX_LIST_SIZE, height: null };
+    const spare = available + CARD_GAP - rows * pitch;
+    if (spare >= pitch / 2) {
+      // Enough room for over half a row: add one and compress slightly.
+      const compressed = rowHeightFor(available, rows + 1);
+      if (compressed >= natural * (1 - MAX_ROW_COMPRESSION)) {
+        return { size: rows + 1, height: compressed };
+      }
+    }
+    // Otherwise spread the leftover space evenly across the rows.
+    return { size: rows, height: rowHeightFor(available, rows) };
+  };
+
+  const applyRowHeight = (height) => {
+    if (height) {
+      searchResultList.style.setProperty(ROW_HEIGHT_VAR, `${height}px`);
+      setPreferenceCookie("quest_list_row_height", height);
+    } else {
+      searchResultList.style.removeProperty(ROW_HEIGHT_VAR);
+      clearPreferenceCookie("quest_list_row_height");
+    }
   };
 
   const fitListToRail = () => {
-    const size = fittingListSize();
-    if (!size) return;
+    const layout = fittingListLayout();
+    if (!layout) {
+      if (searchResultList) applyRowHeight(null);
+      return;
+    }
+    const { size, height } = layout;
+    applyRowHeight(height);
     setPreferenceCookie("quest_list_size", size);
     if (size === listPageSize) return;
     // Keep the selected quest (or the first card) on the new page.

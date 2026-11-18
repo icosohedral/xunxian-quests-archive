@@ -25,6 +25,9 @@ PAGE_SIZE = 5
 MIN_LIST_SIZE = 3
 MAX_LIST_SIZE = 30
 LIST_SIZE_COOKIE = "quest_list_size"
+LIST_ROW_HEIGHT_COOKIE = "quest_list_row_height"
+MIN_LIST_ROW_HEIGHT = 20.0
+MAX_LIST_ROW_HEIGHT = 120.0
 FILTER_PANEL_COOKIE = "quest_filter_panel"
 SEARCH_CACHE_TTL_SECONDS = 86_400
 # Bump when QUEST_DB data is re-imported so cached searches are not reused.
@@ -392,6 +395,21 @@ def _list_size(request: Request, size: int | None = None) -> int:
     return max(MIN_LIST_SIZE, min(MAX_LIST_SIZE, number))
 
 
+def _list_row_height(request: Request) -> str | None:
+    """Return the client's fitted result row height in px, if valid.
+
+    The client stretches or slightly compresses rows so the list exactly fills
+    the rail; rendering the remembered height avoids a jump on page load.
+    """
+    try:
+        height = float(request.cookies.get(LIST_ROW_HEIGHT_COOKIE, ""))
+    except ValueError:
+        return None
+    if not MIN_LIST_ROW_HEIGHT <= height <= MAX_LIST_ROW_HEIGHT:
+        return None
+    return f"{height:.2f}"
+
+
 def _filter_panel_preference(request: Request) -> bool | None:
     """Return the visitor's last filter panel state, or None if never set."""
     value = request.cookies.get(FILTER_PANEL_COOKIE)
@@ -485,6 +503,7 @@ async def index(
         detail=detail,
         facets=FACETS,
         filter_panel_open=_filter_panel_preference(request),
+        list_row_height=_list_row_height(request),
         filters={
             "q": q,
             "npc": npc,
