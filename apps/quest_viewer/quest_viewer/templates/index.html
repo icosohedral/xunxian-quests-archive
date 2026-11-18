@@ -180,12 +180,12 @@
             class="role-trigger"
             type="button"
             data-evidence='{{ detail.accept_role|tojson }}'
-          >{{ detail.accept_role.label }}</button>{% else %}{{ detail.summary.accept_object_name or "未解析" }}{% endif %}</dd></div>
+          >{{ detail.accept_role.label }}</button>{% else %}{{ detail.summary.accept_object_name or "-" }}{% endif %}</dd></div>
           <div><dt>提交 NPC</dt><dd>{% if detail.submit_role %}<button
             class="role-trigger"
             type="button"
             data-evidence='{{ detail.submit_role|tojson }}'
-          >{{ detail.submit_role.label }}</button>{% else %}{{ detail.summary.submit_object_name or "未解析" }}{% endif %}</dd></div>
+          >{{ detail.submit_role.label }}</button>{% else %}{{ detail.summary.submit_object_name or "-" }}{% endif %}</dd></div>
           <div><dt>所属地区</dt><dd>{{ detail.summary.area_name or "未记录" }}</dd></div>
           <div><dt>任务类型</dt><dd>{{ detail.summary.main_category_name or detail.summary.category_id or "未记录" }}{% if detail.summary.sub_category_name and detail.summary.sub_category_name != "未分类" %} · {{ detail.summary.sub_category_name }}{% endif %}</dd></div>
         </dl>
