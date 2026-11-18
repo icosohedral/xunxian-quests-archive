@@ -32,6 +32,36 @@
 
   recordAnonymousVisit();
 
+  const themeButtons = [...document.querySelectorAll(".theme-swatch")];
+  const currentTheme = () => {
+    const root = document.documentElement;
+    if (root.dataset.mode === "dark") return "dark";
+    return root.dataset.theme === "orange" ? "orange" : "green";
+  };
+  const syncThemeButtons = () => {
+    const value = currentTheme();
+    themeButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.themeValue === value));
+    });
+  };
+  themeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const root = document.documentElement;
+      const theme = button.dataset.themeValue;
+      if (theme === "green") delete root.dataset.theme;
+      else root.dataset.theme = "orange";
+      if (theme === "dark") root.dataset.mode = "dark";
+      else delete root.dataset.mode;
+      try {
+        localStorage.setItem("xunxian-color-theme", theme);
+      } catch {
+        // Theme still applies for this page view without storage.
+      }
+      syncThemeButtons();
+    });
+  });
+  syncThemeButtons();
+
   document.querySelector("[data-open-about]")?.addEventListener("click", () => {
     aboutDialog?.showModal();
   });
@@ -61,6 +91,79 @@
   };
 
   mainCategory?.addEventListener("change", updateSubcategoryOptions);
+
+  // Copy the active text tab as plain text; entity tags contribute only their label.
+  const copyTextButton = document.querySelector("[data-copy-text]");
+  const copyStatus = copyTextButton?.querySelector(".copy-text-status");
+  let copyResetTimer = null;
+  const panelPlainText = (panel) => {
+    const prose = panel?.querySelector(".quest-prose");
+    if (!prose) return "";
+    return [...prose.childNodes]
+      .map((node) => {
+        if (node.nodeType === Node.TEXT_NODE) return node.textContent;
+        if (node.classList?.contains("entity-tag")) {
+          return [...node.childNodes]
+            .filter((child) => child.nodeType === Node.TEXT_NODE)
+            .map((child) => child.textContent)
+            .join("");
+        }
+        return node.textContent;
+      })
+      .join("")
+      .trim();
+  };
+  const writeClipboard = async (text) => {
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return;
+      } catch {
+        // Fall through to the selection-based copy below.
+      }
+    }
+    const scratch = document.createElement("textarea");
+    scratch.value = text;
+    scratch.setAttribute("readonly", "");
+    scratch.style.position = "fixed";
+    scratch.style.opacity = "0";
+    document.body.append(scratch);
+    scratch.select();
+    const copied = document.execCommand("copy");
+    scratch.remove();
+    if (!copied) throw new Error("copy failed");
+  };
+  copyTextButton?.addEventListener("click", async () => {
+    const panel = document.querySelector(".text-panel:not([hidden])");
+    const text = panelPlainText(panel);
+    if (!text) return;
+    let message = "已复制";
+    try {
+      await writeClipboard(text);
+      copyTextButton.classList.add("is-copied");
+    } catch {
+      message = "复制失败";
+    }
+    if (copyStatus) copyStatus.textContent = message;
+    clearTimeout(copyResetTimer);
+    copyResetTimer = setTimeout(() => {
+      copyTextButton.classList.remove("is-copied");
+      if (copyStatus) copyStatus.textContent = "";
+    }, 1600);
+  });
+
+  const filterCount = document.getElementById("filter-count");
+  const filterFields = [...document.querySelectorAll(".filter-grid input, .filter-grid select")];
+  const updateFilterCount = () => {
+    if (!filterCount) return;
+    const count = filterFields.filter((field) => !field.disabled && field.value).length;
+    filterCount.textContent = String(count);
+    filterCount.hidden = count === 0;
+  };
+  filterFields.forEach((field) => {
+    field.addEventListener("input", updateFilterCount);
+    field.addEventListener("change", updateFilterCount);
+  });
   updateSubcategoryOptions();
 
   const activateTab = (tab) => {
@@ -229,7 +332,7 @@
       ? ` · 总经验 ${compactNumber(data.total_experience)}`
       : "";
     searchResultSummary.textContent =
-      `${data.total} 条${experienceSummary} · 第 ${data.page}/${data.page_count} 页`;
+      `${data.total} 条${experienceSummary}`;
     searchResultList.innerHTML = data.items.length
       ? data.items
           .map(
@@ -241,7 +344,7 @@
               <strong>${escapeHtml(String(quest.quest_name))}</strong>
               <span class="quest-card-meta">
                 <span>等级 ${quest.level_requirement == null ? "—" : escapeHtml(String(quest.level_requirement))}</span>
-                <span>${escapeHtml(String(quest.area_name || "地区未记录"))}</span>
+                ${quest.area_name ? `<span>${escapeHtml(String(quest.area_name))}</span>` : ""}
               </span>
             </a>`
           )
@@ -311,6 +414,17 @@
     selection_rule: "选择规则",
   };
 
+  // Long values such as candidate forms of address fold to two lines until expanded.
+  const evidenceFoldLength = 36;
+  evidenceList?.addEventListener("click", (event) => {
+    const toggle = event.target.closest(".evidence-toggle");
+    if (!toggle) return;
+    const value = toggle.closest("dd");
+    const folded = value.classList.toggle("is-folded");
+    toggle.setAttribute("aria-expanded", String(!folded));
+    toggle.textContent = folded ? "展开" : "收起";
+  });
+
   const renderRelatedPage = () => {
     const quests = relatedState.quests;
     const pageCount = Math.ceil(quests.length / relatedPageSize);
@@ -372,10 +486,13 @@
       (key) => data[key] !== undefined && data[key] !== null && data[key] !== ""
     );
     evidenceList.innerHTML = fields
-      .map(
-        (key) =>
-          `<div><dt>${evidenceLabels[key]}</dt><dd>${escapeHtml(String(data[key]))}</dd></div>`
-      )
+      .map((key) => {
+        const value = escapeHtml(String(data[key]));
+        if (String(data[key]).length <= evidenceFoldLength) {
+          return `<div><dt>${evidenceLabels[key]}</dt><dd>${value}</dd></div>`;
+        }
+        return `<div><dt>${evidenceLabels[key]}</dt><dd class="is-folded"><span class="evidence-value">${value}</span><button type="button" class="evidence-toggle" aria-expanded="false">展开</button></dd></div>`;
+      })
       .join("");
     evidenceList.hidden = false;
     if (evidenceEmpty) evidenceEmpty.hidden = true;
@@ -396,7 +513,9 @@
     );
 
   if (evidenceCard?.dataset.defaultEvidence) {
-    renderEvidence(JSON.parse(evidenceCard.dataset.defaultEvidence), false);
+    const defaultEvidence = JSON.parse(evidenceCard.dataset.defaultEvidence);
+    // Role defaults (accept/submit NPC) also fill the related-quest list, like a click would.
+    renderEvidence(defaultEvidence, Array.isArray(defaultEvidence.related_quests));
   }
   applyOverflowTitles();
   syncPreservedTaskLinks(currentSearchParams());

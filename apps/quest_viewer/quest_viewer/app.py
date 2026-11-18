@@ -97,7 +97,7 @@ def _prepare_detail(detail: dict[str, Any] | None) -> dict[str, Any] | None:
                 "label": label,
                 "raw_text": raw_text,
                 "tokens": tokens,
-                "is_empty": not bool(raw_text),
+                "is_empty": not str(raw_text or "").strip(),
             }
         )
     if default_evidence is None and detail["locations"]:
@@ -115,7 +115,6 @@ def _prepare_detail(detail: dict[str, Any] | None) -> dict[str, Any] | None:
             "raw_tag": f"<target:{location['target_id']}>",
         }
     detail["text_sections"] = sections
-    detail["default_evidence"] = default_evidence
     summary = detail["summary"]
     detail["accept_role"] = (
         repository.resolve_npc_role(
@@ -136,6 +135,10 @@ def _prepare_detail(detail: dict[str, Any] | None) -> dict[str, Any] | None:
         if summary.get("submit_object_type") == 3
         and summary.get("submit_object_id") is not None
         else None
+    )
+    # Object details open on the quest's NPCs first, then the first tagged object.
+    detail["default_evidence"] = (
+        detail["accept_role"] or detail["submit_role"] or default_evidence
     )
     for objective in detail["objectives"]:
         objective["role_resolution"] = (

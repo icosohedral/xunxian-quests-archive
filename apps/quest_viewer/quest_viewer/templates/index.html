@@ -3,60 +3,58 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="light dark">
   <meta name="robots" content="{{ robots_content }}">
+  <script>
+    try {
+      const theme = localStorage.getItem("xunxian-color-theme");
+      if (theme === "orange" || theme === "dark") document.documentElement.dataset.theme = "orange";
+      if (theme === "dark") document.documentElement.dataset.mode = "dark";
+    } catch {}
+  </script>
   <link rel="canonical" href="{{ canonical_url }}">
   <title>{% if detail %}{{ detail.summary.quest_name }} · {% endif %}寻仙任务存档</title>
-  <link rel="icon" href="{{ url_for('static', path='/favicon.svg') }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}?v=20260726-visitor1">
-  <script src="{{ url_for('static', path='/app.js') }}?v=20260726-visitor1" defer></script>
+  <link rel="icon" href="{{ url_for('static', path='/logo.png') }}" type="image/png">
+  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}?v=20261118-logo">
+  <script src="{{ url_for('static', path='/app.js') }}?v=20261118-logo" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#quest-dossier">跳到任务正文</a>
   <header class="topbar">
     <a class="brand" href="/" aria-label="寻仙任务存档首页">
-      <span class="brand-mark" aria-hidden="true">寻</span>
+      <img class="brand-mark" src="{{ url_for('static', path='/logo.png') }}" alt="" width="32" height="32">
       <span class="brand-copy">
         <strong>寻仙任务存档</strong>
-        <small class="brand-version">v{{ site_version }}</small>
       </span>
     </a>
     <div class="topbar-status">
-      <button class="about-trigger" type="button" data-open-about>关于网站</button>
-      <span class="topbar-separator" aria-hidden="true">|</span>
-      <a class="topbar-resource-link" href="https://xunxian.wiki">资源总站</a>
-      <span class="topbar-separator" aria-hidden="true">|</span>
+      <button class="topbar-version" type="button" data-open-about aria-haspopup="dialog" aria-label="关于寻仙任务存档，版本 v{{ site_version }}">v{{ site_version }}</button>
+      <div class="theme-picker" role="group" aria-label="颜色主题">
+        <button type="button" class="theme-swatch" data-theme-value="green" aria-label="青绿主题" aria-pressed="true" title="青绿主题"></button>
+        <button type="button" class="theme-swatch" data-theme-value="orange" aria-label="陶土橙主题" aria-pressed="false" title="陶土橙主题"></button>
+        <button type="button" class="theme-swatch" data-theme-value="dark" aria-label="深色主题" aria-pressed="false" title="深色主题"></button>
+      </div>
       <span class="topbar-visitors">今日来访 <strong id="today-visitors">{{ today_visitors }}</strong></span>
     </div>
   </header>
 
   <dialog class="about-dialog" id="about-dialog" aria-labelledby="about-title">
-    <div class="about-dialog__heading">
-      <div>
-        <span class="eyebrow">SITE CREDITS</span>
-        <h2 id="about-title">关于网站</h2>
+    <h3 id="about-title" class="about-dialog-head">寻仙任务存档 v{{ site_version }}</h3>
+    <div class="about-dialog-body">
+      <div class="about-row">
+        <svg class="is-fill" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        <span class="about-label">项目地址</span>
+        <a href="https://github.com/icosohedral/xunxian-quests-archive" target="_blank" rel="noopener noreferrer" title="github.com/icosohedral/xunxian-quests-archive">xunxian-quests-archive</a>
       </div>
-      <button class="about-dialog__close" type="button" data-close-about aria-label="关闭关于网站弹窗">×</button>
+      <div class="about-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/><circle cx="12" cy="12" r="10"/></svg>
+        <span class="about-label">资源总站</span>
+        <a href="https://xunxian.wiki" target="_blank" rel="noopener noreferrer">xunxian.wiki</a>
+      </div>
+      <p class="about-notice">本站为任务资料整理项目，游戏及相关权利归原权利人所有。</p>
     </div>
-    <div class="about-dialog__body">
-      <span class="about-dialog__seal" aria-hidden="true">寻</span>
-      <div class="about-credits">
-        <section>
-          <span class="about-credits__role">作者与维护者</span>
-          <h3>icosohedral</h3>
-          <p>寻仙任务资料库的整理、维护与网站开发。</p>
-          <a class="about-credits__github" href="https://github.com/icosohedral/xunxian-quests-archive" target="_blank" rel="noopener noreferrer">
-            <span>GitHub</span>
-            icosohedral
-            <span aria-hidden="true">↗</span>
-          </a>
-        </section>
-        <section>
-          <span class="about-credits__role">特别鸣谢</span>
-          <h3>贴吧用户「耳目清净」</h3>
-          <p>感谢其开发的寻仙游戏资源解包工具，为本资料库的资源整理提供了重要支持。</p>
-        </section>
-      </div>
+    <div class="about-dialog-foot">
+      <button type="button" class="about-dialog-ok" data-close-about autofocus>知道了</button>
     </div>
   </dialog>
 
@@ -74,8 +72,15 @@
         <label class="search-box">
           <span class="sr-only">任务名称</span>
           <input name="q" value="{{ filters.q }}" placeholder="输入任务名称" autocomplete="off">
-          <button type="submit" aria-label="搜索">⌕</button>
+          <button type="submit" aria-label="搜索"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
         </label>
+        {% set active_filter_count = [filters.npc, filters.area, filters.category, filters.subcategory]|select|list|length %}
+        <details class="filter-panel" {% if active_filter_count %}open{% endif %}>
+          <summary>
+            <span>筛选条件</span>
+            <span class="filter-count" id="filter-count" {% if not active_filter_count %}hidden{% endif %}>{{ active_filter_count }}</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+          </summary>
         <div class="filter-grid">
           <label>
             <span>NPC</span>
@@ -114,6 +119,7 @@
             </select>
           </label>
         </div>
+        </details>
         <div class="form-actions">
           <button class="primary-button" type="submit">检索任务</button>
           <a class="text-link" href="/">清除条件</a>
@@ -122,7 +128,7 @@
 
       <div class="result-heading" id="search-result-heading">
         <span>检索结果</span>
-        <small id="search-result-summary">{{ search.total }} 条{% if search.search_active %} · 总经验 {{ search.total_experience|compact_number }}{% endif %} · 第 {{ search.page }}/{{ search.page_count }} 页</small>
+        <small id="search-result-summary">{{ search.total }} 条{% if search.search_active %} · 总经验 {{ search.total_experience|compact_number }}{% endif %}</small>
       </div>
 
       <div class="quest-list" id="search-result-list" aria-live="polite">
@@ -135,7 +141,7 @@
             <strong>{{ quest.quest_name }}</strong>
             <span class="quest-card-meta">
               <span>等级 {{ quest.level_requirement if quest.level_requirement is not none else "—" }}</span>
-              <span>{{ quest.area_name or "地区未记录" }}</span>
+              {% if quest.area_name %}<span>{{ quest.area_name }}</span>{% endif %}
             </span>
           </a>
         {% else %}
@@ -193,9 +199,18 @@
               <span class="eyebrow">QUEST SCRIPT</span>
               <h3 id="text-heading">任务文本</h3>
             </div>
+            {% if detail.text_sections|rejectattr("is_empty")|list %}
+              <button class="copy-text-button" type="button" data-copy-text aria-label="复制当前标签下的文字" title="复制当前标签下的文字">
+                <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+                <svg class="copied-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+                <span class="copy-text-status" aria-live="polite"></span>
+              </button>
+            {% endif %}
           </div>
+          {% set filled_sections = detail.text_sections|rejectattr("is_empty")|list %}
+          {% if filled_sections %}
           <div class="text-tabs" role="tablist" aria-label="任务文本类型">
-            {% for section in detail.text_sections %}
+            {% for section in filled_sections %}
               <button
                 type="button"
                 role="tab"
@@ -204,10 +219,10 @@
                 aria-selected="{{ 'true' if loop.first else 'false' }}"
                 tabindex="{{ '0' if loop.first else '-1' }}"
                 data-tab="{{ section.field }}"
-              >{{ section.label }}{% if section.is_empty %}<span class="empty-dot" aria-label="内容为空"></span>{% endif %}</button>
+              >{{ section.label }}</button>
             {% endfor %}
           </div>
-          {% for section in detail.text_sections %}
+          {% for section in filled_sections %}
             <article
               class="text-panel"
               id="panel-{{ section.field }}"
@@ -215,17 +230,16 @@
               aria-labelledby="tab-{{ section.field }}"
               {% if not loop.first %}hidden{% endif %}
             >
-              {% if section.is_empty %}
-                <div class="field-empty">原始数据为空</div>
-              {% else %}
-                <p class="quest-prose">{% for token in section.tokens %}{% if token.type == "text" %}{{ token.value }}{% else %}<button
-                    class="entity-tag entity-tag--{{ token.resolution.kind }} entity-tag--{{ token.resolution.status }}"
-                    type="button"
-                    data-evidence='{{ token.resolution|tojson }}'
-                  ><span>{{ {"enemy":"敌人","target":"目标","item":"道具","hint":"提示","character":"称谓","friend":"角色"}.get(token.resolution.kind, "标签") }}</span>{{ token.resolution.label }}</button>{% endif %}{% endfor %}</p>
-              {% endif %}
+              <p class="quest-prose">{% for token in section.tokens %}{% if token.type == "text" %}{{ token.value }}{% else %}<button
+                  class="entity-tag entity-tag--{{ token.resolution.kind }} entity-tag--{{ token.resolution.status }}"
+                  type="button"
+                  data-evidence='{{ token.resolution|tojson }}'
+                ><span>{{ {"enemy":"敌人","target":"目标","item":"道具","hint":"提示","character":"称谓","friend":"角色"}.get(token.resolution.kind, "标签") }}</span>{{ token.resolution.label }}</button>{% endif %}{% endfor %}</p>
             </article>
           {% endfor %}
+          {% else %}
+            <p class="field-empty">原始数据为空，这条任务没有任何文本记录</p>
+          {% endif %}
         </section>
 
         <div class="detail-columns">
@@ -275,7 +289,7 @@
                 {% endfor %}
               </div>
             {% else %}
-              <div class="field-empty compact-empty">没有结构化任务目标</div>
+              <p class="field-empty compact-empty">没有结构化任务目标</p>
             {% endif %}
           </section>
 
@@ -299,7 +313,7 @@
                 {% endfor %}
               </div>
             {% else %}
-              <div class="field-empty compact-empty">没有结构化奖励记录</div>
+              <p class="field-empty compact-empty">没有结构化奖励记录</p>
             {% endif %}
           </section>
         </div>
@@ -321,19 +335,20 @@
         <button class="icon-button mobile-close" type="button" data-close-sheet="context-rail" aria-label="关闭关系面板">×</button>
       </div>
       {% if detail %}
+        {% set incoming_next = detail.relations.incoming|selectattr("relation_type", "equalto", "next")|list %}
+        {% set outgoing_next = detail.relations.outgoing|selectattr("relation_type", "equalto", "next")|list %}
+        {% set incoming_confirmed = detail.relations.incoming|selectattr("relation_type", "equalto", "completion_requirement")|list %}
+        {% set outgoing_confirmed = detail.relations.outgoing|selectattr("relation_type", "equalto", "completion_requirement")|list %}
+        {% set incoming_updates = detail.relations.incoming|selectattr("relation_type", "equalto", "version_update")|list %}
+        {% set outgoing_updates = detail.relations.outgoing|selectattr("relation_type", "equalto", "version_update")|list %}
+        {% set incoming_context = incoming_next + incoming_confirmed + incoming_updates %}
+        {% set outgoing_context = outgoing_next + outgoing_confirmed + outgoing_updates %}
+        {% if incoming_context or outgoing_context %}
         <section class="context-section">
           <div class="context-title">
             <h3>任务关系</h3>
           </div>
           <div class="relation-graph" role="img" aria-label="任务之间的直接关系">
-            {% set incoming_next = detail.relations.incoming|selectattr("relation_type", "equalto", "next")|list %}
-            {% set outgoing_next = detail.relations.outgoing|selectattr("relation_type", "equalto", "next")|list %}
-            {% set incoming_confirmed = detail.relations.incoming|selectattr("relation_type", "equalto", "completion_requirement")|list %}
-            {% set outgoing_confirmed = detail.relations.outgoing|selectattr("relation_type", "equalto", "completion_requirement")|list %}
-            {% set incoming_updates = detail.relations.incoming|selectattr("relation_type", "equalto", "version_update")|list %}
-            {% set outgoing_updates = detail.relations.outgoing|selectattr("relation_type", "equalto", "version_update")|list %}
-            {% set incoming_context = incoming_next + incoming_confirmed + incoming_updates %}
-            {% set outgoing_context = outgoing_next + outgoing_confirmed + outgoing_updates %}
             {% if incoming_context %}
               {% for relation in incoming_context %}
                 <a class="relation-node relation-node--muted" href="/?selected={{ relation.from_quest_id }}{% if preserved_query %}&{{ preserved_query }}{% endif %}"{% if relation.inference_basis %} title="{{ relation.inference_basis }}"{% endif %}>
@@ -355,6 +370,7 @@
             {% endif %}
           </div>
         </section>
+        {% endif %}
 
         <section class="context-section related-section" aria-live="polite">
           <div class="context-title">

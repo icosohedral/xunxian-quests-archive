@@ -49,42 +49,48 @@ def test_default_page_renders_real_quest_90() -> None:
     response = client.get("/")
     assert response.status_code == 200
     assert "寻仙任务存档" in response.text
+    assert re.search(
+        r'<button class="topbar-version"[^>]*data-open-about[^>]*>'
+        + re.escape(f"v{site_version}")
+        + r"</button>",
+        response.text,
+    )
     assert (
-        f'<small class="brand-version">v{site_version}</small>'
+        f'<h3 id="about-title" class="about-dialog-head">寻仙任务存档 v{site_version}</h3>'
         in response.text
+    )
+    assert response.text.count('class="theme-swatch"') == 3
+    # Top-right order: version, then theme swatches, then today's visitors.
+    assert (
+        response.text.index('class="topbar-version"')
+        < response.text.index('class="theme-picker"')
+        < response.text.index('class="topbar-visitors"')
     )
     assert "本地只读任务档案" not in response.text
     assert "例如：刘老太太" not in response.text
     assert "寻仙任务数据库" not in response.text
     assert "在线运行" not in response.text
-    assert 'data-open-about>关于网站</button>' in response.text
+    assert "关于网站" not in response.text
+    assert "topbar-resource-link" not in response.text
     assert re.search(
         r'今日来访\s*<strong id="today-visitors">\d+</strong>',
         response.text,
     )
-    assert (
-        '<a class="topbar-resource-link" href="https://xunxian.wiki">'
-        "资源总站</a>"
-        in response.text
-    )
-    assert (
-        'href="https://github.com/icosohedral/xunxian-quests-archive"'
-        in response.text
-    )
-    assert "作者与维护者" in response.text
-    assert "<h3>icosohedral</h3>" in response.text
-    assert "<span>GitHub</span>" in response.text
     assert re.search(
-        r'<a class="about-credits__github"[^>]*>\s*'
-        r"<span>GitHub</span>\s*icosohedral\s*"
-        r'<span aria-hidden="true">↗</span>',
+        r'<span class="about-label">项目地址</span>\s*'
+        r'<a href="https://github.com/icosohedral/xunxian-quests-archive"[^>]*>'
+        r"xunxian-quests-archive</a>",
         response.text,
     )
-    assert ">icosohedral/xunxian-quests-archive" not in response.text
-    assert "寻仙任务资料库的整理、维护与网站开发。" in response.text
-    assert "特别鸣谢" in response.text
-    assert "贴吧用户「耳目清净」" in response.text
-    assert "感谢其开发的寻仙游戏资源解包工具，为本资料库的资源整理提供了重要支持。" in response.text
+    assert re.search(
+        r'<span class="about-label">资源总站</span>\s*'
+        r'<a href="https://xunxian.wiki"[^>]*>xunxian.wiki</a>',
+        response.text,
+    )
+    assert 'class="about-dialog-ok" data-close-about' in response.text
+    assert "作者与维护者" not in response.text
+    assert "特别鸣谢" not in response.text
+    assert "耳目清净" not in response.text
     assert "SQLite 只读" not in response.text
     assert "项检索结果" not in response.text
     assert "只读记录" not in response.text
@@ -135,11 +141,14 @@ def test_default_page_renders_real_quest_90() -> None:
 def test_quest_90_page_contains_five_text_tabs_and_tags() -> None:
     response = client.get("/?selected=90")
     assert response.status_code == 200
-    for label in ["接取对话", "任务背景", "提示文字", "进行中", "完成对话"]:
+    for label in ["接取对话", "提示文字", "进行中", "完成对话"]:
         assert label in response.text
+    # Quest 90 has no background text, so that tab is not rendered at all.
+    assert "任务背景" not in response.text
     assert "entity-tag--enemy" in response.text
     assert "entity-tag--target" in response.text
-    assert "原始数据为空" in response.text
+    assert "无记录：" not in response.text
+    assert "empty-dot" not in response.text
     assert 'class="condition-quest-link"' in response.text
     assert 'href="/?selected=178&page=1"' in response.text
     assert "比较代码" not in response.text
@@ -319,7 +328,10 @@ def test_story_context_omits_direction_labels() -> None:
     assert "<span>后续任务</span>" not in response.text
     assert "<span>明确衔接</span>" not in response.text
     assert "<span>版本衔接</span>" not in response.text
-    assert 'aria-label="任务之间的直接关系"' in response.text
+    # Quest 90 has no neighbouring quests, so the lone-node graph is omitted.
+    assert 'aria-label="任务之间的直接关系"' not in response.text
+    linked = client.get("/?selected=3869")
+    assert 'aria-label="任务之间的直接关系"' in linked.text
 
 
 def test_story_context_renders_every_confirmed_branch() -> None:
@@ -384,7 +396,7 @@ def test_two_level_category_filter_preserves_child_on_pagination() -> None:
     )
     assert response.status_code == 200
     assert re.search(
-        r"57 条 · 总经验 [^<]+ · 第 1/12 页",
+        r"57 条 · 总经验 [^<]+</small>",
         response.text,
     )
     assert '<option value="重复任务" selected' in response.text
@@ -432,3 +444,17 @@ def test_search_pagination_uses_partial_api_refresh() -> None:
     assert 'apiParams.set("window", "2")' not in script.text
     assert "requestIdleCallback" not in script.text
     assert "compactNumber(data.total_experience)" in script.text
+
+
+def test_object_details_default_to_accept_npc() -> None:
+    import html
+    import json
+
+    response = client.get("/?selected=90")
+    assert response.status_code == 200
+    match = re.search(r"data-default-evidence='([^']*)'", response.text)
+    assert match
+    evidence = json.loads(html.unescape(match.group(1)))
+    assert evidence["namespace"] == "接取 NPC"
+    assert evidence["label"] == "刘老太太"
+    assert isinstance(evidence.get("related_quests"), list)

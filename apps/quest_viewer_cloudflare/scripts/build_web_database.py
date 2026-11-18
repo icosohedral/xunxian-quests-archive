@@ -182,8 +182,8 @@ def _write_generated_modules() -> None:
     )
     template_source = template_path.read_text(encoding="utf-8")
     template_source = template_source.replace(
-        "{{ url_for('static', path='/favicon.svg') }}",
-        "/static/favicon.svg",
+        "{{ url_for('static', path='/logo.png') }}",
+        "/static/logo.png",
     ).replace(
         "{{ url_for('static', path='/styles.css') }}",
         "/static/styles.css",
