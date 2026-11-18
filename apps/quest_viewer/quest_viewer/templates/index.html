@@ -15,8 +15,8 @@
   <link rel="canonical" href="{{ canonical_url }}">
   <title>{% if detail %}{{ detail.summary.quest_name }} · {% endif %}寻仙任务存档</title>
   <link rel="icon" href="{{ url_for('static', path='/logo.png') }}" type="image/png">
-  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}?v=20261118-v110">
-  <script src="{{ url_for('static', path='/app.js') }}?v=20261118-v110" defer></script>
+  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}?v=20261118-v111">
+  <script src="{{ url_for('static', path='/app.js') }}?v=20261118-v111" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#quest-dossier">跳到任务正文</a>
@@ -75,7 +75,8 @@
           <button type="submit" aria-label="搜索"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
         </label>
         {% set active_filter_count = [filters.npc, filters.area, filters.category, filters.subcategory]|select|list|length %}
-        <details class="filter-panel" {% if active_filter_count %}open{% endif %}>
+        {% set panel_open = active_filter_count if filter_panel_open is none else filter_panel_open %}
+        <details class="filter-panel" id="filter-panel" {% if panel_open %}open{% endif %}>
           <summary>
             <span>筛选条件</span>
             <span class="filter-count" id="filter-count" {% if not active_filter_count %}hidden{% endif %}>{{ active_filter_count }}</span>
@@ -131,7 +132,7 @@
         <small id="search-result-summary">{{ search.total }} 条{% if search.search_active %} · 总经验 {{ search.total_experience|compact_number }}{% endif %}</small>
       </div>
 
-      <div class="quest-list" id="search-result-list" aria-live="polite">
+      <div class="quest-list" id="search-result-list" data-page-size="{{ search.page_size }}" aria-live="polite">
         {% for quest in search["items"] %}
           <a
             class="quest-card {% if detail and detail.summary.quest_id == quest.quest_id %}is-active{% endif %}"

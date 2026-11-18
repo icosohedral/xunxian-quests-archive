@@ -154,6 +154,34 @@ def _prepare_detail(detail: dict[str, Any] | None) -> dict[str, Any] | None:
     return detail
 
 
+LIST_SIZE_COOKIE = "quest_list_size"
+FILTER_PANEL_COOKIE = "quest_filter_panel"
+MIN_LIST_SIZE = 3
+MAX_LIST_SIZE = 30
+
+
+def _list_size(request: Request, size: int | None = None) -> int:
+    """Return the result page size: explicit value, then the client cookie."""
+    value: Any = size
+    if value is None:
+        value = request.cookies.get(LIST_SIZE_COOKIE)
+    try:
+        number = int(value)
+    except (TypeError, ValueError):
+        return settings.page_size
+    return max(MIN_LIST_SIZE, min(MAX_LIST_SIZE, number))
+
+
+def _filter_panel_preference(request: Request) -> bool | None:
+    """Return the visitor's last filter panel state, or None if never set."""
+    value = request.cookies.get(FILTER_PANEL_COOKIE)
+    if value == "open":
+        return True
+    if value == "closed":
+        return False
+    return None
+
+
 def _query_url(
     *,
     q: str,
@@ -210,6 +238,7 @@ def index(
             category=category,
             subcategory=subcategory,
             page=page,
+            page_size=_list_size(request),
         )
         if selected is None:
             if not any([q, npc, area, category, subcategory]):
@@ -234,6 +263,7 @@ def index(
             "search": search,
             "detail": detail,
             "facets": facets,
+            "filter_panel_open": _filter_panel_preference(request),
             "filters": {
                 "q": q,
                 "npc": npc,
@@ -315,12 +345,14 @@ def api_visit(payload: VisitorPing) -> dict[str, Any]:
 
 @app.get("/api/quests")
 def api_quests(
+    request: Request,
     q: str = "",
     npc: str = "",
     area: str = "",
     category: str = "",
     subcategory: str = "",
     page: int = Query(1, ge=1),
+    size: int | None = Query(None, ge=1, le=50),
 ) -> dict[str, Any]:
     return repository.search(
         q=q,
@@ -329,6 +361,7 @@ def api_quests(
         category=category,
         subcategory=subcategory,
         page=page,
+        page_size=_list_size(request, size),
     )
 
 

@@ -22,6 +22,10 @@ from generated_story_connections import story_context_relations
 
 
 PAGE_SIZE = 5
+MIN_LIST_SIZE = 3
+MAX_LIST_SIZE = 30
+LIST_SIZE_COOKIE = "quest_list_size"
+FILTER_PANEL_COOKIE = "quest_filter_panel"
 SEARCH_CACHE_TTL_SECONDS = 86_400
 # Bump when QUEST_DB data is re-imported so cached searches are not reused.
 DATA_REVISION = "20261118"
@@ -111,6 +115,7 @@ def _search_cache_key(
     subcategory: str,
     page: int,
     window: int,
+    page_size: int,
 ) -> str:
     query = urlencode(
         {
@@ -123,6 +128,7 @@ def _search_cache_key(
             "subcategory": subcategory.strip(),
             "page": max(1, page),
             "window": max(0, min(3, window)),
+            "size": page_size,
         }
     )
     return f"https://quests.xunxian.wiki/__search-cache?{query}"
@@ -138,9 +144,11 @@ async def _search(
     subcategory: str = "",
     page: int = 1,
     window: int = 0,
+    page_size: int = PAGE_SIZE,
 ) -> dict[str, Any]:
     page = max(1, page)
     window = max(0, min(3, window))
+    page_size = max(1, min(MAX_LIST_SIZE, page_size))
     conditions = ["1=1"]
     parameters: list[Any] = []
     q = q.strip()
@@ -188,14 +196,14 @@ async def _search(
         total = await _metadata_int(database, "quest_count")
         total_experience = 0
 
-    page_count = max(1, math.ceil(total / PAGE_SIZE))
+    page_count = max(1, math.ceil(total / page_size))
     window_start_page = max(1, page - window)
     window_end_page = min(page_count, page + window)
     if search_active:
         list_parameters = [
             *parameters,
-            (window_end_page - window_start_page + 1) * PAGE_SIZE,
-            (window_start_page - 1) * PAGE_SIZE,
+            (window_end_page - window_start_page + 1) * page_size,
+            (window_start_page - 1) * page_size,
         ]
         list_sql = f"""
             SELECT summary_json
@@ -208,8 +216,8 @@ async def _search(
         """
     else:
         list_parameters = [
-            (window_start_page - 1) * PAGE_SIZE + 1,
-            window_end_page * PAGE_SIZE,
+            (window_start_page - 1) * page_size + 1,
+            window_end_page * page_size,
         ]
         list_sql = """
             SELECT summary_json
@@ -222,9 +230,9 @@ async def _search(
     window_items = [json.loads(row["summary_json"]) for row in rows]
     prefetched_pages: dict[str, list[dict[str, Any]]] = {}
     for prefetched_page in range(window_start_page, window_end_page + 1):
-        start = (prefetched_page - window_start_page) * PAGE_SIZE
+        start = (prefetched_page - window_start_page) * page_size
         prefetched_pages[str(prefetched_page)] = window_items[
-            start : start + PAGE_SIZE
+            start : start + page_size
         ]
     return {
         "items": prefetched_pages.get(str(page), []),
@@ -232,7 +240,7 @@ async def _search(
         "total_experience": total_experience,
         "search_active": search_active,
         "page": page,
-        "page_size": PAGE_SIZE,
+        "page_size": page_size,
         "page_count": page_count,
         "prefetched_pages": prefetched_pages if window else {},
     }
@@ -248,6 +256,7 @@ async def _cached_search(
     subcategory: str = "",
     page: int = 1,
     window: int = 0,
+    page_size: int = PAGE_SIZE,
 ) -> dict[str, Any]:
     arguments = {
         "q": q,
@@ -257,6 +266,7 @@ async def _cached_search(
         "subcategory": subcategory,
         "page": page,
         "window": window,
+        "page_size": page_size,
     }
     cache_key = _search_cache_key(**arguments)
     cache = None
@@ -370,6 +380,28 @@ async def _record_visit(database: Any, visitor_id: str) -> tuple[int, str, bool]
     return count, today, is_new
 
 
+def _list_size(request: Request, size: int | None = None) -> int:
+    """Return the result page size: explicit value, then the client cookie."""
+    value: Any = size
+    if value is None:
+        value = request.cookies.get(LIST_SIZE_COOKIE)
+    try:
+        number = int(value)
+    except (TypeError, ValueError):
+        return PAGE_SIZE
+    return max(MIN_LIST_SIZE, min(MAX_LIST_SIZE, number))
+
+
+def _filter_panel_preference(request: Request) -> bool | None:
+    """Return the visitor's last filter panel state, or None if never set."""
+    value = request.cookies.get(FILTER_PANEL_COOKIE)
+    if value == "open":
+        return True
+    if value == "closed":
+        return False
+    return None
+
+
 def _query_url(
     *,
     q: str,
@@ -436,6 +468,7 @@ async def index(
         category=category,
         subcategory=subcategory,
         page=page,
+        page_size=_list_size(request),
     )
     if selected is None:
         if not any([q, npc, area, category, subcategory]):
@@ -451,6 +484,7 @@ async def index(
         search=search,
         detail=detail,
         facets=FACETS,
+        filter_panel_open=_filter_panel_preference(request),
         filters={
             "q": q,
             "npc": npc,
@@ -540,6 +574,7 @@ async def api_quests(
     subcategory: str = "",
     page: int = Query(1, ge=1),
     window: int = Query(0, ge=0, le=3),
+    size: int | None = Query(None, ge=1, le=50),
 ) -> JSONResponse:
     search = await _cached_search(
         request.scope["env"].QUEST_DB,
@@ -550,6 +585,7 @@ async def api_quests(
         subcategory=subcategory,
         page=page,
         window=window,
+        page_size=_list_size(request, size),
     )
     return JSONResponse(
         search,

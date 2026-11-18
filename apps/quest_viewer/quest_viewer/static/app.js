@@ -227,6 +227,7 @@
   const searchPagination = document.getElementById("search-pagination");
   const searchPageCache = new Map();
   let searchRequestController = null;
+  let listPageSize = Number(searchResultList?.dataset.pageSize) || 5;
 
   const currentSearchParams = () => {
     const params = new URLSearchParams(window.location.search);
@@ -240,6 +241,7 @@
   const searchApiUrl = (params) => {
     const apiParams = new URLSearchParams(params);
     apiParams.delete("selected");
+    apiParams.set("size", String(listPageSize));
     return `/api/quests?${apiParams.toString()}`;
   };
 
@@ -247,6 +249,7 @@
     const cacheParams = new URLSearchParams(params);
     cacheParams.delete("selected");
     cacheParams.delete("window");
+    cacheParams.set("size", String(listPageSize));
     return `/api/quests?${cacheParams.toString()}`;
   };
 
@@ -326,6 +329,8 @@
 
   const renderSearchPage = (data, params) => {
     if (!searchResultList || !searchResultSummary || !searchPagination) return;
+    listPageSize = Number(data.page_size) || listPageSize;
+    searchResultList.dataset.pageSize = String(listPageSize);
     const selected = new URLSearchParams(window.location.search).get("selected");
     const experienceSummary = data.search_active
       ? ` · 总经验 ${compactNumber(data.total_experience)}`
@@ -364,7 +369,10 @@
     applyOverflowTitles(searchResultList);
   };
 
-  const loadSearchPage = async (url, { updateHistory = true } = {}) => {
+  const loadSearchPage = async (
+    url,
+    { updateHistory = true, replaceUrl = null } = {}
+  ) => {
     if (!searchResultList) return;
     const target = new URL(url, window.location.href);
     const params = new URLSearchParams(target.search);
@@ -376,7 +384,9 @@
     searchResultList.classList.add("is-loading");
     try {
       const data = await fetchSearchPage(params, searchRequestController.signal);
-      if (updateHistory) {
+      if (replaceUrl) {
+        history.replaceState(history.state, "", replaceUrl);
+      } else if (updateHistory) {
         history.pushState({}, "", searchPageLink(params));
       }
       renderSearchPage(data, params);
@@ -398,6 +408,69 @@
   window.addEventListener("popstate", () => {
     loadSearchPage(window.location.href, { updateHistory: false });
   });
+
+  // Fit the number of result cards to the rail height, so the list fills the
+  // space above the pager. The size goes into a cookie so the server renders
+  // the same number on the next page load.
+  const searchRail = document.getElementById("search-rail");
+  const filterPanel = document.getElementById("filter-panel");
+  const MIN_LIST_SIZE = 3;
+  const MAX_LIST_SIZE = 30;
+  const CARD_GAP = 2;
+  let cardHeight = 0;
+
+  const setPreferenceCookie = (name, value) => {
+    document.cookie = `${name}=${value}; path=/; max-age=31536000; SameSite=Lax`;
+  };
+
+  const fittingListSize = () => {
+    if (!searchRail || !searchResultList || !searchPagination) return null;
+    // Only the desktop rail has a fixed height; the mobile sheet grows with content.
+    if (getComputedStyle(searchRail).position !== "sticky") return null;
+    const card = searchResultList.querySelector(".quest-card");
+    if (card) cardHeight = card.offsetHeight;
+    if (!cardHeight || !searchRail.clientHeight) return null;
+    const available =
+      searchRail.clientHeight -
+      parseFloat(getComputedStyle(searchRail).paddingBottom) -
+      searchPagination.offsetHeight -
+      searchResultList.offsetTop;
+    const fit = Math.floor((available + CARD_GAP) / (cardHeight + CARD_GAP));
+    return Math.max(MIN_LIST_SIZE, Math.min(MAX_LIST_SIZE, fit));
+  };
+
+  const fitListToRail = () => {
+    const size = fittingListSize();
+    if (!size) return;
+    setPreferenceCookie("quest_list_size", size);
+    if (size === listPageSize) return;
+    // Keep the selected quest (or the first card) on the new page.
+    const current = new URL(window.location.href);
+    const page = Number(current.searchParams.get("page")) || 1;
+    const cards = [...searchResultList.querySelectorAll(".quest-card")];
+    const anchor = Math.max(0, cards.findIndex((card) => card.classList.contains("is-active")));
+    const anchorIndex = (page - 1) * listPageSize + anchor;
+    listPageSize = size;
+    current.searchParams.set("page", String(Math.floor(anchorIndex / size) + 1));
+    loadSearchPage(current.href, { replaceUrl: current.pathname + current.search });
+  };
+
+  let fitTimer = null;
+  const scheduleListFit = () => {
+    clearTimeout(fitTimer);
+    fitTimer = setTimeout(fitListToRail, 120);
+  };
+  window.addEventListener("resize", scheduleListFit);
+  filterPanel?.addEventListener("toggle", scheduleListFit);
+  // Remember the panel state only when the visitor toggles it themselves.
+  filterPanel?.querySelector("summary")?.addEventListener("click", () => {
+    setPreferenceCookie("quest_filter_panel", filterPanel.open ? "closed" : "open");
+  });
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(fitListToRail);
+  } else {
+    fitListToRail();
+  }
 
   const evidenceLabels = {
     label: "对象名称",

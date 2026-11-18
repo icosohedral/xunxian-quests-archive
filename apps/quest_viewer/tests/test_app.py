@@ -458,3 +458,43 @@ def test_object_details_default_to_accept_npc() -> None:
     assert evidence["namespace"] == "接取 NPC"
     assert evidence["label"] == "刘老太太"
     assert isinstance(evidence.get("related_quests"), list)
+
+
+def _result_card_count(html: str) -> int:
+    list_html = html.split('id="search-result-list"', 1)[1].split("</div>", 1)[0]
+    return list_html.count('class="quest-card')
+
+
+def test_list_size_cookie_sets_result_page_size() -> None:
+    fitted = TestClient(app, cookies={"quest_list_size": "12"})
+    response = fitted.get("/", params={"area": "乌鸡国"})
+    assert 'data-page-size="12"' in response.text
+    assert _result_card_count(response.text) == 12
+
+    clamped = TestClient(app, cookies={"quest_list_size": "999"})
+    assert 'data-page-size="30"' in clamped.get("/").text
+
+    broken = TestClient(app, cookies={"quest_list_size": "abc"})
+    assert 'data-page-size="5"' in broken.get("/").text
+
+
+def test_api_size_overrides_cookie() -> None:
+    fitted = TestClient(app, cookies={"quest_list_size": "12"})
+    data = fitted.get("/api/quests", params={"area": "乌鸡国", "size": 7}).json()
+    assert data["page_size"] == 7
+    assert len(data["items"]) == 7
+    assert data["page_count"] == -(-data["total"] // 7)
+
+
+def test_filter_panel_follows_saved_preference() -> None:
+    open_tag = re.compile(r'<details class="filter-panel" id="filter-panel"\s+open>')
+    assert open_tag.search(client.get("/", params={"area": "乌鸡国"}).text)
+    assert not open_tag.search(client.get("/").text)
+
+    collapsed = TestClient(app, cookies={"quest_filter_panel": "closed"})
+    assert not open_tag.search(
+        collapsed.get("/", params={"area": "乌鸡国", "selected": 2937}).text
+    )
+
+    expanded = TestClient(app, cookies={"quest_filter_panel": "open"})
+    assert open_tag.search(expanded.get("/").text)

@@ -408,8 +408,10 @@ class QuestRepository:
         category: str = "",
         subcategory: str = "",
         page: int = 1,
+        page_size: int | None = None,
     ) -> dict[str, Any]:
         page = max(1, page)
+        page_size = page_size or self.page_size
         # search_rows only holds each quest's first-ranked source variant.
         conditions = ["1 = 1"]
         parameters: list[Any] = []
@@ -480,7 +482,7 @@ class QuestRepository:
                              quest_id
                     LIMIT ? OFFSET ?
                     """,
-                    [*parameters, self.page_size, (page - 1) * self.page_size],
+                    [*parameters, page_size, (page - 1) * page_size],
                 )
             )
         return {
@@ -489,8 +491,8 @@ class QuestRepository:
             "total_experience": total_experience,
             "search_active": search_active,
             "page": page,
-            "page_size": self.page_size,
-            "page_count": max(1, math.ceil(total / self.page_size)),
+            "page_size": page_size,
+            "page_count": max(1, math.ceil(total / page_size)),
         }
 
     def _search_connection(self) -> sqlite3.Connection:
