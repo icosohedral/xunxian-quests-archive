@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import copy
 import json
 import math
 import re
+import sqlite3
+import threading
 from pathlib import Path
 from typing import Any
 
@@ -216,10 +219,82 @@ def _area_context(
     }
 
 
+SEARCH_SOURCE_SQL = """
+WITH parent_counts AS (
+    SELECT TRIM(json_extract(raw_values_json, '$[9]')) AS child_name,
+           TRIM(json_extract(raw_values_json, '$[8]')) AS parent_name,
+           COUNT(*) AS usage_count
+    FROM quest_target
+    WHERE NULLIF(TRIM(json_extract(raw_values_json, '$[8]')), '') IS NOT NULL
+      AND NULLIF(TRIM(json_extract(raw_values_json, '$[9]')), '') IS NOT NULL
+    GROUP BY child_name, parent_name
+),
+parent_map AS (
+    SELECT child_name, parent_name
+    FROM (
+        SELECT parent_counts.*,
+               ROW_NUMBER() OVER (
+                   PARTITION BY child_name
+                   ORDER BY usage_count DESC, parent_name
+               ) AS preference_no
+        FROM parent_counts
+    )
+    WHERE preference_no=1
+),
+enriched AS (
+    SELECT qf.*,
+           q.raw_values_json AS quest_raw_values_json,
+           canonical_area_name(
+               qf.area_id,
+               qf.area_name,
+               NULLIF(TRIM(json_extract(qt.raw_values_json, '$[8]')), ''),
+               NULLIF(TRIM(json_extract(qt.raw_values_json, '$[9]')), ''),
+               pm.parent_name
+           ) AS root_area_name,
+           NULLIF(TRIM(json_extract(qt.raw_values_json, '$[9]')), '')
+               AS subarea_name,
+           display_area_name(
+               qf.area_id,
+               qf.area_name,
+               NULLIF(TRIM(json_extract(qt.raw_values_json, '$[8]')), ''),
+               NULLIF(TRIM(json_extract(qt.raw_values_json, '$[9]')), ''),
+               pm.parent_name
+           ) AS display_area_name,
+           main_category_name(qf.category_name)
+               AS main_category_name,
+           sub_category_name(qf.category_name)
+               AS sub_category_name
+    FROM quest_full qf
+    JOIN quest q
+      ON q.quest_id=qf.quest_id
+     AND q.version_no=qf.version_no
+    LEFT JOIN quest_target qt ON qt.target_id=qf.tracking_target_id
+    LEFT JOIN parent_map pm
+      ON pm.child_name=COALESCE(
+          NULLIF(TRIM(json_extract(qt.raw_values_json, '$[9]')), ''),
+          qf.area_name
+      )
+),
+ranked AS (
+    SELECT enriched.*,
+           ROW_NUMBER() OVER (
+               PARTITION BY quest_id
+               ORDER BY source_row, version_no
+           ) AS rank_no,
+           COUNT(*) OVER (PARTITION BY quest_id) AS source_variant_count
+    FROM enriched
+)
+"""
+
+
 class QuestRepository:
     def __init__(self, database_path: Path, page_size: int = 5) -> None:
         self.database_path = database_path
         self.page_size = page_size
+        self._search_lock = threading.Lock()
+        self._search_index: sqlite3.Connection | None = None
+        self._facets_lock = threading.Lock()
+        self._facets_cache: dict[str, list[dict[str, Any]]] | None = None
         resource_root = Path(__file__).resolve().parents[3] / "original_data" / "mb"
         self.title_names = _load_tab_name_index(
             resource_root / "etc" / "title_list.txt"
@@ -335,7 +410,8 @@ class QuestRepository:
         page: int = 1,
     ) -> dict[str, Any]:
         page = max(1, page)
-        conditions = ["rank_no = 1"]
+        # search_rows only holds each quest's first-ranked source variant.
+        conditions = ["1 = 1"]
         parameters: list[Any] = []
         q = q.strip()
         if q:
@@ -370,83 +446,23 @@ class QuestRepository:
         )
 
         where_sql = " AND ".join(conditions)
-        cte = """
-            WITH parent_counts AS (
-                SELECT TRIM(json_extract(raw_values_json, '$[9]')) AS child_name,
-                       TRIM(json_extract(raw_values_json, '$[8]')) AS parent_name,
-                       COUNT(*) AS usage_count
-                FROM quest_target
-                WHERE NULLIF(TRIM(json_extract(raw_values_json, '$[8]')), '') IS NOT NULL
-                  AND NULLIF(TRIM(json_extract(raw_values_json, '$[9]')), '') IS NOT NULL
-                GROUP BY child_name, parent_name
-            ),
-            parent_map AS (
-                SELECT child_name, parent_name
-                FROM (
-                    SELECT parent_counts.*,
-                           ROW_NUMBER() OVER (
-                               PARTITION BY child_name
-                               ORDER BY usage_count DESC, parent_name
-                           ) AS preference_no
-                    FROM parent_counts
-                )
-                WHERE preference_no=1
-            ),
-            enriched AS (
-                SELECT qf.*,
-                       q.raw_values_json AS quest_raw_values_json,
-                       canonical_area_name(
-                           qf.area_id,
-                           qf.area_name,
-                           NULLIF(TRIM(json_extract(qt.raw_values_json, '$[8]')), ''),
-                           NULLIF(TRIM(json_extract(qt.raw_values_json, '$[9]')), ''),
-                           pm.parent_name
-                       ) AS root_area_name,
-                       NULLIF(TRIM(json_extract(qt.raw_values_json, '$[9]')), '')
-                           AS subarea_name,
-                       display_area_name(
-                           qf.area_id,
-                           qf.area_name,
-                           NULLIF(TRIM(json_extract(qt.raw_values_json, '$[8]')), ''),
-                           NULLIF(TRIM(json_extract(qt.raw_values_json, '$[9]')), ''),
-                           pm.parent_name
-                       ) AS display_area_name,
-                       main_category_name(qf.category_name)
-                           AS main_category_name,
-                       sub_category_name(qf.category_name)
-                           AS sub_category_name
-                FROM quest_full qf
-                JOIN quest q
-                  ON q.quest_id=qf.quest_id
-                 AND q.version_no=qf.version_no
-                LEFT JOIN quest_target qt ON qt.target_id=qf.tracking_target_id
-                LEFT JOIN parent_map pm
-                  ON pm.child_name=COALESCE(
-                      NULLIF(TRIM(json_extract(qt.raw_values_json, '$[9]')), ''),
-                      qf.area_name
-                  )
-            ),
-            ranked AS (
-                SELECT enriched.*,
-                       ROW_NUMBER() OVER (
-                           PARTITION BY quest_id
-                           ORDER BY source_row, version_no
-                       ) AS rank_no,
-                       COUNT(*) OVER (PARTITION BY quest_id) AS source_variant_count
-                FROM enriched
-            )
+        select_columns = """
+            quest_id, version_no, conflict_flag, quest_name,
+            category_name, main_category_name, sub_category_name,
+            level_requirement, max_level,
+            accept_object_name, submit_object_name,
+            display_area_name AS area_name,
+            root_area_name, subarea_name,
+            text_row_count, objective_count, reward_count,
+            source_variant_count
         """
-        with readonly_connection(self.database_path) as connection:
-            self._register_area_functions(connection)
+        with self._search_lock:
+            connection = self._search_connection()
             aggregate = connection.execute(
                 f"""
-                {cte}
                 SELECT COUNT(*) AS total,
-                       COALESCE(
-                           SUM(experience_reward(quest_raw_values_json)),
-                           0
-                       ) AS total_experience
-                FROM ranked
+                       COALESCE(SUM(experience), 0) AS total_experience
+                FROM search_rows AS ranked
                 WHERE {where_sql}
                 """,
                 parameters,
@@ -456,16 +472,8 @@ class QuestRepository:
             rows = _dicts(
                 connection.execute(
                     f"""
-                    {cte}
-                    SELECT quest_id, version_no, conflict_flag, quest_name,
-                           category_name, main_category_name, sub_category_name,
-                           level_requirement, max_level,
-                           accept_object_name, submit_object_name,
-                           display_area_name AS area_name,
-                           root_area_name, subarea_name,
-                           text_row_count, objective_count, reward_count,
-                           source_variant_count
-                    FROM ranked
+                    SELECT {select_columns}
+                    FROM search_rows AS ranked
                     WHERE {where_sql}
                     ORDER BY level_requirement IS NULL,
                              level_requirement,
@@ -485,7 +493,60 @@ class QuestRepository:
             "page_count": max(1, math.ceil(total / self.page_size)),
         }
 
+    def _search_connection(self) -> sqlite3.Connection:
+        """Return an in-memory snapshot of the per-quest search rows.
+
+        The quest database is opened read-only and never changes while the
+        app runs, so the expensive enrichment (area hierarchy, categories,
+        experience) is computed once instead of on every search. Callers must
+        hold ``self._search_lock``.
+        """
+        if self._search_index is not None:
+            return self._search_index
+        if not self.database_path.is_file():
+            raise FileNotFoundError(f"任务数据库不存在：{self.database_path}")
+        connection = sqlite3.connect(
+            "file::memory:", uri=True, check_same_thread=False
+        )
+        connection.row_factory = sqlite3.Row
+        try:
+            connection.execute(
+                "ATTACH DATABASE ? AS src",
+                (f"file:{self.database_path.as_posix()}?mode=ro",),
+            )
+            self._register_area_functions(connection)
+            connection.execute(
+                f"""
+                CREATE TABLE search_rows AS
+                {SEARCH_SOURCE_SQL}
+                SELECT quest_id, version_no, conflict_flag, quest_name,
+                       category_name, main_category_name, sub_category_name,
+                       level_requirement, max_level,
+                       accept_object_name, submit_object_name,
+                       display_area_name, root_area_name, subarea_name,
+                       text_row_count, objective_count, reward_count,
+                       source_variant_count,
+                       experience_reward(quest_raw_values_json) AS experience
+                FROM ranked
+                WHERE rank_no = 1
+                """
+            )
+            connection.execute("PRAGMA query_only=ON")
+        except Exception:
+            connection.close()
+            raise
+        self._search_index = connection
+        return connection
+
     def facets(self) -> dict[str, list[dict[str, Any]]]:
+        # The database is read-only for the app's lifetime, so the facet
+        # counts never change; compute them once and hand out copies.
+        with self._facets_lock:
+            if self._facets_cache is None:
+                self._facets_cache = self._compute_facets()
+            return copy.deepcopy(self._facets_cache)
+
+    def _compute_facets(self) -> dict[str, list[dict[str, Any]]]:
         with readonly_connection(self.database_path) as connection:
             self._register_area_functions(connection)
             category_cte = """
@@ -1004,12 +1065,16 @@ class QuestRepository:
                     {role_quest_ids}
                 ),
                 ranked AS (
+                    -- Ranking is partitioned by quest_id, so restricting to the
+                    -- role's quests first yields identical ranks without
+                    -- evaluating quest_full for every quest in the database.
                     SELECT qf.*,
                            ROW_NUMBER() OVER (
                                PARTITION BY quest_id
                                ORDER BY source_row, version_no
                            ) AS rank_no
                     FROM quest_full qf
+                    WHERE qf.quest_id IN (SELECT quest_id FROM role_quests)
                 )
                 SELECT ranked.quest_id, ranked.quest_name,
                        ranked.level_requirement, ranked.category_name,
