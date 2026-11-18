@@ -201,7 +201,6 @@
   const relatedState = { quests: [], page: 1 };
   const overflowTitleSelector = [
     ".quest-card > strong",
-    ".quest-card-meta span",
     ".quest-facts dd",
     ".reward-card > span",
     ".reward-card > strong",
@@ -342,10 +341,6 @@
               data-recent-quest="${escapeHtml(String(quest.quest_id))}"
             >
               <strong>${escapeHtml(String(quest.quest_name))}</strong>
-              <span class="quest-card-meta">
-                <span>等级 ${quest.level_requirement == null ? "—" : escapeHtml(String(quest.level_requirement))}</span>
-                ${quest.area_name ? `<span>${escapeHtml(String(quest.area_name))}</span>` : ""}
-              </span>
             </a>`
           )
           .join("")

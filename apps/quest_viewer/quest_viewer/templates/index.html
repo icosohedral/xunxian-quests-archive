@@ -15,8 +15,8 @@
   <link rel="canonical" href="{{ canonical_url }}">
   <title>{% if detail %}{{ detail.summary.quest_name }} · {% endif %}寻仙任务存档</title>
   <link rel="icon" href="{{ url_for('static', path='/logo.png') }}" type="image/png">
-  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}?v=20261118-logo">
-  <script src="{{ url_for('static', path='/app.js') }}?v=20261118-logo" defer></script>
+  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}?v=20261118-v110">
+  <script src="{{ url_for('static', path='/app.js') }}?v=20261118-v110" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#quest-dossier">跳到任务正文</a>
@@ -139,10 +139,6 @@
             data-recent-quest="{{ quest.quest_id }}"
           >
             <strong>{{ quest.quest_name }}</strong>
-            <span class="quest-card-meta">
-              <span>等级 {{ quest.level_requirement if quest.level_requirement is not none else "—" }}</span>
-              {% if quest.area_name %}<span>{{ quest.area_name }}</span>{% endif %}
-            </span>
           </a>
         {% else %}
           <div class="empty-state">

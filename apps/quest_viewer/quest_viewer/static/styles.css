@@ -825,7 +825,7 @@ select:disabled {
   position: relative;
   display: grid;
   gap: 2px;
-  padding: 8px 11px;
+  padding: 9px 11px;
   border-radius: 10px;
   transition: background 0.13s ease, color 0.13s ease;
 }
@@ -849,21 +849,6 @@ select:disabled {
 
 .quest-card.is-active strong {
   color: var(--pine);
-}
-
-.quest-card-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  color: var(--ink-faint);
-  font-size: 11px;
-}
-
-.quest-card-meta span:last-child {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .empty-state,
