@@ -18,8 +18,8 @@
   "d1_databases": [
     {
       "binding": "QUEST_DB",
-      "database_name": "xunxian-quest-archive",
-      "database_id": "834bf339-c727-45fb-afea-fbff74972b23"
+      "database_name": "xunxian-quest-archive-v2",
+      "database_id": "ca43e569-0c8b-429a-ae91-46ed990b1567"
     },
     {
       "binding": "VISITS_DB",

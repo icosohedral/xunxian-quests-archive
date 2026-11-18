@@ -23,6 +23,8 @@ from generated_story_connections import story_context_relations
 
 PAGE_SIZE = 5
 SEARCH_CACHE_TTL_SECONDS = 86_400
+# Bump when QUEST_DB data is re-imported so cached searches are not reused.
+DATA_REVISION = "20261118"
 CHINA_TIMEZONE = timezone(timedelta(hours=8))
 VISITOR_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{16,80}$")
 
@@ -113,6 +115,7 @@ def _search_cache_key(
     query = urlencode(
         {
             "v": SITE_VERSION,
+            "d": DATA_REVISION,
             "q": q.strip(),
             "npc": npc.strip(),
             "area": area.strip(),
