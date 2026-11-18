@@ -824,8 +824,11 @@ select:disabled {
 .quest-card {
   position: relative;
   display: grid;
+  /* Set by app.js so the rows exactly fill the rail; auto elsewhere. */
+  height: var(--quest-card-height, auto);
+  align-content: center;
   gap: 2px;
-  padding: 9px 11px;
+  padding: 11px;
   border-radius: 10px;
   transition: background 0.13s ease, color 0.13s ease;
 }

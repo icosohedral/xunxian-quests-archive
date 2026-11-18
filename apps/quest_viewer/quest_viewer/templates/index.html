@@ -15,8 +15,8 @@
   <link rel="canonical" href="{{ canonical_url }}">
   <title>{% if detail %}{{ detail.summary.quest_name }} · {% endif %}寻仙任务存档</title>
   <link rel="icon" href="{{ url_for('static', path='/logo.png') }}" type="image/png">
-  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}?v=20261118-v111">
-  <script src="{{ url_for('static', path='/app.js') }}?v=20261118-v111" defer></script>
+  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}?v=20261118-v111-rowfit2">
+  <script src="{{ url_for('static', path='/app.js') }}?v=20261118-v111-rowfit2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#quest-dossier">跳到任务正文</a>
@@ -132,7 +132,7 @@
         <small id="search-result-summary">{{ search.total }} 条{% if search.search_active %} · 总经验 {{ search.total_experience|compact_number }}{% endif %}</small>
       </div>
 
-      <div class="quest-list" id="search-result-list" data-page-size="{{ search.page_size }}" aria-live="polite">
+      <div class="quest-list" id="search-result-list" data-page-size="{{ search.page_size }}"{% if list_row_height %} style="--quest-card-height: {{ list_row_height }}px"{% endif %} aria-live="polite">
         {% for quest in search["items"] %}
           <a
             class="quest-card {% if detail and detail.summary.quest_id == quest.quest_id %}is-active{% endif %}"

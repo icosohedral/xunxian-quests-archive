@@ -478,6 +478,21 @@ def test_list_size_cookie_sets_result_page_size() -> None:
     assert 'data-page-size="5"' in broken.get("/").text
 
 
+def test_list_row_height_cookie_renders_fitted_height() -> None:
+    style = re.compile(
+        r'id="search-result-list"[^>]*style="--quest-card-height: ([0-9.]+)px"'
+    )
+    fitted = TestClient(app, cookies={"quest_list_row_height": "38.5"})
+    match = style.search(fitted.get("/").text)
+    assert match and match.group(1) == "38.50"
+
+    for value in ("abc", "999", "5", "nan", "inf"):
+        ignored = TestClient(app, cookies={"quest_list_row_height": value})
+        assert not style.search(ignored.get("/").text), value
+
+    assert not style.search(client.get("/").text)
+
+
 def test_api_size_overrides_cookie() -> None:
     fitted = TestClient(app, cookies={"quest_list_size": "12"})
     data = fitted.get("/api/quests", params={"area": "乌鸡国", "size": 7}).json()
